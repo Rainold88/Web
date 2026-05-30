@@ -233,6 +233,32 @@ body:has(.page:target) .home{
   .title{font-size:18px}
   .tile{min-height:112px}
 }
+
+.today-toggle{
+  display:none;
+}
+
+.today-detail{
+  display:none;
+  max-width:740px;
+  margin:-4px auto 12px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:18px;
+  color:#edf3ff;
+  line-height:1.5;
+  font-size:17px;
+}
+
+.today-toggle:checked + label + .today-detail{
+  display:block;
+}
+
+.today-label{
+  cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -259,14 +285,26 @@ body:has(.page:target) .home{
       které změnily svět.
     </p>
 
-    <div class="event">
+    <input class="today-toggle" type="checkbox" id="udalost-konstantinopol">
+    <label class="event today-label" for="udalost-konstantinopol">
       <div class="icon">🏰</div>
       <div class="title"><span class="blue">1453</span> – padla Konstantinopol</div>
+    </label>
+    <div class="today-detail">
+      Konstantinopol byla hlavním městem Byzantské říše a jedním z nejdůležitějších měst středověku.
+      Dne 29. května 1453 ji dobyl osmanský sultán Mehmed II. Pád města znamenal konec Byzantské říše
+      a velkou změnu pro Evropu i oblast Středomoří.
     </div>
 
-    <div class="event">
+    <input class="today-toggle" type="checkbox" id="udalost-everest">
+    <label class="event today-label" for="udalost-everest">
       <div class="icon">🏔️</div>
       <div class="title"><span class="blue">1953</span> – první výstup na Mount Everest</div>
+    </label>
+    <div class="today-detail">
+      Edmund Hillary a Tenzing Norgay vystoupili 29. května 1953 na Mount Everest.
+      Jejich úspěch se stal symbolem odvahy, vytrvalosti a lidské touhy překonávat hranice.
+      Everest se od té doby stal jedním z nejslavnějších cílů horolezců na světě.
     </div>
   </section>
 
