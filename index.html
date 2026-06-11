@@ -1,0 +1,3718 @@
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Můj svět</title>
+<style>
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  overflow-anchor:none;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#5f646b,#313942);
+  color:white;
+}
+
+.wrap{
+  max-width:920px;
+  margin:0 auto;
+  padding:14px;
+}
+
+.home{
+  min-height:100svh;
+}
+
+.top{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:8px 0 14px;
+}
+
+.line{
+  height:2px;
+  flex:1;
+  max-width:170px;
+  background:linear-gradient(90deg,transparent,#8fc4ff,transparent);
+  margin:0 16px;
+}
+
+.bird{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid white;
+  box-shadow:0 0 28px rgba(255,255,255,.35);
+  background:#0b1c31;
+  cursor:pointer;
+}
+
+
+.card{
+  background:linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:26px;
+  padding:18px;
+  margin:12px 0;
+  box-shadow:0 14px 30px rgba(0,0,0,.28);
+}
+
+h1,h2,h3{
+  text-align:center;
+  margin:0 0 14px;
+}
+
+h1{
+  font-size:34px;
+}
+
+h2{
+  font-size:28px;
+}
+
+.lead{
+  max-width:700px;
+  margin:0 auto 14px;
+  text-align:center;
+  color:#e8edf5;
+  font-size:18px;
+  line-height:1.45;
+}
+
+.event{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:20px;
+  padding:13px;
+  margin:10px auto;
+  max-width:740px;
+}
+
+.icon{
+  font-size:30px;
+  width:42px;
+  text-align:center;
+}
+
+.title{
+  font-size:20px;
+  font-weight:bold;
+  line-height:1.25;
+}
+
+.blue{
+  color:#58a6ff;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.tile{
+  min-height:126px;
+  background:linear-gradient(145deg,#0a1a2d,#122c4d);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:24px;
+  color:white;
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  text-align:center;
+  box-shadow:0 10px 22px rgba(0,0,0,.23);
+}
+
+.tile:hover{
+  background:linear-gradient(145deg,#102744,#173b66);
+}
+
+.ico{
+  font-size:34px;
+}
+
+.tile b{
+  font-size:21px;
+}
+
+.quote{
+  text-align:center;
+  font-size:20px;
+  font-style:italic;
+  color:#f0f4fa;
+}
+
+.page{
+  display:none;
+  scroll-margin-top:92px;
+}
+
+.page:target{
+  display:block;
+}
+
+body:has(.page:target) .home{
+  display:none;
+}
+
+.back{
+  display:inline-block;
+  margin:4px 0 12px;
+  color:#9dccff;
+  text-decoration:none;
+  font-size:18px;
+}
+
+.person{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:22px;
+  padding:15px;
+  margin:12px 0;
+  line-height:1.5;
+}
+
+.person h3{
+  text-align:left;
+  font-size:23px;
+  color:#8fc4ff;
+}
+
+.fullscreen{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  z-index:5000;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.fullscreen.show{
+  display:flex;
+}
+
+.fullscreen img{
+  max-width:95vw;
+  max-height:90vh;
+  border-radius:18px;
+  box-shadow:0 12px 34px rgba(0,0,0,.55);
+  position:relative;
+  z-index:5001;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+}
+
+.gallery-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:56px;
+  height:64px;
+  border:0;
+  border-radius:18px;
+  background:rgba(0,0,0,.42);
+  color:white;
+  font-size:44px;
+  line-height:54px;
+  text-align:center;
+  cursor:pointer;
+  z-index:5010;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.gallery-arrow.left{
+  left:10px;
+}
+
+.gallery-arrow.right{
+  right:10px;
+}
+
+.gallery-counter{
+  position:absolute;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:7px 14px;
+  border-radius:999px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.25);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  z-index:5010;
+  pointer-events:none;
+}
+
+@media(max-width:700px){
+  .gallery-arrow{
+    width:48px;
+    height:58px;
+    font-size:38px;
+    line-height:48px;
+  }
+
+  .gallery-arrow.left{
+    left:6px;
+  }
+
+  .gallery-arrow.right{
+    right:6px;
+  }
+
+  .gallery-counter{
+    bottom:10px;
+    font-size:14px;
+  }
+}
+
+
+@media(max-width:700px){
+  .wrap{padding:10px 12px 24px}
+  .bird{width:72px;height:72px}
+  .line{max-width:90px;margin:0 10px}
+  h1{font-size:30px}
+  h2{font-size:26px}
+  .lead{font-size:17px}
+  .event{padding:12px}
+  .title{font-size:18px}
+  .tile{min-height:112px}
+}
+
+.today-toggle{
+  display:none;
+}
+
+.today-detail{
+  display:none;
+  max-width:740px;
+  margin:-4px auto 12px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:18px;
+  color:#edf3ff;
+  line-height:1.5;
+  font-size:17px;
+}
+
+.today-toggle:checked + label + .today-detail{
+  display:block;
+}
+
+.today-label{
+  cursor:pointer;
+}
+
+
+.gallery{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+}
+
+.gallery .photo-open{
+  display:block;
+  cursor:pointer;
+  -webkit-touch-callout:default;
+  user-select:auto;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.gallery img{
+  -webkit-touch-callout:default;
+  user-select:auto;
+  -webkit-tap-highlight-color:transparent;
+  width:260px;
+  max-width:100%;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
+}
+
+
+/* KOMPAKTNÍ ÚVOD JAKO APPKA */
+.home{
+  min-height:auto;
+}
+
+.top{
+  padding:2px 0 6px;
+}
+
+.bird{
+  width:64px;
+  height:64px;
+  border:3px solid white;
+}
+
+.card{
+  border-radius:22px;
+  padding:14px;
+  margin:9px 0;
+}
+
+.event{
+  gap:10px;
+  padding:10px 12px;
+  margin:8px auto;
+  border-radius:18px;
+}
+
+.icon{
+  font-size:28px;
+  width:38px;
+}
+
+.title{
+  font-size:18px;
+}
+
+.grid{
+  gap:10px;
+  margin-top:9px;
+}
+
+.tile{
+  min-height:94px;
+  border-radius:20px;
+  gap:5px;
+}
+
+.ico{
+  font-size:30px;
+}
+
+.tile b{
+  font-size:19px;
+}
+
+.quote{
+  font-size:18px;
+  padding:12px 14px;
+  margin-top:9px;
+}
+
+.history-date{
+  margin:0 0 10px;
+  color:#8fc4ff;
+  text-align:center;
+  font-size:28px;
+}
+
+@media(max-width:700px){
+  .wrap{
+    padding:6px 12px 12px;
+  }
+
+  .top{
+    padding:0 0 6px;
+  }
+
+  .bird{
+    width:58px;
+    height:58px;
+  }
+
+  .line{
+    max-width:110px;
+    margin:0 10px;
+  }
+
+  .card{
+    padding:12px;
+    margin:8px 0;
+    border-radius:22px;
+  }
+
+  .history-date{
+    font-size:24px;
+    margin:0 0 8px;
+  }
+
+  .event{
+    padding:9px 10px;
+    margin:7px auto;
+    border-radius:17px;
+  }
+
+  .icon{
+    font-size:27px;
+    width:36px;
+  }
+
+  .title{
+    font-size:17px;
+  }
+
+  .grid{
+    gap:8px;
+    margin-top:8px;
+  }
+
+  .tile{
+    min-height:82px;
+    border-radius:18px;
+    gap:4px;
+  }
+
+  .ico{
+    font-size:27px;
+  }
+
+  .tile b{
+    font-size:18px;
+  }
+
+  .quote{
+    font-size:17px;
+    line-height:1.35;
+    padding:10px 12px;
+    margin-top:8px;
+  }
+}
+
+
+/* ÚPRAVA: datum krátce + události na jeden řádek */
+.today-label{
+  min-width:0;
+}
+
+.today-label .title{
+  font-size:15px;
+  line-height:1.1;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  min-width:0;
+}
+
+@media(max-width:700px){
+  .today-label .title{
+    font-size:14px;
+  }
+}
+
+
+
+
+
+
+/* ROZKLIKÁVACÍ KALENDÁŘ POD DATEM */
+.date-toggle{
+  display:none;
+}
+
+.date-label{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:0 auto 10px;
+  padding:8px 18px;
+  border-radius:999px;
+  color:#8fc4ff;
+  text-align:center;
+  font-size:28px;
+  font-weight:bold;
+  cursor:pointer;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(143,196,255,.22);
+  box-shadow:0 8px 18px rgba(0,0,0,.18);
+  -webkit-tap-highlight-color:transparent;
+}
+
+.date-label::after{
+  content:"  ▼";
+  color:#f0d08a;
+  font-size:17px;
+  vertical-align:middle;
+}
+
+.date-toggle:checked + .date-label::after{
+  content:"  ▲";
+}
+
+.calendar-panel{
+  display:none;
+  max-width:740px;
+  margin:-2px auto 10px;
+  padding:14px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(214,163,74,.13), transparent 36%),
+    linear-gradient(180deg,#071525,#081827);
+  border:1px solid rgba(214,154,62,.42);
+  box-shadow:0 12px 28px rgba(0,0,0,.34);
+}
+
+.date-toggle:checked + .date-label + .calendar-panel{
+  display:block;
+}
+
+.calendar-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.calendar-title{
+  flex:1;
+  text-align:center;
+  color:#f0d08a;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:21px;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.cal-btn{
+  width:42px;
+  height:38px;
+  border:1px solid rgba(214,154,62,.45);
+  border-radius:14px;
+  color:#f0d08a;
+  background:rgba(255,255,255,.06);
+  font-size:23px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.calendar-grid-days,
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+
+.calendar-grid-days div{
+  text-align:center;
+  color:#b9dcff;
+  font-weight:bold;
+  font-size:13px;
+  padding:4px 0;
+}
+
+.calendar-day{
+  min-height:38px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:13px;
+  background:rgba(255,255,255,.045);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  position:relative;
+}
+
+.calendar-day.empty{
+  opacity:.18;
+  cursor:default;
+}
+
+.calendar-day.today{
+  color:#1b1006;
+  background:linear-gradient(180deg,#f0d08a,#c69034 55%,#805012);
+  border-color:rgba(255,230,160,.72);
+}
+
+.calendar-day.holiday{
+  border-color:rgba(255,120,120,.7);
+  box-shadow:0 0 0 1px rgba(255,120,120,.18) inset;
+}
+
+.calendar-day.holiday::after{
+  content:"";
+  position:absolute;
+  right:6px;
+  top:6px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#ff7b7b;
+}
+
+.calendar-day.selected{
+  outline:2px solid #8fc4ff;
+  outline-offset:2px;
+}
+
+.calendar-info{
+  margin-top:12px;
+  padding:11px 13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.12);
+  color:#edf3ff;
+  line-height:1.45;
+  font-size:15px;
+}
+
+.calendar-info b{
+  color:#f0d08a;
+}
+
+@media(max-width:700px){
+  .date-label{
+    font-size:24px;
+    padding:7px 16px;
+    margin-bottom:8px;
+  }
+
+  .calendar-panel{
+    padding:12px;
+    border-radius:20px;
+  }
+
+  .calendar-title{
+    font-size:18px;
+  }
+
+  .cal-btn{
+    width:38px;
+    height:34px;
+  }
+
+  .calendar-grid-days,
+  .calendar-grid{
+    gap:5px;
+  }
+
+  .calendar-day{
+    min-height:34px;
+    border-radius:11px;
+  }
+}
+
+/* HISTORIE – KRONIKA */
+#historie,
+#dobyvatele,
+#alexandr-mapa,
+#cingischan-mapa,
+#tamerlan-mapa,
+#filozofove,
+#rebelove{
+  background:
+    radial-gradient(circle at top left, rgba(210,145,55,.20), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(120,40,20,.20), transparent 38%),
+    linear-gradient(180deg,#1a1007,#070403);
+  border:1px solid rgba(214,154,62,.38);
+  box-shadow:0 18px 38px rgba(0,0,0,.50);
+}
+
+#historie .back,
+#dobyvatele .back,
+#alexandr-mapa .back,
+#cingischan-mapa .back,
+#tamerlan-mapa .back,
+#filozofove .back,
+#rebelove .back{
+  color:#e1b35b;
+  font-family:Georgia,'Times New Roman',serif;
+  text-shadow:0 2px 8px rgba(0,0,0,.8);
+}
+
+.history-hero{
+  text-align:center;
+  padding:10px 4px 18px;
+}
+
+.history-symbol{
+  font-size:42px;
+  color:#d6a34a;
+  line-height:1;
+  margin:2px 0 8px;
+  text-shadow:0 0 18px rgba(214,163,74,.45);
+}
+
+.history-title{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:46px;
+  letter-spacing:3px;
+  color:#d6a34a;
+  margin:0 0 8px;
+  text-shadow:0 3px 12px rgba(0,0,0,.95);
+}
+
+.history-line{
+  width:210px;
+  height:1px;
+  margin:0 auto 14px;
+  background:linear-gradient(90deg,transparent,#d6a34a,transparent);
+}
+
+.history-subtitle{
+  font-family:Georgia,'Times New Roman',serif;
+  color:#f0dfbd;
+  font-size:19px;
+  line-height:1.55;
+  margin:0 auto;
+  max-width:680px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  text-shadow:0 2px 8px rgba(0,0,0,.85);
+}
+
+.history-menu{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin:10px 0 4px;
+}
+
+.history-menu a,
+.history-card{
+  display:block;
+  text-decoration:none;
+}
+
+.history-menu img,
+.history-card img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:20px;
+  border:1px solid rgba(214,154,62,.55);
+  box-shadow:0 12px 26px rgba(0,0,0,.48);
+}
+
+.gold-btn{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:4px auto 18px;
+  padding:11px 22px;
+  border-radius:999px;
+  color:#1b1006;
+  text-decoration:none;
+  font-weight:bold;
+  font-family:Georgia,'Times New Roman',serif;
+  letter-spacing:.8px;
+  background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);
+  border:1px solid rgba(255,230,160,.65);
+  box-shadow:0 6px 16px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+.history-section-title{
+  font-family:Georgia,'Times New Roman',serif;
+  text-align:center;
+  color:#d6a34a;
+  font-size:34px;
+  letter-spacing:1px;
+  margin:8px 0 16px;
+  text-shadow:0 3px 10px rgba(0,0,0,.9);
+}
+
+.history-card{
+  margin:12px 0;
+}
+
+.history-note{
+  color:#f0dfbd;
+  text-align:center;
+  font-family:Georgia,'Times New Roman',serif;
+  line-height:1.45;
+  margin:8px auto 12px;
+}
+
+@media(max-width:700px){
+  #historie,
+  #dobyvatele,
+  #alexandr-mapa,
+  #cingischan-mapa,
+  #tamerlan-mapa,
+  #filozofove,
+  #rebelove{
+    padding:14px 10px;
+  }
+
+  .history-symbol{
+    font-size:34px;
+  }
+
+  .history-title{
+    font-size:36px;
+    letter-spacing:2px;
+  }
+
+  .history-subtitle{
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .history-menu{
+    gap:11px;
+  }
+
+  .history-menu img,
+  .history-card img{
+    border-radius:17px;
+  }
+
+  .gold-btn{
+    font-size:15px;
+    padding:10px 18px;
+  }
+
+  .history-section-title{
+    font-size:28px;
+  }
+}
+
+
+/* RACEK MENU – HLAVNÍ NAVIGACE */
+.menu-toggle{
+  display:none;
+}
+
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:3200;
+  max-width:920px;
+  margin:0 auto;
+  padding:12px 14px 4px;
+  background:linear-gradient(180deg,rgba(49,57,66,.98),rgba(49,57,66,.72),transparent);
+}
+
+.logo-line{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+}
+
+.logo-line::before,
+.logo-line::after{
+  content:"";
+  height:2px;
+  flex:1;
+  max-width:220px;
+  background:linear-gradient(90deg,transparent,#8fc4ff,transparent);
+}
+
+.logo-button{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  display:block;
+  cursor:pointer;
+  position:relative;
+  z-index:3100;
+  box-shadow:0 0 28px rgba(255,255,255,.36);
+}
+
+.logo-button img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid white;
+  background:#0b1c31;
+}
+
+.logo-button:hover{
+  transform:scale(1.04);
+}
+
+.menu-panel{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,.66);
+  padding:86px 14px 24px;
+  overflow:auto;
+}
+
+.menu-toggle:checked ~ .menu-panel{
+  display:block;
+}
+
+.menu-box{
+  max-width:430px;
+  margin:0 auto;
+  padding:22px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at top, rgba(214,163,74,.16), transparent 36%),
+    linear-gradient(180deg,#071525,#02070c);
+  border:1px solid rgba(214,154,62,.62);
+  box-shadow:0 20px 50px rgba(0,0,0,.70);
+  text-align:center;
+  position:relative;
+}
+
+.menu-box::before{
+  content:"";
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%) rotate(45deg);
+  width:26px;
+  height:26px;
+  background:#071525;
+  border-left:1px solid rgba(214,154,62,.62);
+  border-top:1px solid rgba(214,154,62,.62);
+}
+
+.menu-close{
+  position:absolute;
+  top:12px;
+  right:18px;
+  color:#f0d08a;
+  font-size:38px;
+  line-height:1;
+  cursor:pointer;
+  z-index:2;
+}
+
+.menu-title{
+  font-family:Georgia,'Times New Roman',serif;
+  color:#d6a34a;
+  font-size:36px;
+  letter-spacing:3px;
+  margin:20px 0 20px;
+  text-shadow:0 3px 12px rgba(0,0,0,.9);
+}
+
+.menu-link{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-height:72px;
+  margin:12px 0;
+  padding:14px 18px;
+  border-radius:18px;
+  color:#f4d38a;
+  text-decoration:none;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:24px;
+  font-weight:bold;
+  letter-spacing:1px;
+  background:linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(214,154,62,.48);
+  box-shadow:0 8px 18px rgba(0,0,0,.35);
+}
+
+.menu-link.home-link{
+  color:#1b1006;
+  background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);
+  border:1px solid rgba(255,230,160,.75);
+}
+
+.menu-icon{
+  font-size:34px;
+  width:48px;
+  text-align:center;
+}
+
+.menu-group{
+  margin:12px 0;
+}
+
+.menu-summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-height:72px;
+  padding:14px 18px;
+  border-radius:18px;
+  color:#f4d38a;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:24px;
+  font-weight:bold;
+  letter-spacing:1px;
+  background:linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(214,154,62,.48);
+  box-shadow:0 8px 18px rgba(0,0,0,.35);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.menu-summary::-webkit-details-marker{
+  display:none;
+}
+
+.menu-summary::after{
+  content:"⌄";
+  margin-left:auto;
+  color:#f0d08a;
+  font-size:26px;
+  transition:transform .2s ease;
+}
+
+.menu-group[open] .menu-summary::after{
+  transform:rotate(180deg);
+}
+
+.submenu{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:9px;
+  width:86%;
+  margin:12px auto 4px;
+  padding:0;
+  border-left:0;
+}
+
+.submenu a,
+.submenu-group summary{
+  display:block;
+  width:100%;
+  padding:11px 14px;
+  border-radius:15px;
+  color:#e9c77c;
+  text-decoration:none;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:19px;
+  text-align:center;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(214,154,62,.24);
+  -webkit-tap-highlight-color:transparent;
+}
+
+.submenu a:hover,
+.submenu-group summary:hover{
+  background:rgba(240,208,138,.13);
+}
+
+.submenu-group{
+  width:100%;
+  margin:0;
+}
+
+.submenu-group summary{
+  list-style:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.submenu-group summary::-webkit-details-marker{
+  display:none;
+}
+
+.submenu-group summary::after{
+  content:"  ▼";
+  color:#f0d08a;
+  font-size:15px;
+}
+
+.submenu-group[open] summary::after{
+  content:"  ▲";
+}
+
+.submenu-inner{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  width:88%;
+  margin:8px auto 2px;
+}
+
+.submenu-inner a{
+  font-size:17px;
+  padding:9px 12px;
+  background:rgba(0,0,0,.16);
+}
+
+@media(max-width:700px){
+  .menu-summary{
+    font-size:21px;
+    min-height:66px;
+  }
+
+  .submenu{
+    width:88%;
+  }
+
+  .submenu a,
+  .submenu-group summary{
+    font-size:18px;
+    padding:10px 12px;
+  }
+
+  .submenu-inner a{
+    font-size:16px;
+    padding:8px 10px;
+  }
+}
+
+/* Navigaci řeší racek-menu, takže staré odkazy zpět schováme */
+.page .back{
+  display:none!important;
+}
+
+@media(max-width:700px){
+  .site-header{
+    padding:8px 12px 2px;
+  }
+
+  .logo-button{
+    width:66px;
+    height:66px;
+  }
+
+  .logo-line{
+    gap:12px;
+  }
+
+  .menu-panel{
+    padding-top:78px;
+  }
+
+  .menu-box{
+    padding:18px;
+    border-radius:24px;
+  }
+
+  .menu-title{
+    font-size:31px;
+  }
+
+  .menu-link{
+    font-size:21px;
+    min-height:66px;
+  }
+}
+
+
+/* AKCE – BUDOUCÍ VÝLETY */
+.akce-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:14px;
+}
+
+.akce-card{
+  display:block;
+  text-decoration:none;
+  color:white;
+  background:linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 10px 22px rgba(0,0,0,.28);
+}
+
+.akce-card:hover{
+  background:linear-gradient(145deg,#102744,#173b66);
+}
+
+.akce-card h3{
+  text-align:left;
+  margin:0 0 8px;
+  font-size:22px;
+  color:#8fc4ff;
+}
+
+.akce-card p{
+  margin:4px 0;
+  color:#edf3ff;
+  line-height:1.4;
+}
+
+.akce-badge{
+  display:inline-block;
+  margin-top:8px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(143,196,255,.14);
+  border:1px solid rgba(143,196,255,.28);
+  color:#b9dcff;
+  font-weight:bold;
+}
+
+.akce-detail{
+  line-height:1.55;
+}
+
+.akce-detail ul{
+  margin:10px 0 0;
+  padding-left:22px;
+}
+
+@media(max-width:700px){
+  .akce-card{
+    padding:14px;
+    border-radius:19px;
+  }
+
+  .akce-card h3{
+    font-size:20px;
+  }
+}
+
+
+.logo-button img{
+  animation: racekMava 4s ease-in-out infinite;
+  transform-origin:center center;
+}
+
+@keyframes racekMava{
+  0%,72%,100%{transform:scale(1) rotate(0deg);}
+  80%{transform:scale(1.03,0.98) rotate(-1deg);}
+  88%{transform:scale(0.99,1.02) rotate(1deg);}
+  94%{transform:scale(1.01,0.99) rotate(-0.5deg);}
+}
+
+
+.timeline-wrap{
+  position:relative;
+}
+
+.timeline-image{
+  width:100%;
+  display:block;
+  border-radius:18px;
+}
+
+.alex-link,
+.cing-link,
+.tamer-link{
+  position:absolute;
+  top:0;
+  height:100%;
+  display:block;
+}
+
+.alex-link{
+  left:0;
+  width:33%;
+}
+
+.cing-link{
+  left:33%;
+  width:34%;
+}
+
+.tamer-link{
+  right:0;
+  width:33%;
+}
+
+
+/* DOČASNÉ PRÁZDNÉ SEKCE */
+.soon-box{
+  max-width:740px;
+  margin:0 auto;
+  padding:18px;
+  border-radius:24px;
+  background:linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(143,196,255,.24);
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+  text-align:center;
+}
+
+.soon-box h3{
+  text-align:center;
+  color:#8fc4ff;
+  font-size:24px;
+  margin:0 0 10px;
+}
+
+.soon-box p{
+  color:#edf3ff;
+  font-size:18px;
+  line-height:1.45;
+  margin:8px auto;
+}
+
+.soon-emoji{
+  font-size:64px;
+  line-height:1;
+  margin:10px 0 12px;
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
+}
+
+.gallery-title{
+  color:#f0d08a;
+  font-family:Georgia,'Times New Roman',serif;
+  text-align:center;
+  margin:14px 0 10px;
+  font-size:24px;
+}
+
+
+/* TLAČÍTKO ZPĚT – vlevo vedle čáry u racka */
+.logo-line{
+  position:relative;
+}
+
+.back-nav{
+  display:none;
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  color:#f0d08a;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  padding:7px 14px;
+  border-radius:999px;
+  background:rgba(7,21,37,.62);
+  border:1px solid rgba(143,196,255,.35);
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+}
+
+body.show-back .back-nav{
+  display:inline-block;
+}
+
+@media(max-width:700px){
+  .back-nav{
+    left:0;
+    font-size:18px;
+    padding:6px 12px;
+  }
+}
+
+
+/* ÚPRAVA 3.6.2026 – menší menu + lepší skok na sekce */
+.page{
+  scroll-margin-top:72px;
+}
+
+.menu-panel{
+  padding:72px 12px 18px;
+}
+
+.menu-box{
+  max-width:360px;
+  padding:14px;
+  border-radius:22px;
+}
+
+.menu-title{
+  font-size:26px;
+  margin:10px 0 12px;
+  letter-spacing:2px;
+}
+
+.menu-close{
+  top:7px;
+  right:14px;
+  font-size:30px;
+}
+
+.menu-link,
+.menu-summary{
+  min-height:50px;
+  margin:7px 0;
+  padding:9px 13px;
+  border-radius:15px;
+  font-size:19px;
+  gap:11px;
+}
+
+.menu-icon{
+  font-size:25px;
+  width:34px;
+}
+
+.submenu{
+  gap:7px;
+  width:90%;
+  margin:8px auto 2px;
+}
+
+.submenu a,
+.submenu-group summary{
+  padding:8px 10px;
+  border-radius:12px;
+  font-size:16px;
+}
+
+.submenu-inner{
+  gap:5px;
+  margin:6px auto 1px;
+}
+
+.submenu-inner a{
+  font-size:15px;
+  padding:7px 9px;
+}
+
+.logo-button{
+  width:58px;
+  height:58px;
+}
+
+.site-header{
+  padding:6px 12px 2px;
+}
+
+@media(max-width:700px){
+  .page{scroll-margin-top:64px;}
+  .menu-panel{padding-top:66px;}
+  .menu-box{max-width:330px;padding:12px;border-radius:20px;}
+  .menu-title{font-size:24px;margin:8px 0 10px;}
+  .menu-link,.menu-summary{min-height:46px;font-size:18px;padding:8px 12px;margin:6px 0;}
+  .menu-icon{font-size:23px;width:31px;}
+  .submenu a,.submenu-group summary{font-size:15px;padding:7px 9px;}
+  .logo-button{width:54px;height:54px;}
+}
+
+
+
+/* INTERAKTIVNÍ MAPA HRADŮ – poloha podle souřadnic */
+.castle-map-wrap{
+  max-width:820px;
+  margin:0 auto;
+}
+.castle-map-note{
+  text-align:center;
+  color:#edf3ff;
+  line-height:1.45;
+  margin:0 auto 14px;
+  max-width:700px;
+}
+.castle-map{
+  position:relative;
+  height:430px;
+  border-radius:26px;
+  overflow:hidden;
+  border:1px solid rgba(240,208,138,.38);
+  box-shadow:0 16px 34px rgba(0,0,0,.42);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(102,173,103,.38), transparent 18%),
+    radial-gradient(circle at 78% 18%, rgba(92,147,93,.33), transparent 20%),
+    radial-gradient(circle at 66% 78%, rgba(74,126,86,.32), transparent 23%),
+    linear-gradient(145deg,#17354a,#1e593f 48%,#102838);
+}
+.castle-map::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(118deg, transparent 0 45%, rgba(110,180,235,.30) 46% 49%, transparent 50% 100%),
+    linear-gradient(28deg, transparent 0 57%, rgba(110,180,235,.22) 58% 61%, transparent 62% 100%);
+  background-size:20% 20%,20% 20%,100% 100%,100% 100%;
+  opacity:.72;
+}
+.castle-map::after{
+  content:"GPS SCHÉMA • SEVERNÍ A STŘEDNÍ ČECHY";
+  position:absolute;
+  left:16px;
+  bottom:14px;
+  color:rgba(255,255,255,.60);
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:13px;
+  letter-spacing:1.1px;
+}
+.castle-north{
+  position:absolute;
+  right:14px;
+  top:12px;
+  z-index:2;
+  padding:6px 10px;
+  border-radius:999px;
+  color:#f0d08a;
+  background:rgba(0,0,0,.24);
+  border:1px solid rgba(240,208,138,.28);
+  font-weight:bold;
+  font-family:Georgia,'Times New Roman',serif;
+}
+.castle-home-dot{
+  position:absolute;
+  left:50%;
+  top:89%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  padding:5px 9px;
+  border-radius:999px;
+  color:#b9dcff;
+  background:rgba(7,21,37,.76);
+  border:1px solid rgba(143,196,255,.36);
+  font-size:12px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+.castle-point{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  transform:translate(-50%,-50%);
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  padding:0;
+  color:#1b1006;
+  background:linear-gradient(180deg,#f0d08a,#c69034 55%,#805012);
+  border:1px solid rgba(255,230,160,.80);
+  box-shadow:0 8px 18px rgba(0,0,0,.45),0 0 0 5px rgba(240,208,138,.13);
+  font-weight:bold;
+  cursor:pointer;
+  z-index:4;
+  font-size:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.castle-point span{
+  position:absolute;
+  left:50%;
+  top:31px;
+  transform:translateX(-50%);
+  padding:3px 7px;
+  border-radius:999px;
+  color:#f3dcaa;
+  background:rgba(7,21,37,.78);
+  border:1px solid rgba(240,208,138,.28);
+  font-size:11px;
+  line-height:1.1;
+  white-space:nowrap;
+  pointer-events:none;
+}
+.castle-point:hover,
+.castle-point.active{
+  transform:translate(-50%,-50%) scale(1.16);
+  box-shadow:0 10px 22px rgba(0,0,0,.55),0 0 0 8px rgba(240,208,138,.18);
+  z-index:8;
+}
+.castle-point.active span{
+  color:#1b1006;
+  background:linear-gradient(180deg,#f0d08a,#c69034);
+  border-color:rgba(255,230,160,.75);
+}
+.castle-info{
+  margin:14px auto 0;
+  padding:16px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(214,163,74,.13), transparent 36%),
+    linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(240,208,138,.32);
+  box-shadow:0 10px 24px rgba(0,0,0,.30);
+}
+.castle-info h3{
+  text-align:left;
+  color:#f0d08a;
+  margin:0 0 8px;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:24px;
+}
+.castle-info p{
+  margin:7px 0;
+  line-height:1.45;
+  color:#edf3ff;
+}
+.castle-info b{
+  color:#8fc4ff;
+}
+.castle-coords{
+  display:inline-block;
+  margin:4px 0 8px;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color:#b9dcff;
+  font-size:13px;
+  font-weight:bold;
+}
+.castle-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+.castle-chip{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(143,196,255,.13);
+  border:1px solid rgba(143,196,255,.26);
+  color:#b9dcff;
+  font-weight:bold;
+  font-size:14px;
+}
+@media(max-width:700px){
+  .castle-map{height:390px;border-radius:22px;}
+  .castle-map::after{font-size:10px;left:12px;bottom:10px;}
+  .castle-point{width:25px;height:25px;font-size:13px;}
+  .castle-point span{font-size:10px;top:28px;padding:3px 6px;}
+  .castle-info{padding:14px;border-radius:19px;}
+  .castle-info h3{font-size:21px;}
+  .castle-home-dot{font-size:11px;}
+}
+
+
+/* ÚPRAVA MAPY – Mladá Boleslav přímo v mapě + trasy k hradům */
+.castle-map{
+  height:450px;
+}
+.castle-route-svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:2;
+  pointer-events:none;
+  opacity:.72;
+}
+.castle-route-svg line{
+  stroke:rgba(143,196,255,.34);
+  stroke-width:1.6;
+  stroke-dasharray:5 7;
+  filter:drop-shadow(0 0 4px rgba(143,196,255,.35));
+}
+.castle-home-dot{
+  left:51.5%;
+  top:77.5%;
+  transform:translate(-50%,-50%);
+  padding:0;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#58a6ff,#1e5794);
+  border:2px solid rgba(225,242,255,.95);
+  box-shadow:0 8px 18px rgba(0,0,0,.45),0 0 0 8px rgba(88,166,255,.14);
+  color:white;
+  font-size:18px;
+  z-index:7;
+}
+.castle-home-dot span{
+  position:absolute;
+  left:50%;
+  top:37px;
+  transform:translateX(-50%);
+  padding:4px 8px;
+  border-radius:999px;
+  color:#d8ecff;
+  background:rgba(7,21,37,.82);
+  border:1px solid rgba(143,196,255,.40);
+  font-size:11px;
+  white-space:nowrap;
+  font-weight:bold;
+}
+.castle-point.visited{
+  background:linear-gradient(180deg,#9be58e,#3b9f47 55%,#1f5c2a);
+  border-color:rgba(200,255,190,.85);
+  box-shadow:0 8px 18px rgba(0,0,0,.45),0 0 0 5px rgba(105,220,105,.16);
+}
+.castle-point.wishlist{
+  background:linear-gradient(180deg,#ff9a9a,#d94040 55%,#7d1414);
+  border-color:rgba(255,205,205,.82);
+  box-shadow:0 8px 18px rgba(0,0,0,.45),0 0 0 5px rgba(255,80,80,.15);
+}
+.castle-distance{
+  display:inline-block;
+  margin-left:6px;
+  color:#f0d08a;
+  font-weight:bold;
+}
+.castle-legend{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin:10px 0 0;
+}
+.castle-legend span{
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color:#edf3ff;
+  font-size:12px;
+  font-weight:bold;
+}
+@media(max-width:700px){
+  .castle-map{height:405px;}
+  .castle-home-dot{width:30px;height:30px;font-size:16px;}
+  .castle-home-dot span{top:33px;font-size:10px;padding:3px 7px;}
+  .castle-route-svg line{stroke-width:1.25;}
+}
+
+
+/* INTERAKTIVNÍ MAPA ALEXANDRA – klikací zlaté body */
+.alex-map-wrap{
+  max-width:840px;
+  margin:0 auto;
+}
+
+.alex-map-frame{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid rgba(214,154,62,.55);
+  box-shadow:0 12px 26px rgba(0,0,0,.48);
+  background:#120904;
+}
+
+.alex-map-frame img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:0;
+  border:0;
+  box-shadow:none;
+}
+
+.alex-point{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  transform:translate(-50%,-50%);
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:1px solid rgba(255,235,170,.9);
+  background:linear-gradient(180deg,#f0d08a,#c69034 52%,#805012);
+  color:#1b1006;
+  font-weight:bold;
+  font-family:Georgia,'Times New Roman',serif;
+  cursor:pointer;
+  z-index:4;
+  box-shadow:0 8px 18px rgba(0,0,0,.55),0 0 0 6px rgba(240,208,138,.16);
+  -webkit-tap-highlight-color:transparent;
+}
+
+.alex-point span{
+  position:absolute;
+  left:50%;
+  top:31px;
+  transform:translateX(-50%);
+  padding:3px 7px;
+  border-radius:999px;
+  color:#f3dcaa;
+  background:rgba(7,21,37,.82);
+  border:1px solid rgba(240,208,138,.30);
+  font-size:11px;
+  line-height:1.1;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.alex-point:hover,
+.alex-point.active{
+  transform:translate(-50%,-50%) scale(1.18);
+  z-index:8;
+  box-shadow:0 10px 22px rgba(0,0,0,.62),0 0 0 9px rgba(240,208,138,.22);
+}
+
+.alex-point.active span{
+  color:#1b1006;
+  background:linear-gradient(180deg,#f0d08a,#c69034);
+  border-color:rgba(255,230,160,.75);
+}
+
+.alex-info{
+  margin:14px auto 0;
+  padding:16px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(214,163,74,.15), transparent 36%),
+    linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(240,208,138,.34);
+  box-shadow:0 10px 24px rgba(0,0,0,.32);
+}
+
+.alex-info h3{
+  text-align:left;
+  margin:0 0 9px;
+  color:#f0d08a;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:24px;
+}
+
+.alex-info p{
+  margin:0;
+  color:#edf3ff;
+  line-height:1.52;
+  font-size:17px;
+}
+
+.alex-info b{
+  color:#8fc4ff;
+}
+
+.alex-mini-note{
+  text-align:center;
+  color:#f0dfbd;
+  font-family:Georgia,'Times New Roman',serif;
+  line-height:1.45;
+  margin:8px auto 13px;
+}
+
+@media(max-width:700px){
+  .alex-map-frame{border-radius:16px;}
+  .alex-point{
+    width:22px;
+    height:22px;
+    font-size:12px;
+    box-shadow:0 6px 14px rgba(0,0,0,.5),0 0 0 4px rgba(240,208,138,.14);
+  }
+  .alex-point span{
+    top:24px;
+    font-size:9px;
+    padding:2px 5px;
+  }
+  .alex-info{
+    padding:14px;
+    border-radius:19px;
+  }
+  .alex-info h3{
+    font-size:21px;
+  }
+  .alex-info p{
+    font-size:16px;
+  }
+}
+
+
+
+/* MENŠÍ BODY PRO MAPY */
+.alex-point{
+  width:22px;
+  height:22px;
+  font-size:11px;
+  line-height:22px;
+  padding:0;
+  border:1px solid rgba(255,235,170,.95);
+  background:linear-gradient(180deg,#f0d08a,#c69034 52%,#805012);
+  color:#1b1006;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.55),
+    0 0 0 4px rgba(240,208,138,.18);
+}
+
+.alex-point span{
+  display:none!important;
+}
+
+.alex-point:hover,
+.alex-point.active{
+  transform:translate(-50%,-50%) scale(1.12);
+  z-index:8;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.62),
+    0 0 0 10px rgba(240,208,138,.25);
+}
+
+@media(max-width:700px){
+  .alex-point{
+    width:18px;
+    height:18px;
+    font-size:9px;
+    line-height:18px;
+    box-shadow:
+      0 7px 16px rgba(0,0,0,.56),
+      0 0 0 7px rgba(240,208,138,.20);
+  }
+}
+
+
+
+/* ŠIPKY 501 DOUBLE OUT */
+.darts-box{
+  max-width:780px;
+  margin:0 auto;
+}
+.darts-scoreboard{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin:12px 0;
+}
+.darts-player{
+  padding:15px;
+  border-radius:22px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.15);
+  text-align:center;
+}
+.darts-player.active{
+  border-color:rgba(240,208,138,.85);
+  box-shadow:0 0 0 2px rgba(240,208,138,.18),0 12px 24px rgba(0,0,0,.28);
+}
+.darts-player h3{
+  margin:0 0 8px;
+  text-align:center;
+  color:#8fc4ff;
+}
+.darts-player.active h3{
+  color:#f0d08a;
+}
+.darts-score{
+  font-size:54px;
+  font-weight:bold;
+  line-height:1;
+}
+.darts-hint{
+  min-height:23px;
+  margin-top:8px;
+  color:#b9dcff;
+  font-weight:bold;
+}
+.darts-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+.darts-controls input,
+.darts-controls select{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid rgba(143,196,255,.32);
+  border-radius:16px;
+  background:rgba(7,21,37,.88);
+  color:white;
+  font-size:18px;
+  outline:none;
+}
+.darts-controls input::placeholder{
+  color:rgba(255,255,255,.55);
+}
+.darts-actions{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.darts-btn{
+  border:0;
+  border-radius:16px;
+  padding:13px 12px;
+  font-weight:bold;
+  font-size:17px;
+  cursor:pointer;
+  color:#1b1006;
+  background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);
+  box-shadow:0 7px 16px rgba(0,0,0,.32);
+}
+.darts-btn.secondary{
+  color:white;
+  background:linear-gradient(145deg,#102744,#173b66);
+  border:1px solid rgba(143,196,255,.25);
+}
+.darts-message{
+  margin:12px 0 0;
+  padding:12px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);
+  color:#edf3ff;
+  line-height:1.4;
+  text-align:center;
+  font-size:17px;
+  font-weight:bold;
+}
+.darts-history{
+  margin-top:12px;
+  max-height:220px;
+  overflow:auto;
+  border-radius:18px;
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.10);
+  padding:10px;
+}
+.darts-history div{
+  padding:7px 8px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  color:#edf3ff;
+}
+.darts-history div:last-child{
+  border-bottom:0;
+}
+.darts-checkouts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  justify-content:center;
+  margin-top:10px;
+}
+.darts-checkouts span{
+  padding:6px 9px;
+  border-radius:999px;
+  background:rgba(143,196,255,.13);
+  border:1px solid rgba(143,196,255,.24);
+  color:#b9dcff;
+  font-size:13px;
+  font-weight:bold;
+}
+@media(max-width:700px){
+  .darts-scoreboard{gap:8px;}
+  .darts-player{padding:12px 8px;border-radius:18px;}
+  .darts-player h3{font-size:18px;}
+  .darts-score{font-size:42px;}
+  .darts-controls{grid-template-columns:1fr;}
+  .darts-actions{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+<body>
+<input class="menu-toggle" id="menu-toggle" type="checkbox"/>
+<header class="site-header">
+<div class="logo-line">
+<a class="back-nav" href="javascript:history.back()">← Zpět</a>
+<label class="logo-button" for="menu-toggle" title="Menu">
+<img alt="Menu" src="rybak.jpg"/>
+</label>
+</div>
+</header>
+<nav class="menu-panel">
+<div class="menu-box">
+<label class="menu-close" for="menu-toggle">×</label>
+<h2 class="menu-title">MENU</h2>
+<a class="menu-link home-link" href="#" onclick="document.getElementById('menu-toggle').checked=false">
+<span class="menu-icon">🏠</span>
+<span>DOMŮ</span>
+</a>
+
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🏛️</span>
+<span>HISTORIE</span>
+</summary>
+<div class="submenu">
+<a href="#historie" onclick="document.getElementById('menu-toggle').checked=false">Úvod</a>
+
+<details class="submenu-group">
+<summary>⚔️ Dobyvatelé</summary>
+<div class="submenu-inner">
+<a href="#dobyvatele" onclick="document.getElementById('menu-toggle').checked=false">Přehled dobyvatelů</a>
+<a href="#alexandr-mapa" onclick="document.getElementById('menu-toggle').checked=false">Alexandr</a>
+<a href="#cingischan-mapa" onclick="document.getElementById('menu-toggle').checked=false">Čingischán</a>
+<a href="#tamerlan-mapa" onclick="document.getElementById('menu-toggle').checked=false">Tamerlán</a>
+</div>
+</details>
+
+<details class="submenu-group">
+<summary>🏛️ Filozofové</summary>
+<div class="submenu-inner">
+<a href="#filozofove" onclick="document.getElementById('menu-toggle').checked=false">Sokrates</a>
+<a href="#filozofove" onclick="document.getElementById('menu-toggle').checked=false">Platón</a>
+<a href="#filozofove" onclick="document.getElementById('menu-toggle').checked=false">Aristoteles</a>
+</div>
+</details>
+
+<details class="submenu-group">
+<summary>🛡️ Hrdinové a rebelové</summary>
+<div class="submenu-inner">
+<a href="#rebelove" onclick="document.getElementById('menu-toggle').checked=false">Úvod rebelů</a>
+<a href="#rebelove" onclick="document.getElementById('menu-toggle').checked=false">Spartakus</a>
+<a href="#rebelove" onclick="document.getElementById('menu-toggle').checked=false">Boudica</a>
+</div>
+</details>
+</div>
+</details>
+
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🌍</span>
+<span>CESTOVÁNÍ</span>
+</summary>
+<div class="submenu">
+<a href="#cestovani" onclick="document.getElementById('menu-toggle').checked=false">Úvod</a>
+</div>
+</details>
+
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🎯</span>
+<span>ŠIPKY</span>
+</summary>
+<div class="submenu">
+<a href="#sipky" onclick="document.getElementById('menu-toggle').checked=false">Počítadlo 501</a>
+</div>
+</details>
+
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🎫</span>
+<span>AKCE</span>
+</summary>
+<div class="submenu">
+<a href="#akce" onclick="document.getElementById('menu-toggle').checked=false">Úvod</a>
+<a href="#akce-boruvky" onclick="document.getElementById('menu-toggle').checked=false">🫐 Borůvková procházka</a>
+<a href="#akce-hrad" onclick="document.getElementById('menu-toggle').checked=false">🏰 Hrad nebo zřícenina</a>
+<a href="#akce-vlak" onclick="document.getElementById('menu-toggle').checked=false">🚂 Výlet vlakem</a>
+</div>
+</details>
+
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">📷</span>
+<span>GALERIE</span>
+</summary>
+<div class="submenu">
+<a href="#galerie" onclick="document.getElementById('menu-toggle').checked=false">Úvod galerie</a>
+<a href="#galerie-cestovani" onclick="document.getElementById('menu-toggle').checked=false">🌍 Cestování</a>
+<a href="#galerie-vylety" onclick="document.getElementById('menu-toggle').checked=false">🧭 Výlety</a>
+</div>
+</details>
+<a class="menu-link" href="#mapa" onclick="document.getElementById('menu-toggle').checked=false">
+<span class="menu-icon">🗺️</span>
+<span>MAPA</span>
+</a>
+</div>
+</nav>
+<div class="wrap home">
+<section class="card"><div id="historie-tyden"></div>
+</section>
+
+<section class="grid">
+<a class="tile" href="#historie">
+<div class="ico">🏛️</div>
+<b>Historie</b>
+</a>
+<a class="tile" href="#cestovani">
+<div class="ico">🌍</div>
+<b>Cestování</b>
+</a>
+<a class="tile" href="#sipky">
+<div class="ico">🎯</div>
+<b>Šipky</b>
+</a>
+<a class="tile" href="#akce">
+<div class="ico">🎫</div>
+<b>Akce</b>
+</a>
+<a class="tile" href="#galerie">
+<div class="ico">📷</div>
+<b>Galerie</b>
+</a>
+<a class="tile" href="#mapa">
+<div class="ico">🗺️</div>
+<b>Mapa</b>
+</a>
+</section>
+<section class="card quote">
+    „Svět je plný příběhů. Stačí se dívat, poslouchat a objevovat.“
+  </section>
+<section class="card" id="div-sveta-box" style="padding:8px;margin-top:2px">
+<img alt="" id="div-sveta-foto" src="div1.jpg" style="display:block;width:100%;max-width:700px;height:145px;object-fit:cover;border-radius:18px;margin:0 auto;"/>
+</section>
+</div>
+<div class="wrap">
+<section class="card page" id="historie">
+<a class="back" href="#">← Zpět na úvod</a>
+<div class="history-hero">
+<div class="history-symbol">🏛️</div>
+<h2 class="history-title">HISTORIE</h2>
+<div class="history-line"></div>
+<p class="history-subtitle">
+        Říše vznikaly a zanikaly.<br/>
+        Myšlenky přežívaly staletí.<br/>
+        Někteří vedli armády,<br/>
+        jiní vedli lidstvo k novému poznání.
+      </p>
+</div>
+<div class="history-menu">
+<a href="#dobyvatele"><img alt="Dobyvatelé" src="banner_dobyvatele.jpg"/></a>
+<a href="#filozofove"><img alt="Filozofové" src="banner_filozofove.jpg"/></a>
+<a href="#rebelove"><img alt="Hrdinové a rebelové" src="banner_rebelove.jpg"/></a>
+</div>
+</section>
+<section class="card page" id="dobyvatele">
+<a class="back" href="#historie">← Zpět na historii</a>
+
+<h2 class="history-section-title">⚔️ Dobyvatelé</h2>
+
+<div class="timeline-wrap">
+
+<img
+src="casova_osa_dobyvatele.jpg"
+alt="Dobyvatelé v čase"
+class="timeline-image"
+>
+
+<a class="alex-link" href="#alexandr-mapa"></a>
+<a class="cing-link" href="#cingischan-mapa"></a>
+<a class="tamer-link" href="#tamerlan-mapa"></a>
+
+</div>
+
+</section>
+<section class="card page" id="alexandr-mapa">
+<a class="back" href="#dobyvatele">← Zpět na dobyvatele</a>
+<h2 class="history-section-title">🗺️ Tažení Alexandra Makedonského</h2>
+<p class="alex-mini-note">
+      Klikni na zlatý bod v mapě a zobrazí se zajímavost k dané události.
+    </p>
+
+<div class="alex-map-wrap">
+  <div class="alex-map-frame">
+    <img alt="Mapa tažení Alexandra Makedonského" src="mapa_alexandr.jpg"/>
+
+    <button class="alex-point active" style="--x:12%;--y:20%;" data-alex="pella">1<span>Pella</span></button>
+    <button class="alex-point" style="--x:28%;--y:25%;" data-alex="gordium">2<span>Gordium</span></button>
+    <button class="alex-point" style="--x:28%;--y:36%;" data-alex="issos">3<span>Issos</span></button>
+    <button class="alex-point" style="--x:28%;--y:50%;" data-alex="tyros">4<span>Tyros</span></button>
+    <button class="alex-point" style="--x:15%;--y:68%;" data-alex="siwa">5<span>Siwa</span></button>
+    <button class="alex-point" style="--x:25%;--y:73%;" data-alex="alexandrie">6<span>Alexandrie</span></button>
+    <button class="alex-point" style="--x:49%;--y:50%;" data-alex="gaugamela">7<span>Gaugaméla</span></button>
+    <button class="alex-point" style="--x:51%;--y:70%;" data-alex="babylon">8<span>Babylon</span></button>
+    <button class="alex-point" style="--x:64%;--y:68%;" data-alex="persepolis">9<span>Persepolis</span></button>
+    <button class="alex-point" style="--x:73%;--y:36%;" data-alex="sogdiana">10<span>Sogdiana</span></button>
+    <button class="alex-point" style="--x:88%;--y:47%;" data-alex="hydaspes">11<span>Hydaspes</span></button>
+    <button class="alex-point" style="--x:88%;--y:64%;" data-alex="hyphasis">12<span>Hyphasis</span></button>
+  </div>
+
+  <div class="alex-info" id="alex-info">
+    <h3>🏛️ Pella – začátek příběhu</h3>
+    <p>Pella byla hlavním městem Makedonie a místem, odkud Alexandrův příběh opravdu začíná. Narodil se jako syn krále Filipa II. a Olympiady, takže od dětství vyrůstal v prostředí moci, vojenství a dvorských intrik. Jeho učitelem byl Aristoteles, který mu dal vzdělání v řecké kultuře, filozofii i politice. Po zavraždění Filipa II. se Alexandr rychle chopil vlády a musel si nejdřív upevnit postavení doma. Teprve potom mohl převzít otcův plán: zaútočit na Perskou říši. Z malého makedonského dvora se tak rozběhlo tažení, které změnilo mapu tehdejšího světa.</p>
+  </div>
+</div>
+</section>
+<section class="card page" id="cingischan-mapa">
+<a class="back" href="#dobyvatele">← Zpět na dobyvatele</a>
+<h2 class="history-section-title">🗺️ Říše Čingischána</h2>
+<p class="alex-mini-note">Klikni na malý zlatý bod v mapě a zobrazí se zajímavost k dané události.</p>
+
+<div class="alex-map-wrap">
+  <div class="alex-map-frame">
+    <img alt="Mapa Čingischána" src="mapa_cingischan.jpg"/>
+    <button class="alex-point active" style="--x:60%;--y:50%;" data-cing="mongolsko">1<span>Mongolsko</span></button>
+    <button class="alex-point" style="--x:58%;--y:36%;" data-cing="karakorum">2<span>Karakorum</span></button>
+    <button class="alex-point" style="--x:23%;--y:30%;" data-cing="kipcak">3<span>Kipčacká step</span></button>
+    <button class="alex-point" style="--x:18%;--y:49%;" data-cing="krym">4<span>Krym</span></button>
+    <button class="alex-point" style="--x:36%;--y:50%;" data-cing="kaspik">5<span>Kaspik</span></button>
+    <button class="alex-point" style="--x:46%;--y:59%;" data-cing="chorezm">6<span>Chórezm</span></button>
+    <button class="alex-point" style="--x:45%;--y:63%;" data-cing="urgenc">7<span>Urgenč</span></button>
+    <button class="alex-point" style="--x:50%;--y:67%;" data-cing="buchara">8<span>Buchara</span></button>
+    <button class="alex-point" style="--x:54%;--y:70%;" data-cing="samarkand">9<span>Samarkand</span></button>
+    <button class="alex-point" style="--x:48%;--y:76%;" data-cing="merv">10<span>Merv</span></button>
+    <button class="alex-point" style="--x:78%;--y:58%;" data-cing="risejin">11<span>Říše Jin</span></button>
+    <button class="alex-point" style="--x:88%;--y:57%;" data-cing="korea">12<span>Korea</span></button>
+  </div>
+  <div class="alex-info" id="cing-info">
+    <h3>🐎 Mongolské stepi – zrod síly</h3>
+    <p>Mongolské stepi byly tvrdým prostředím, kde se přežívalo díky koním, disciplíně a soudržnosti rodu. Temüdžin, pozdější Čingischán, zde vyrostl mezi neustálými spory kmenů a naučil se, že bez jednoty nemá nikdo šanci. Dokázal postupně spojit znepřátelené skupiny a proměnit je v jednu válečnou sílu. Jeho armáda nebyla jen banda jezdců, ale velmi organizovaný systém s jasnými pravidly. Rychlost, lukostřelba z koně a schopnost předstírat ústup z ní udělaly postrach celé Eurasie. Právě ze stepí se rozjela expanze, která vytvořila největší souvislou říši dějin.</p>
+  </div>
+</div>
+</section>
+<section class="card page" id="tamerlan-mapa">
+<a class="back" href="#dobyvatele">← Zpět na dobyvatele</a>
+<h2 class="history-section-title">🗺️ Říše Tamerlána</h2>
+<p class="alex-mini-note">Klikni na malý zlatý bod v mapě a zobrazí se zajímavost k dané události.</p>
+
+<div class="alex-map-wrap">
+  <div class="alex-map-frame">
+    <img alt="Mapa Tamerlána" src="mapa_tamerlan.jpg"/>
+    <button class="alex-point active" style="--x:55%;--y:36%;" data-tamer="kes">1<span>Keš</span></button>
+    <button class="alex-point" style="--x:60%;--y:44%;" data-tamer="samarkand">2<span>Samarkand</span></button>
+    <button class="alex-point" style="--x:67%;--y:53%;" data-tamer="balch">3<span>Balch</span></button>
+    <button class="alex-point" style="--x:55%;--y:62%;" data-tamer="herat">4<span>Herát</span></button>
+    <button class="alex-point" style="--x:42%;--y:69%;" data-tamer="isfahan">5<span>Isfahán</span></button>
+    <button class="alex-point" style="--x:30%;--y:65%;" data-tamer="bagdad">6<span>Bagdád</span></button>
+    <button class="alex-point" style="--x:28%;--y:48%;" data-tamer="tabriz">7<span>Tabríz</span></button>
+    <button class="alex-point" style="--x:39%;--y:18%;" data-tamer="toktamis">8<span>Toqtamish</span></button>
+    <button class="alex-point" style="--x:38%;--y:32%;" data-tamer="saraj">9<span>Saraj</span></button>
+    <button class="alex-point" style="--x:73%;--y:76%;" data-tamer="dilli">10<span>Dillí</span></button>
+    <button class="alex-point" style="--x:10%;--y:56%;" data-tamer="ankara">11<span>Ankara</span></button>
+    <button class="alex-point" style="--x:72%;--y:22%;" data-tamer="otrar">12<span>Otrar</span></button>
+  </div>
+  <div class="alex-info" id="tamer-info">
+    <h3>🏰 Keš – místo zrodu Tamerlána</h3>
+    <p>Keš, dnešní Šahrisabz, je místo spojené s Tamerlánovým původem. Narodil se zde roku 1336 do prostředí turko-mongolské aristokracie, kde se stále žilo ve stínu Čingischánovy slávy. Tamerlán nebyl přímým potomkem Čingischána, proto musel svou legitimitu budovat jinak: přes vojenské úspěchy, sňatky a obraz ochránce řádu. Z Keše se postupně dostal k moci v oblasti Transoxanie. Později město podporoval stavbami a chtěl z něj udělat důstojné místo své dynastie. Je to začátek příběhu člověka, který se z regionálního vládce stal postrachem Persie, Indie i Anatolie.</p>
+  </div>
+</div>
+</section>
+<section class="card page" id="filozofove">
+<a class="back" href="#historie">← Zpět na historii</a>
+<h2 class="history-section-title">🏛️ Filozofové</h2>
+<div class="history-card"><img alt="Sokrates" src="sokrates.jpg"/></div>
+<div class="history-card"><img alt="Platón" src="platon.jpg"/></div>
+<div class="history-card"><img alt="Aristoteles" src="aristoteles.jpg"/></div>
+</section>
+<section class="card page" id="rebelove">
+<a class="back" href="#historie">← Zpět na historii</a>
+<h2 class="history-section-title">🛡️ Hrdinové a rebelové</h2>
+<p class="history-note">Tady později přidáme Spartaka a Boudicu jako samostatné karty.</p>
+<div class="history-card"><img alt="Hrdinové a rebelové" src="banner_rebelove.jpg"/></div>
+</section>
+<section class="card page" id="cestovani">
+<h2>🌍 Cestování</h2>
+<div class="soon-box">
+<div class="soon-emoji">✈️</div>
+<h3>Už brzy</h3>
+<p>Cestovatel právě balí kufry, hledá pas a tváří se, že má všechno pod kontrolou. 😄</p>
+<p>Tady později budou příběhy, plány a poznámky z cest.</p>
+</div>
+</section>
+<section class="card page" id="galerie">
+<h2>📷 Galerie</h2>
+<section class="grid">
+<a class="tile" href="#galerie-cestovani"><div class="ico">🌍</div><b>Cestování</b></a>
+<a class="tile" href="#galerie-vylety"><div class="ico">🧭</div><b>Výlety</b></a>
+</section>
+</section>
+
+<section class="card page" id="galerie-cestovani">
+<h2>🌍 Galerie – Cestování</h2>
+<p class="lead">Fotky z větších cest a dovolených.</p>
+<section class="grid">
+<a class="tile" href="#egypt"><div class="ico">🐪</div><b>Egypt</b></a>
+<a class="tile" href="#recko"><div class="ico">🏛️</div><b>Řecko</b></a>
+<a class="tile" href="#tatry"><div class="ico">⛰️</div><b>Tatry</b></a>
+<a class="tile" href="#madarsko"><div class="ico">🌉</div><b>Maďarsko</b></a>
+<a class="tile" href="#kanary"><div class="ico">🌴</div><b>Kanáry</b></a>
+</section>
+</section>
+
+<section class="card page" id="galerie-vylety">
+<h2>🧭 Galerie – Výlety</h2>
+<p class="lead">Kratší výlety, procházky a místa po okolí.</p>
+<section class="grid">
+<a class="tile" href="#ceskyraj"><div class="ico">🏞️</div><b>Český ráj</b></a>
+<a class="tile" href="#nemecko"><div class="ico">🏰</div><b>Německo</b></a>
+</section>
+</section>
+<section class="card page" id="egypt">
+<a class="back" href="#galerie-cestovani">← Zpět na galerie cestování</a>
+<h2>🐪 Egypt</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Egypt 1" src="Egypt1.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 2" src="Egypt2.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 3" src="Egypt3.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 4" src="Egypt4.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 5" src="Egypt5.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 6" src="Egypt6.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 7" src="Egypt7.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 8" src="Egypt8.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 9" src="Egypt9.jpg"/></span>
+<span class="photo-open"><img alt="Egypt 10" src="Egypt10.jpg"/></span>
+</div>
+</section>
+<section class="card page" id="recko">
+<a class="back" href="#galerie-cestovani">← Zpět na galerie cestování</a>
+<h2>🏛️ Řecko</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Řecko 1" src="Recko1.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 2" src="Recko2.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 3" src="Recko3.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 4" src="Recko4.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 5" src="Recko5.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 6" src="Recko6.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 7" src="Recko7.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 8" src="Recko8.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 9" src="Recko9.jpg"/></span>
+<span class="photo-open"><img alt="Řecko 10" src="Recko10.jpg"/></span>
+</div>
+</section>
+<section class="card page" id="tatry">
+<a class="back" href="#galerie-cestovani">← Zpět na galerie cestování</a>
+<h2>⛰️ Tatry</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Tatry 1" src="Tatry1.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 2" src="Tatry2.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 3" src="Tatry3.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 4" src="Tatry4.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 5" src="Tatry5.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 6" src="Tatry6.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 7" src="Tatry7.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 8" src="Tatry8.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 9" src="Tatry9.jpg"/></span>
+<span class="photo-open"><img alt="Tatry 10" src="Tatry10.jpg"/></span>
+</div>
+</section>
+<section class="card page" id="madarsko">
+<a class="back" href="#galerie-cestovani">← Zpět na galerie cestování</a>
+<h2>🌉 Maďarsko</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Maďarsko 1" src="Madarsko1.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 2" src="Madarsko2.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 3" src="Madarsko3.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 4" src="Madarsko4.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 5" src="Madarsko5.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 6" src="Madarsko6.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 7" src="Madarsko7.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 8" src="Madarsko8.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 9" src="Madarsko9.jpg"/></span>
+<span class="photo-open"><img alt="Maďarsko 10" src="Madarsko10.jpg"/></span>
+</div>
+</section>
+<section class="card page" id="kanary">
+<a class="back" href="#galerie-cestovani">← Zpět na galerie cestování</a>
+<h2>🌴 Kanárské ostrovy</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Kanáry 1" src="KanarskeOstrovy1.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 2" src="KanarskeOstrovy2.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 3" src="KanarskeOstrovy3.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 4" src="KanarskeOstrovy4.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 5" src="KanarskeOstrovy5.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 6" src="KanarskeOstrovy6.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 7" src="KanarskeOstrovy7.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 8" src="KanarskeOstrovy8.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 9" src="KanarskeOstrovy9.jpg"/></span>
+<span class="photo-open"><img alt="Kanáry 10" src="KanarskeOstrovy10.jpg"/></span>
+</div>
+</section>
+<section class="card page" id="akce">
+<a class="back" href="#">← Zpět na úvod</a>
+<h2>🎫 Akce</h2>
+<p class="lead">Budoucí výlety, plány a místa, kam se chci podívat.</p>
+<div class="akce-list">
+<a class="akce-card" href="#akce-boruvky">
+<h3>🫐 Borůvková procházka</h3>
+<p>Krátký výlet do lesa, ideálně vlakem a kolem 10 km pěšky.</p>
+<span class="akce-badge">Plánovaný výlet</span>
+</a>
+<a class="akce-card" href="#akce-hrad">
+<h3>🏰 Hrad nebo zřícenina</h3>
+<p>Výlet s historií, fotkami a pěknou cestou.</p>
+<span class="akce-badge">Tip na víkend</span>
+</a>
+<a class="akce-card" href="#akce-vlak">
+<h3>🚂 Výlet vlakem</h3>
+<p>Místo, kam se dá pohodlně dojet bez auta a projít se.</p>
+<span class="akce-badge">Bez auta</span>
+</a>
+</div>
+</section>
+<section class="card page" id="akce-boruvky">
+<a class="back" href="#akce">← Zpět na akce</a>
+<h2>🫐 Borůvková procházka</h2>
+<div class="person akce-detail">
+<h3>Plán</h3>
+<ul>
+<li>trasa kolem 10 km</li>
+<li>ideálně vlakem</li>
+<li>les, klid a možnost něco vyfotit</li>
+</ul>
+</div>
+</section>
+<section class="card page" id="akce-hrad">
+<a class="back" href="#akce">← Zpět na akce</a>
+<h2>🏰 Hrad nebo zřícenina</h2>
+<div class="person akce-detail">
+<h3>Plán</h3>
+<p>Tady budou budoucí historické výlety — hrady, zříceniny, vyhlídky a místa s příběhem.</p>
+</div>
+</section>
+<section class="card page" id="akce-vlak">
+<a class="back" href="#akce">← Zpět na akce</a>
+<h2>🚂 Výlet vlakem</h2>
+<div class="person akce-detail">
+<h3>Plán</h3>
+<p>Tady budou výlety, kam se dá dojet vlakem a projít si okolí bez složitého plánování.</p>
+</div>
+</section>
+<section class="card page" id="filozofie">
+<a class="back" href="#">← Zpět na úvod</a>
+<h2>🤔 Filozofie</h2>
+<p class="lead">Základ filozofie a pár myšlenek, které člověka donutí se zastavit.</p>
+<div class="person">
+<h3>🏛️ Sokrates</h3>
+<p>Athénský filozof, který učil hlavně otázkami a rozhovorem. Věřil, že člověk má přemýšlet o sobě, o pravdě a o tom, jak správně žít.</p>
+<p><i>„Vím, že nic nevím.“</i></p>
+</div>
+<div class="person">
+<h3>📘 Platón</h3>
+<p>Žák Sokrata a zakladatel Akademie v Athénách. Přemýšlel o duši, spravedlnosti, ideálním státě a o tom, že za viditelným světem mohou být hlubší pravdy.</p>
+</div>
+<div class="person">
+<h3>🦉 Aristoteles</h3>
+<p>Žák Platóna a učitel Alexandra Makedonského. Zabýval se logikou, přírodou, etikou i politikou. Chtěl svět pochopit pozorováním a rozumem.</p>
+</div>
+<div class="person">
+<h3>💧 Bruce Lee – buď jako voda</h3>
+<p>Bruce Lee se inspiroval východní filozofií, hlavně taoismem. Jeho slavná myšlenka říká, že člověk nemá být tuhý a zaseknutý, ale pružný a přizpůsobivý.</p>
+<p><i>„Buď jako voda.“</i></p>
+<p>Voda nemá pevný tvar. Přizpůsobí se nádobě, umí klidně téct, ale dokáže být i silná a prorazit kámen.</p>
+</div>
+</section>
+<section class="card page" id="sipky">
+<h2>🎯 Šipky 501 – Double Out</h2>
+<p class="lead">Zadej součet tří šipek, vyber čím poslední šipka skončila a počítadlo samo hlídá bust i double out.</p>
+<div class="darts-box">
+  <div class="darts-scoreboard">
+    <div class="darts-player active" id="darts-player-0">
+      <h3>Hráč 1</h3>
+      <div class="darts-score" id="darts-score-0">501</div>
+      <div class="darts-hint" id="darts-hint-0">Na řadě</div>
+    </div>
+    <div class="darts-player" id="darts-player-1">
+      <h3>Hráč 2</h3>
+      <div class="darts-score" id="darts-score-1">501</div>
+      <div class="darts-hint" id="darts-hint-1"></div>
+    </div>
+  </div>
+
+  <div class="darts-controls">
+    <input id="darts-throw" inputmode="numeric" type="number" min="0" max="180" placeholder="Hod za kolo, třeba 60"/>
+    <select id="darts-last">
+      <option value="single">Poslední šipka: single / netrefil double</option>
+      <option value="double">Poslední šipka: DOUBLE</option>
+      <option value="triple">Poslední šipka: triple</option>
+      <option value="bull">Poslední šipka: bull 25</option>
+      <option value="doublebull">Poslední šipka: bull 50 / double bull</option>
+    </select>
+  </div>
+
+  <div class="darts-actions">
+    <button class="darts-btn" id="darts-submit" type="button">Odečíst hod</button>
+    <button class="darts-btn secondary" id="darts-undo" type="button">Zpět</button>
+    <button class="darts-btn secondary" id="darts-reset" type="button">Nová hra</button>
+  </div>
+
+  <div class="darts-message" id="darts-message">Začíná Hráč 1. Zavřít musíš doublem.</div>
+  <div class="darts-checkouts" id="darts-checkouts"></div>
+  <div class="darts-history" id="darts-history"></div>
+</div>
+</section>
+<section class="card page" id="ceskyraj">
+<a class="back" href="#galerie-vylety">← Zpět na galerie výletů</a>
+<h2>🏞️ Český Ráj</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Český Ráj 1" src="CeskyRaj1.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 2" src="CeskyRaj2.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 3" src="CeskyRaj3.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 4" src="CeskyRaj4.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 5" src="CeskyRaj5.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 6" src="CeskyRaj6.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 7" src="CeskyRaj7.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 8" src="CeskyRaj8.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 9" src="CeskyRaj9.jpg"/></span>
+<span class="photo-open"><img alt="Český Ráj 10" src="CeskyRaj10.jpg"/></span>
+</div>
+</section>
+<section class="card page" id="nemecko">
+<a class="back" href="#galerie-vylety">← Zpět na galerie výletů</a>
+<h2>🏰 Německo</h2>
+<div class="gallery">
+<span class="photo-open"><img alt="Německo 1" src="Nemecko1.jpg"/></span>
+<span class="photo-open"><img alt="Německo 2" src="Nemecko2.jpg"/></span>
+<span class="photo-open"><img alt="Německo 3" src="Nemecko3.jpg"/></span>
+<span class="photo-open"><img alt="Německo 4" src="Nemecko4.jpg"/></span>
+<span class="photo-open"><img alt="Německo 5" src="Nemecko5.jpg"/></span>
+<span class="photo-open"><img alt="Německo 6" src="Nemecko6.jpg"/></span>
+<span class="photo-open"><img alt="Německo 7" src="Nemecko7.jpg"/></span>
+<span class="photo-open"><img alt="Německo 8" src="Nemecko8.jpg"/></span>
+<span class="photo-open"><img alt="Německo 9" src="Nemecko9.jpg"/></span>
+<span class="photo-open"><img alt="Německo 10" src="Nemecko10.jpg"/></span>
+</div>
+</section>
+
+<section class="card page" id="mapa">
+<h2>🗺️ Interaktivní mapa hradů</h2>
+<div class="castle-map-wrap">
+<div class="castle-map" id="castle-map">
+<div class="castle-north">↑ sever</div>
+<svg class="castle-route-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+<line x1="51.5" y1="77.5" x2="79.3" y2="60.5"></line>
+<line x1="51.5" y1="77.5" x2="91.3" y2="51.1"></line>
+<line x1="51.5" y1="77.5" x2="27.6" y2="43.1"></line>
+<line x1="51.5" y1="77.5" x2="15.6" y2="60.5"></line>
+<line x1="51.5" y1="77.5" x2="83.6" y2="35.5"></line>
+<line x1="51.5" y1="77.5" x2="45.2" y2="47.4"></line>
+<line x1="51.5" y1="77.5" x2="73.6" y2="12.0"></line>
+<line x1="51.5" y1="77.5" x2="9.6" y2="79.2"></line>
+</svg>
+<div class="castle-home-dot">📍<span>Mladá Boleslav</span></div>
+<button class="castle-point active planned" type="button" style="--x:79.3%;--y:60.5%" data-castle="kost">🏰<span>Kost</span></button>
+<button class="castle-point planned" type="button" style="--x:91.3%;--y:51.1%" data-castle="trosky">🏰<span>Trosky</span></button>
+<button class="castle-point planned" type="button" style="--x:27.6%;--y:43.1%" data-castle="bezdez">🏰<span>Bezděz</span></button>
+<button class="castle-point wishlist" type="button" style="--x:15.6%;--y:60.5%" data-castle="houska">🏰<span>Houska</span></button>
+<button class="castle-point planned" type="button" style="--x:83.6%;--y:35.5%" data-castle="valdstejn">🏰<span>Valdštejn</span></button>
+<button class="castle-point visited" type="button" style="--x:45.2%;--y:47.4%" data-castle="valecov">🏰<span>Valečov</span></button>
+<button class="castle-point wishlist" type="button" style="--x:73.6%;--y:12.0%" data-castle="sychrov">🏰<span>Sychrov</span></button>
+<button class="castle-point wishlist" type="button" style="--x:9.6%;--y:79.2%" data-castle="kokorin">🏰<span>Kokořín</span></button>
+</div>
+<div class="castle-legend"><span>📍 start: Mladá Boleslav</span><span>🟢 navštíveno</span><span>🟡 plán</span><span>🔴 později</span></div>
+<div class="castle-info" id="castle-info"></div>
+</div>
+</section>
+
+</div>
+<script>
+const historickeZajimavosti = {
+  "05-30": [
+    {
+      rok: "1431",
+      ikona: "🔥",
+      titulek: "Jana z Arku byla upálena v Rouenu",
+      detail: "Francouzská hrdinka Jana z Arku byla po politicky vedeném procesu popravena v Rouenu. Později byla rehabilitována a stala se jednou z nejznámějších postav francouzských dějin."
+    },
+    {
+      rok: "1967",
+      ikona: "🌍",
+      titulek: "Biafra vyhlásila nezávislost",
+      detail: "V jihovýchodní Nigérii byla vyhlášena Republika Biafra. Událost vedla k nigerijské občanské válce, která patří k nejtragičtějším konfliktům moderní Afriky."
+    }
+  ],
+  "05-31": [
+    {
+      rok: "1859",
+      ikona: "🕰️",
+      titulek: "Big Ben začal odměřovat čas",
+      detail: "Slavné hodiny ve Westminsterském paláci v Londýně začaly fungovat. Název Big Ben se původně vztahuje hlavně k velkému zvonu, ale dnes se tak často říká celé věži."
+    },
+    {
+      rok: "1911",
+      ikona: "🚢",
+      titulek: "Titanic byl spuštěn na vodu",
+      detail: "Parník RMS Titanic byl spuštěn na vodu v loděnicích Harland and Wolff v Belfastu. V době svého vzniku patřil k největším a nejluxusnějším lodím světa."
+    }
+  ],
+  "06-01": [
+    {
+      rok: "1941",
+      ikona: "🪂",
+      titulek: "Skončila bitva o Krétu",
+      detail: "Bitva o Krétu byla první velkou vzdušnou invazí v dějinách. Němečtí výsadkáři ostrov dobyli, ale za cenu těžkých ztrát."
+    },
+    {
+      rok: "1967",
+      ikona: "🎵",
+      titulek: "Vyšlo album Sgt. Pepper",
+      detail: "The Beatles vydali album Sgt. Pepper’s Lonely Hearts Club Band. Deska výrazně ovlivnila populární hudbu a bývá řazena mezi nejslavnější alba 20. století."
+    }
+  ],
+  "06-02": [
+    {
+      rok: "455",
+      ikona: "🏛️",
+      titulek: "Vandalové vyplenili Řím",
+      detail: "Vandalové vedení králem Geiserichem obsadili Řím. Vyplenění města se stalo jedním ze symbolů úpadku Západořímské říše."
+    },
+    {
+      rok: "1953",
+      ikona: "👑",
+      titulek: "Korunovace Alžběty II.",
+      detail: "Alžběta II. byla korunována britskou královnou ve Westminsterském opatství. Korunovace byla významnou událostí i díky televiznímu přenosu."
+    }
+  ],
+  "06-03": [
+    {
+      rok: "1098",
+      ikona: "⚔️",
+      titulek: "Křižáci dobyli Antiochii",
+      detail: "Během první křížové výpravy dobyli křižáci Antiochii. Město mělo obrovský strategický význam na cestě do Svaté země."
+    },
+    {
+      rok: "1965",
+      ikona: "🚀",
+      titulek: "První americký výstup do vesmíru",
+      detail: "Astronaut Ed White vystoupil z kosmické lodi Gemini 4 a stal se prvním Američanem, který provedl výstup do volného vesmíru."
+    }
+  ],
+  "06-04": [
+    {
+      rok: "1942",
+      ikona: "🌊",
+      titulek: "Začala bitva u Midway",
+      detail: "Bitva u Midway se stala zlomovým střetem v Pacifiku během druhé světové války. Americké námořnictvo zde zasadilo Japonsku těžkou porážku."
+    },
+    {
+      rok: "1989",
+      ikona: "🕯️",
+      titulek: "Potlačení protestů na náměstí Nebeského klidu",
+      detail: "Čínská armáda násilně ukončila prodemokratické protesty v Pekingu. Událost se stala jedním z nejznámějších symbolů boje za svobodu v moderní Číně."
+    }
+  ],
+  "06-05": [
+    {
+      rok: "1947",
+      ikona: "📜",
+      titulek: "Marshall představil plán obnovy Evropy",
+      detail: "Americký ministr zahraničí George Marshall přednesl projev, který vedl ke vzniku Marshallova plánu. Ten pomohl po druhé světové válce obnovit západní Evropu."
+    },
+    {
+      rok: "1967",
+      ikona: "✈️",
+      titulek: "Začala šestidenní válka",
+      detail: "Izrael zahájil vojenskou operaci proti Egyptu a dalším arabským státům. Konflikt zásadně změnil politickou mapu Blízkého východu."
+    }
+  ],
+  "06-06": [
+    { rok:"1944", ikona:"⚔️", titulek:"Den D – vylodění v Normandii", detail:"Spojenecké jednotky zahájily největší námořní invazi v dějinách. Vylodění v Normandii otevřelo západní frontu proti nacistickému Německu a výrazně urychlilo konec války v Evropě." },
+    { rok:"1984", ikona:"🎮", titulek:"Vyšla hra Tetris", detail:"Sovětský programátor Alexej Pažitnov vytvořil Tetris. Jednoduchá skládačka z padajících bloků se později stala jednou z nejslavnějších her všech dob." }
+  ],
+  "06-07": [
+    { rok:"1494", ikona:"🌍", titulek:"Smlouva z Tordesillas", detail:"Španělsko a Portugalsko si smlouvou rozdělily sféry vlivu v nově objevovaných zámořských územích. Dohoda výrazně ovlivnila pozdější kolonizaci Ameriky, Afriky i Asie." },
+    { rok:"1099", ikona:"🏰", titulek:"První křížová výprava dorazila k Jeruzalému", detail:"Křižácké vojsko se po dlouhé cestě přiblížilo k Jeruzalému. Obléhání města se stalo jedním z rozhodujících momentů první křížové výpravy." }
+  ],
+  "06-08": [
+    { rok:"793", ikona:"🛡️", titulek:"Vikingové přepadli Lindisfarne", detail:"Útok na klášter Lindisfarne bývá často označován za symbolický začátek vikinské éry. Nájezd šokoval křesťanskou Evropu a ukázal sílu severských mořeplavců." },
+    { rok:"1949", ikona:"📖", titulek:"Vydán román 1984", detail:"George Orwell vydal dystopický román 1984. Kniha se stala jedním z nejsilnějších varování před totalitou, propagandou a masovým dohledem." }
+  ],
+  "06-09": [
+    { rok:"68", ikona:"🏛️", titulek:"Zemřel císař Nero", detail:"Smrt Nerona ukončila vládu juliovsko-klaudijské dynastie v Římě. Následoval chaotický rok čtyř císařů, kdy se o moc střídalo několik vládců." },
+    { rok:"1815", ikona:"⚔️", titulek:"Kongres ve Vídni skončil", detail:"Vídeňský kongres po napoleonských válkách upravil mapu Evropy. Jeho cílem bylo obnovit rovnováhu sil a zabránit další velké revoluční válce." }
+  ],
+  "06-10": [
+    { rok:"1190", ikona:"👑", titulek:"Zemřel Fridrich Barbarossa", detail:"Císař Fridrich I. Barbarossa zahynul během třetí křížové výpravy. Jeho smrt oslabila německou část tažení do Svaté země." },
+    { rok:"1942", ikona:"🕯️", titulek:"Vyhlazení Lidic", detail:"Nacisté vypálili obec Lidice jako odvetu po atentátu na Reinharda Heydricha. Tragédie se stala jedním z nejznámějších symbolů nacistického teroru v českých zemích." }
+  ],
+  "06-11": [
+    { rok:"1184 př. n. l.", ikona:"🐴", titulek:"Tradiční datum pádu Tróje", detail:"Podle pozdějších výpočtů antických autorů měl právě tento den připadat pád Tróje. Událost je spojena s legendami o trojské válce, Achillovi, Hektorovi a dřevěném koni." },
+    { rok:"1770", ikona:"🌊", titulek:"James Cook najel na Velký bariérový útes", detail:"Loď Endeavour kapitána Jamese Cooka najela u Austrálie na mělčinu na Velkém bariérovém útesu. Posádka musela loď opravovat a výprava pokračovala až po náročné záchraně." }
+  ],
+  "06-12": [
+    { rok:"1942", ikona:"📔", titulek:"Anne Franková dostala deník", detail:"Anne Franková dostala ke třináctým narozeninám deník, do kterého později zapisovala život v úkrytu během nacistické okupace. Její zápisky patří k nejsilnějším svědectvím holokaustu." },
+    { rok:"1987", ikona:"🧱", titulek:"Reagan vyzval ke stržení Berlínské zdi", detail:"Americký prezident Ronald Reagan pronesl v Berlíně slavnou výzvu k Michailu Gorbačovovi, aby nechal strhnout Berlínskou zeď. O dva roky později zeď skutečně padla." }
+  ],
+  "06-13": [
+    { rok:"323 př. n. l.", ikona:"⚔️", titulek:"Zemřel Alexandr Veliký", detail:"Alexandr Makedonský zemřel v Babylonu ve věku pouhých 32 let. Zanechal po sobě obrovskou říši, která se po jeho smrti rozdělila mezi jeho vojevůdce." },
+    { rok:"1944", ikona:"🚀", titulek:"První útok raketami V-1 na Londýn", detail:"Nacistické Německo zahájilo útoky létajícími pumami V-1 proti Londýnu. Šlo o jednu z prvních masově použitých řízených zbraní v moderní válce." }
+  ],
+  "06-14": [
+    { rok:"1777", ikona:"🇺🇸", titulek:"USA přijaly vlajku s hvězdami a pruhy", detail:"Kontinentální kongres přijal podobu americké vlajky s třinácti pruhy a hvězdami. Den se v USA připomíná jako Flag Day." },
+    { rok:"1940", ikona:"🏙️", titulek:"Německá armáda vstoupila do Paříže", detail:"Během druhé světové války obsadila nacistická vojska Paříž. Francie krátce poté podepsala příměří a část země se ocitla pod okupační správou." }
+  ],
+  "06-15": [
+    { rok:"1215", ikona:"📜", titulek:"Magna charta byla potvrzena", detail:"Anglický král Jan Bezzemek přijal dokument Magna charta. Listina omezovala královskou moc a stala se jedním ze základních symbolů právního státu." },
+    { rok:"1389", ikona:"⚔️", titulek:"Bitva na Kosově poli", detail:"Srbské a osmanské síly se střetly v jedné z nejslavnějších bitev balkánských dějin. Událost získala mimořádný význam v srbské historické paměti." }
+  ],
+  "06-16": [
+    { rok:"1963", ikona:"🚀", titulek:"Valentina Těreškovová letěla do vesmíru", detail:"Sovětská kosmonautka Valentina Těreškovová se stala první ženou ve vesmíru. Její let na lodi Vostok 6 trval téměř tři dny." },
+    { rok:"1884", ikona:"🎢", titulek:"Otevřena první horská dráha v USA", detail:"V Coney Islandu byla otevřena jedna z prvních komerčních horských drah. Zábavní parky se díky podobným atrakcím staly masovou zábavou moderní doby." }
+  ],
+  "06-17": [
+    { rok:"1775", ikona:"⚔️", titulek:"Bitva u Bunker Hillu", detail:"Během americké války za nezávislost se kolonisté střetli s britskou armádou u Bostonu. Britové sice zvítězili, ale utrpěli těžké ztráty." },
+    { rok:"1940", ikona:"🎙️", titulek:"Francie žádala Německo o příměří", detail:"Po rychlém německém postupu během druhé světové války požádala Francie o příměří. Země byla následně rozdělena na okupovanou část a vichistický režim." }
+  ],
+  "06-18": [
+    { rok:"1815", ikona:"⚔️", titulek:"Bitva u Waterloo", detail:"Napoleon Bonaparte byl poražen spojeneckými vojsky u Waterloo. Bitva ukončila jeho návrat k moci a definitivně uzavřela napoleonské války." },
+    { rok:"1940", ikona:"📻", titulek:"De Gaulle pronesl výzvu k odporu", detail:"Charles de Gaulle z Londýna vyzval Francouze, aby pokračovali v odporu proti nacistickému Německu. Projev se stal symbolem Svobodné Francie." }
+  ],
+  "06-19": [
+    { rok:"1865", ikona:"🕊️", titulek:"Juneteenth – konec otroctví v Texasu", detail:"V Galvestonu v Texasu bylo oznámeno osvobození zotročených lidí podle Proklamace emancipace. Den se později stal významným americkým svátkem svobody." },
+    { rok:"1978", ikona:"🐱", titulek:"Poprvé vyšel Garfield", detail:"Komiks Garfield od Jima Davise se poprvé objevil v novinách. Líný kocour milující lasagne se stal jednou z nejznámějších komiksových postav světa." }
+  ],
+  "06-20": [
+    { rok:"451", ikona:"⚔️", titulek:"Bitva na Katalaunských polích", detail:"Římané a jejich spojenci zastavili postup Attily a Hunů v Galii. Bitva patří k největším střetům pozdní antiky." },
+    { rok:"1789", ikona:"🎾", titulek:"Přísaha v míčovně", detail:"Zástupci třetího stavu ve Francii přísahali, že se nerozejdou, dokud nebude přijata ústava. Událost patří k důležitým začátkům Francouzské revoluce." }
+  ],
+  "06-21": [
+    { rok:"1788", ikona:"🇺🇸", titulek:"Ústava USA vstoupila v platnost", detail:"New Hampshire jako devátý stát ratifikoval Ústavu Spojených států. Tím byl splněn požadovaný počet států a dokument mohl vstoupit v platnost." },
+    { rok:"1948", ikona:"💻", titulek:"Manchester Baby spustil první program", detail:"Počítač Manchester Baby provedl jeden z prvních uložených programů v historii. Šlo o důležitý krok k moderním počítačům." }
+  ],
+  "06-22": [
+    { rok:"1941", ikona:"⚔️", titulek:"Operace Barbarossa", detail:"Nacistické Německo zahájilo invazi do Sovětského svazu. Operace Barbarossa otevřela nejkrvavější frontu druhé světové války." },
+    { rok:"1633", ikona:"🔭", titulek:"Galileo byl donucen odvolat", detail:"Galileo Galilei byl inkvizičním soudem donucen odvolat podporu heliocentrismu. Jeho případ se stal symbolem střetu vědy, autority a náboženské moci." }
+  ],
+  "06-23": [
+    { rok:"930", ikona:"🏛️", titulek:"Vznik islandského Althingu", detail:"Na Islandu se sešel Althing, jeden z nejstarších parlamentů světa. Sloužil jako sněm svobodných mužů, kde se řešily zákony a spory." },
+    { rok:"1314", ikona:"⚔️", titulek:"Začala bitva u Bannockburnu", detail:"Skotské vojsko Roberta Bruce se střetlo s Angličany u Bannockburnu. Bitva se stala klíčovým momentem skotského boje za nezávislost." }
+  ],
+  "06-24": [
+    { rok:"1314", ikona:"🛡️", titulek:"Skotové zvítězili u Bannockburnu", detail:"Robert Bruce porazil anglické vojsko a výrazně posílil skotskou nezávislost. Vítězství patří k nejslavnějším okamžikům skotských dějin." },
+    { rok:"1812", ikona:"❄️", titulek:"Napoleon překročil Němen", detail:"Napoleonova Velká armáda zahájila tažení do Ruska. Výprava skončila katastrofálními ztrátami a oslabila francouzskou moc v Evropě." }
+  ],
+  "06-25": [
+    { rok:"1950", ikona:"⚔️", titulek:"Začala korejská válka", detail:"Severokorejská armáda překročila hranici a zaútočila na Jižní Koreu. Konflikt vtáhl do boje OSN, Čínu i Spojené státy a rozdělil poloostrov dodnes." },
+    { rok:"1876", ikona:"🏹", titulek:"Bitva u Little Bighornu", detail:"Sjednocené síly Lakotů, Severních Šajenů a Arapahů porazily jednotku George Armstronga Custera. Bitva se stala symbolem odporu původních obyvatel Severní Ameriky." }
+  ],
+  "06-26": [
+    { rok:"1945", ikona:"🌐", titulek:"Podepsána Charta OSN", detail:"V San Francisku byla podepsána Charta Organizace spojených národů. OSN vznikla jako pokus zabránit dalším světovým válkám a podporovat mezinárodní spolupráci." },
+    { rok:"1974", ikona:"🛒", titulek:"Poprvé naskenován čárový kód", detail:"V americkém supermarketu byl poprvé komerčně použit čárový kód. Technologie zásadně změnila obchod, skladování i logistiku." }
+  ],
+  "06-27": [
+    { rok:"1950", ikona:"🕯️", titulek:"Poprava Milady Horákové", detail:"Komunistický režim popravil političku Miladu Horákovou po vykonstruovaném procesu. Stala se symbolem odporu proti totalitě v Československu." },
+    { rok:"1977", ikona:"🇫🇷", titulek:"Džibutsko získalo nezávislost", detail:"Džibutsko se osamostatnilo od Francie. Malý stát u strategického průlivu Bab al-Mandab získal význam díky poloze mezi Afrikou a Arabským poloostrovem." }
+  ],
+  "06-28": [
+    { rok:"1914", ikona:"💥", titulek:"Atentát v Sarajevu", detail:"Gavrilo Princip zastřelil arcivévodu Františka Ferdinanda d’Este a jeho manželku Žofii. Atentát spustil řetězec událostí, které vedly k první světové válce." },
+    { rok:"1919", ikona:"📜", titulek:"Podepsána Versailleská smlouva", detail:"Mírová smlouva formálně ukončila válku mezi Německem a vítěznými mocnostmi první světové války. Její podmínky později silně ovlivnily politiku meziválečné Evropy." }
+  ],
+  "06-29": [
+    { rok:"1613", ikona:"🔥", titulek:"Vyhořelo divadlo Globe", detail:"Shakespearovo divadlo Globe v Londýně vyhořelo během představení Jindřicha VIII. Požár vznikl po výstřelu z divadelního děla." },
+    { rok:"1995", ikona:"🚀", titulek:"Atlantis se spojil se stanicí Mir", detail:"Americký raketoplán Atlantis se poprvé spojil s ruskou orbitální stanicí Mir. Mise byla důležitým symbolem spolupráce po konci studené války." }
+  ],
+  "06-30": [
+    { rok:"1908", ikona:"☄️", titulek:"Tunguská událost", detail:"Nad Sibiří explodovalo kosmické těleso a zničilo obrovskou oblast tajgy. Tunguská událost patří k nejsilnějším známým dopadovým jevům v moderní historii." },
+    { rok:"1934", ikona:"🕶️", titulek:"Noc dlouhých nožů", detail:"Nacistický režim provedl čistku proti vedení SA a dalším odpůrcům. Akce upevnila Hitlerovu moc a ukázala brutalitu nacistické diktatury." }
+  ]
+};
+
+function formatDatum(datum){
+  const den = datum.getDate();
+  const mesic = datum.getMonth() + 1;
+  const rok = datum.getFullYear();
+  return `${den}.${mesic}.${rok}`;
+}
+
+function klicDatumu(datum){
+  const mesic = String(datum.getMonth() + 1).padStart(2, "0");
+  const den = String(datum.getDate()).padStart(2, "0");
+  return `${mesic}-${den}`;
+}
+
+function vykresliHistorii(){
+  const box = document.getElementById("historie-tyden");
+  if(!box) return;
+
+  const dnes = new Date();
+  const klic = klicDatumu(dnes);
+  const udalosti = historickeZajimavosti[klic] || [];
+
+  let vysledek = `
+    <input class="date-toggle" type="checkbox" id="calendar-toggle">
+    <label class="date-label" for="calendar-toggle">${formatDatum(dnes)}</label>
+    <div class="calendar-panel" id="calendar-panel">
+      <div class="calendar-head">
+        <button class="cal-btn" type="button" id="calendar-prev" aria-label="Předchozí měsíc">‹</button>
+        <div class="calendar-title" id="calendar-title"></div>
+        <button class="cal-btn" type="button" id="calendar-next" aria-label="Další měsíc">›</button>
+      </div>
+      <div class="calendar-grid-days">
+        <div>Po</div><div>Út</div><div>St</div><div>Čt</div><div>Pá</div><div>So</div><div>Ne</div>
+      </div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+      <div class="calendar-info" id="calendar-info"></div>
+    </div>`;
+
+  if(udalosti.length === 0){
+    vysledek += `
+      <div class="today-detail" style="display:block;margin-top:8px">
+        Pro dnešní den zatím nejsou vložené zajímavosti.
+      </div>`;
+    box.innerHTML = vysledek;
+    return;
+  }
+
+  udalosti.forEach((udalost, index) => {
+    const id = `udalost-${klic}-${index}`;
+    vysledek += `
+      <input class="today-toggle" type="checkbox" id="${id}">
+      <label class="event today-label" for="${id}">
+        <div class="icon">${udalost.ikona}</div>
+        <div class="title"><span class="blue">${udalost.rok}</span> – ${udalost.titulek}</div>
+      </label>
+      <div class="today-detail">
+        ${udalost.detail}
+      </div>`;
+  });
+
+  box.innerHTML = vysledek;
+}
+
+
+const mesiceCesky = [
+  "leden","únor","březen","duben","květen","červen",
+  "červenec","srpen","září","říjen","listopad","prosinec"
+];
+
+const statniSvatkyCR = {
+  "01-01": "Den obnovy samostatného českého státu / Nový rok",
+  "05-01": "Svátek práce",
+  "05-08": "Den vítězství",
+  "07-05": "Den slovanských věrozvěstů Cyrila a Metoděje",
+  "07-06": "Den upálení mistra Jana Husa",
+  "09-28": "Den české státnosti",
+  "10-28": "Den vzniku samostatného československého státu",
+  "11-17": "Den boje za svobodu a demokracii",
+  "12-24": "Štědrý den",
+  "12-25": "1. svátek vánoční",
+  "12-26": "2. svátek vánoční"
+};
+
+const jmeninyVyber = {
+  "06-01":"Laura", "06-02":"Jarmil", "06-03":"Tamara", "06-04":"Dalibor",
+  "06-05":"Dobroslav", "06-06":"Norbert", "06-07":"Iveta / Slavoj",
+  "06-08":"Medard", "06-09":"Stanislava", "06-10":"Gita", "06-11":"Bruno",
+  "06-12":"Antonie", "06-13":"Antonín", "06-14":"Roland", "06-15":"Vít",
+  "06-16":"Zbyněk", "06-17":"Adolf", "06-18":"Milan", "06-19":"Leoš",
+  "06-20":"Květa", "06-21":"Alois", "06-22":"Pavla", "06-23":"Zdeňka",
+  "06-24":"Jan", "06-25":"Ivan", "06-26":"Adriana", "06-27":"Ladislav",
+  "06-28":"Lubomír", "06-29":"Petr a Pavel", "06-30":"Šárka"
+};
+
+function velikonoce(rok){
+  const a = rok % 19;
+  const b = Math.floor(rok / 100);
+  const c = rok % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mesic = Math.floor((h + l - 7 * m + 114) / 31) - 1;
+  const den = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(rok, mesic, den);
+}
+
+function pridatDny(datum, pocet){
+  const d = new Date(datum);
+  d.setDate(d.getDate() + pocet);
+  return d;
+}
+
+function svatkyProRok(rok){
+  const svatky = {...statniSvatkyCR};
+  const nedele = velikonoce(rok);
+  svatky[klicDatumu(pridatDny(nedele, -2))] = "Velký pátek";
+  svatky[klicDatumu(pridatDny(nedele, 1))] = "Velikonoční pondělí";
+  return svatky;
+}
+
+let calendarView = new Date();
+calendarView.setDate(1);
+let calendarSelected = new Date();
+
+function nastavInfoDne(datum){
+  const info = document.getElementById("calendar-info");
+  if(!info) return;
+
+  const klic = klicDatumu(datum);
+  const svatky = svatkyProRok(datum.getFullYear());
+  const svatek = svatky[klic];
+  const jmeniny = jmeninyVyber[klic];
+  const udalosti = historickeZajimavosti[klic] || [];
+
+  let html = `<b>${formatDatum(datum)}</b>`;
+  html += svatek ? `<br>🇨🇿 Státní svátek: ${svatek}` : `<br>🇨🇿 Státní svátek: není`;
+  if(jmeniny){
+    html += `<br>🎉 Jmeniny: ${jmeniny}`;
+  }
+  if(udalosti.length){
+    html += `<br>📜 V historii: ${udalosti.map(u => `${u.rok} – ${u.titulek}`).join("; ")}`;
+  }else{
+    html += `<br>📜 Historie: sem ji budeme postupně doplňovat.`;
+  }
+
+  info.innerHTML = html;
+}
+
+function vykresliKalendar(){
+  const title = document.getElementById("calendar-title");
+  const grid = document.getElementById("calendar-grid");
+  if(!title || !grid) return;
+
+  const rok = calendarView.getFullYear();
+  const mesic = calendarView.getMonth();
+  const dnes = new Date();
+  const svatky = svatkyProRok(rok);
+  const prvniDen = new Date(rok, mesic, 1);
+  const pocetDni = new Date(rok, mesic + 1, 0).getDate();
+  const odsazeni = (prvniDen.getDay() + 6) % 7;
+
+  title.textContent = `${mesiceCesky[mesic]} ${rok}`;
+  grid.innerHTML = "";
+
+  for(let i=0; i<odsazeni; i++){
+    const empty = document.createElement("button");
+    empty.className = "calendar-day empty";
+    empty.type = "button";
+    empty.disabled = true;
+    grid.appendChild(empty);
+  }
+
+  for(let den=1; den<=pocetDni; den++){
+    const datum = new Date(rok, mesic, den);
+    const klic = klicDatumu(datum);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = den;
+    btn.className = "calendar-day";
+
+    if(datum.toDateString() === dnes.toDateString()) btn.classList.add("today");
+    if(svatky[klic]) btn.classList.add("holiday");
+    if(datum.toDateString() === calendarSelected.toDateString()) btn.classList.add("selected");
+
+    btn.addEventListener("click", function(){
+      calendarSelected = datum;
+      vykresliKalendar();
+      nastavInfoDne(datum);
+    });
+
+    grid.appendChild(btn);
+  }
+
+  nastavInfoDne(calendarSelected);
+}
+
+function aktivujKalendar(){
+  const prev = document.getElementById("calendar-prev");
+  const next = document.getElementById("calendar-next");
+
+  if(prev){
+    prev.addEventListener("click", function(){
+      calendarView.setMonth(calendarView.getMonth() - 1);
+      vykresliKalendar();
+    });
+  }
+
+  if(next){
+    next.addEventListener("click", function(){
+      calendarView.setMonth(calendarView.getMonth() + 1);
+      vykresliKalendar();
+    });
+  }
+
+  vykresliKalendar();
+}
+
+vykresliHistorii();
+aktivujKalendar();
+
+const divySveta=[
+{soubor:"div1.jpg",nazev:"Velká čínská zeď"},
+{soubor:"div2.jpg",nazev:"Petra"},
+{soubor:"div3.jpg",nazev:"Kristus Spasitel"},
+{soubor:"div4.jpg",nazev:"Machu Picchu"},
+{soubor:"div5.jpg",nazev:"Chichén Itzá"},
+{soubor:"div6.jpg",nazev:"Koloseum"},
+{soubor:"div7.jpg",nazev:"Tádž Mahal"}
+];
+
+function vykresliDivSveta(){
+ const i=(new Date().getDay()+6)%7;
+ const d=divySveta[i];
+ const img=document.getElementById("div-sveta-foto");
+ if(img){
+   img.src=d.soubor;
+ }
+}
+vykresliDivSveta();
+
+
+// OTEVÍRÁNÍ FOTEK: krátké klepnutí otevře fullscreen galerii.
+// Fungují šipky, potažení prstem po fotce i počítadlo.
+// Krátké klepnutí na zvětšenou fotku ji zavře, ale po potažení se nezavře.
+document.addEventListener('DOMContentLoaded', function(){
+  let galleryScroll = 0;
+  let activeGallery = [];
+  let activeIndex = 0;
+  let startX = 0;
+  let startY = 0;
+  let moved = false;
+  let ignoreNextClick = false;
+
+  const lightbox = document.getElementById('photo-lightbox');
+  const lightboxImg = document.getElementById('photo-lightbox-img');
+  const prevBtn = document.getElementById('photo-prev');
+  const nextBtn = document.getElementById('photo-next');
+  const counter = document.getElementById('photo-counter');
+
+  if(!lightbox || !lightboxImg) return;
+
+  function updatePhoto(){
+    const img = activeGallery[activeIndex];
+    if(!img) return;
+
+    lightboxImg.src = img.getAttribute('src');
+    lightboxImg.alt = img.getAttribute('alt') || '';
+
+    if(counter){
+      counter.textContent = (activeIndex + 1) + ' / ' + activeGallery.length;
+    }
+
+    const showControls = activeGallery.length > 1;
+    if(prevBtn) prevBtn.style.display = showControls ? 'block' : 'none';
+    if(nextBtn) nextBtn.style.display = showControls ? 'block' : 'none';
+    if(counter) counter.style.display = showControls ? 'block' : 'none';
+  }
+
+  function openPhoto(img){
+    const gallery = img.closest('.gallery');
+    activeGallery = gallery ? Array.from(gallery.querySelectorAll('.photo-open img')) : [img];
+    activeIndex = Math.max(0, activeGallery.indexOf(img));
+
+    galleryScroll = window.scrollY || document.documentElement.scrollTop || 0;
+    updatePhoto();
+    lightbox.classList.add('show');
+  }
+
+  function closePhoto(){
+    lightbox.classList.remove('show');
+    lightboxImg.src = '';
+    requestAnimationFrame(function(){
+      window.scrollTo(0, galleryScroll);
+    });
+  }
+
+  function showNext(){
+    if(activeGallery.length < 2) return;
+    activeIndex = (activeIndex + 1) % activeGallery.length;
+    updatePhoto();
+  }
+
+  function showPrev(){
+    if(activeGallery.length < 2) return;
+    activeIndex = (activeIndex - 1 + activeGallery.length) % activeGallery.length;
+    updatePhoto();
+  }
+
+  document.querySelectorAll('.photo-open img').forEach(function(img){
+    img.addEventListener('click', function(){
+      openPhoto(img);
+    });
+  });
+
+  if(prevBtn){
+    prevBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      showPrev();
+    });
+  }
+
+  if(nextBtn){
+    nextBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      showNext();
+    });
+  }
+
+  lightbox.addEventListener('click', function(e){
+    if(e.target === lightbox){
+      closePhoto();
+    }
+  });
+
+  lightboxImg.addEventListener('pointerdown', function(e){
+    startX = e.clientX;
+    startY = e.clientY;
+    moved = false;
+    ignoreNextClick = false;
+  });
+
+  lightboxImg.addEventListener('pointermove', function(e){
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if(Math.abs(dx) > 12 || Math.abs(dy) > 12){
+      moved = true;
+    }
+  });
+
+  lightboxImg.addEventListener('pointerup', function(e){
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
+      ignoreNextClick = true;
+
+      if(dx < 0){
+        showNext();
+      }else{
+        showPrev();
+      }
+
+      setTimeout(function(){
+        ignoreNextClick = false;
+      }, 250);
+    }
+  });
+
+  lightboxImg.addEventListener('click', function(e){
+    e.stopPropagation();
+
+    if(ignoreNextClick || moved){
+      return;
+    }
+
+    closePhoto();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(!lightbox.classList.contains('show')) return;
+
+    if(e.key === 'Escape'){
+      closePhoto();
+    }else if(e.key === 'ArrowRight'){
+      showNext();
+    }else if(e.key === 'ArrowLeft'){
+      showPrev();
+    }
+  });
+});
+
+
+// MENU: hlavní sekce se zavírají navzájem.
+// Vnitřní podsekce se zavírají jen v rámci stejné hlavní sekce.
+document.addEventListener('DOMContentLoaded', function(){
+  const menuToggle = document.getElementById('menu-toggle');
+  const groups = document.querySelectorAll('.menu-group');
+  const subGroups = document.querySelectorAll('.submenu-group');
+
+  groups.forEach(function(group){
+    group.addEventListener('toggle', function(){
+      if(group.open){
+        groups.forEach(function(other){
+          if(other !== group){
+            other.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+
+  subGroups.forEach(function(group){
+    group.addEventListener('toggle', function(){
+      if(group.open){
+        const parentSubmenu = group.closest('.submenu');
+        if(parentSubmenu){
+          parentSubmenu.querySelectorAll('.submenu-group').forEach(function(other){
+            if(other !== group){
+              other.removeAttribute('open');
+            }
+          });
+        }
+      }
+    });
+  });
+
+  if(menuToggle){
+    menuToggle.addEventListener('change', function(){
+      if(!menuToggle.checked){
+        groups.forEach(function(group){
+          group.removeAttribute('open');
+        });
+        subGroups.forEach(function(group){
+          group.removeAttribute('open');
+        });
+      }
+    });
+  }
+});
+
+
+
+function nastavTlacitkoZpet(){
+  if(location.hash && location.hash !== "#"){
+    document.body.classList.add("show-back");
+  }else{
+    document.body.classList.remove("show-back");
+  }
+}
+
+window.addEventListener("hashchange", nastavTlacitkoZpet);
+document.addEventListener("DOMContentLoaded", nastavTlacitkoZpet);
+nastavTlacitkoZpet();
+
+
+// Po kliknutí v menu skočí cílová sekce vždy nahoru pod racka.
+function posunAktivniSekciNahoru(){
+  if(!location.hash || location.hash === "#"){
+    window.scrollTo({top:0, behavior:"smooth"});
+    return;
+  }
+
+  const id = decodeURIComponent(location.hash.slice(1));
+  const cil = document.getElementById(id);
+  const hlavicka = document.querySelector('.site-header');
+  if(!cil) return;
+
+  setTimeout(function(){
+    const vyskaHlavicky = hlavicka ? hlavicka.offsetHeight : 0;
+    const top = cil.getBoundingClientRect().top + window.pageYOffset - vyskaHlavicky - 8;
+    window.scrollTo({top:Math.max(0, top), behavior:"smooth"});
+  }, 60);
+}
+
+window.addEventListener('hashchange', posunAktivniSekciNahoru);
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('a[href^="#"]').forEach(function(odkaz){
+    odkaz.addEventListener('click', function(){
+      setTimeout(posunAktivniSekciNahoru, 80);
+    });
+  });
+  posunAktivniSekciNahoru();
+});
+
+
+// Interaktivní mapa hradů
+const hradyMapa = {
+  kost: {
+    nazev: "🏰 Hrad Kost",
+    souradnice: "50.4906°N, 15.1347°E",
+    vzdalenost: "25 km",
+    stav: "Plán",
+    text: "Gotický hrad v Českém ráji, schovaný v údolí mezi skalami a lesy. Působí hodně pohádkově a je ideální na fotky zvenku i na pohodový výlet.",
+    proc: "Skály, les, rybníky a krásná atmosféra Českého ráje.",
+    tip: "Dobré spojit s procházkou údolím Plakánek.",
+    stitky: ["Český ráj", "fotogenické", "pohodová trasa"]
+  },
+  trosky: {
+    nazev: "🏰 Trosky",
+    souradnice: "50.5169°N, 15.2306°E",
+    vzdalenost: "35 km",
+    stav: "Plán",
+    text: "Ikonická zřícenina se dvěma věžemi Baba a Panna. Je vidět z dálky a nahoře máš krásný rozhled po krajině.",
+    proc: "Jedno z nejvýraznějších míst Českého ráje.",
+    tip: "Super cíl, když chceš kratší výšlap a výraznou odměnu nahoře.",
+    stitky: ["zřícenina", "výhled", "symbol kraje"]
+  },
+  bezdez: {
+    nazev: "🏰 Bezděz",
+    souradnice: "50.5394°N, 14.7205°E",
+    vzdalenost: "28 km",
+    stav: "Plán",
+    text: "Královský hrad na kopci, který dá trochu zabrat nohám, ale nahoře to stojí za to. Má silnou historickou atmosféru a parádní výhledy.",
+    proc: "Poctivý výšlap, historie a pocit opravdového hradu.",
+    tip: "Vzít vodu a pevnější boty, cesta nahoru je kamenitá.",
+    stitky: ["výšlap", "královský hrad", "výhled"]
+  },
+  houska: {
+    nazev: "🏰 Houska",
+    souradnice: "50.4905°N, 14.6247°E",
+    vzdalenost: "38 km",
+    stav: "Později",
+    text: "Hrad známý tajemnou pověstí o bráně do pekla. Není to jen klasická památka, má kolem sebe zvláštní atmosféru.",
+    proc: "Tajemno, legendy a dobrý výlet pro trochu jiný zážitek.",
+    tip: "Hodí se spojit s Kokořínskem.",
+    stitky: ["tajemno", "legendy", "Kokořínsko"]
+  },
+  valdstejn: {
+    nazev: "🏰 Valdštejn",
+    souradnice: "50.5607°N, 15.1686°E",
+    vzdalenost: "32 km",
+    stav: "Plán",
+    text: "Romantický hrad v Hruboskalsku, obklopený skalami a lesními cestami. Ideální, když chceš hrad i krásnou pěší trasu.",
+    proc: "Skalní město, les a historická nálada v jednom.",
+    tip: "Spojit s Hrubou Skálou nebo vyhlídkami v okolí.",
+    stitky: ["Hruboskalsko", "skály", "romantika"]
+  },
+  valecov: {
+    nazev: "🏰 Valečov",
+    souradnice: "50.5272°N, 14.8619°E",
+    vzdalenost: "12 km",
+    stav: "Navštíveno",
+    text: "Zřícenina u Mnichova Hradiště s vytesanými skalními prostory. Je blízko a na krátký výlet hodně vděčná.",
+    proc: "Kousek od Mladé Boleslavi a přitom úplně jiná atmosféra.",
+    tip: "Dobré jako rychlý výlet, když nechceš jezdit daleko.",
+    stitky: ["blízko", "skalní prostory", "krátký výlet"]
+  },
+  sychrov: {
+    nazev: "🏰 Sychrov",
+    souradnice: "50.6264°N, 15.0889°E",
+    vzdalenost: "40 km",
+    stav: "Později",
+    text: "Spíš zámek než hrad, ale do mapy se hodí. Má upravený park, hezké interiéry a je dobrý na klidnější výlet.",
+    proc: "Když chceš méně lezení a víc pohodové procházky.",
+    tip: "Dobré i za horšího počasí díky prohlídkám uvnitř.",
+    stitky: ["zámek", "park", "klidný výlet"]
+  },
+  kokorin: {
+    nazev: "🏰 Kokořín",
+    souradnice: "50.4383°N, 14.5767°E",
+    vzdalenost: "42 km",
+    stav: "Později",
+    text: "Romantický hrad v lesnatém Kokořínsku, kolem jsou pískovcové skály a pěkné turistické cesty.",
+    proc: "Lesy, skály a výletní atmosféra mimo město.",
+    tip: "Naplánovat jako delší procházku, ne jen rychlou zastávku.",
+    stitky: ["Kokořínsko", "lesy", "pískovcové skály"]
+  }
+};
+
+function zobrazHrad(klic){
+  const data = hradyMapa[klic];
+  const box = document.getElementById('castle-info');
+  if(!data || !box) return;
+  box.innerHTML = `
+    <h3>${data.nazev}</h3>
+    <div class="castle-coords">📍 ${data.souradnice}<span class="castle-distance">• z MB cca ${data.vzdalenost}</span></div>
+    <p>${data.text}</p>
+    <p><b>Proč tam jet:</b> ${data.proc}</p>
+    <p><b>Tip:</b> ${data.tip}</p>
+    <p><b>Stav:</b> ${data.stav}</p>
+    <div class="castle-chips">${data.stitky.map(function(s){return `<span class="castle-chip">${s}</span>`}).join('')}</div>
+  `;
+  document.querySelectorAll('.castle-point').forEach(function(btn){
+    btn.classList.toggle('active', btn.dataset.castle === klic);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.castle-point').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      zobrazHrad(btn.dataset.castle);
+    });
+  });
+  zobrazHrad('kost');
+});
+
+
+const alexandrBody = {
+  pella: {
+    title: "🏛️ Pella – začátek příběhu",
+    text: "Pella byla hlavním městem Makedonie a místem, odkud Alexandrův příběh opravdu začíná. Narodil se jako syn krále Filipa II. a Olympiady, takže od dětství vyrůstal v prostředí moci, vojenství a dvorských intrik. Jeho učitelem byl Aristoteles, který mu dal vzdělání v řecké kultuře, filozofii i politice. Po zavraždění Filipa II. se Alexandr rychle chopil vlády a musel si nejdřív upevnit postavení doma. Teprve potom mohl převzít otcův plán: zaútočit na Perskou říši. Z malého makedonského dvora se tak rozběhlo tažení, které změnilo mapu tehdejšího světa."
+  },
+  gordium: {
+    title: "🪢 Gordium – gordický uzel",
+    text: "Ve městě Gordium se vyprávělo o slavném uzlu, který měl podle věštby rozvázat budoucí vládce Asie. Alexandr se u něj zastavil během tažení Malou Asií. Podle známé legendy uzel nerozplétal trpělivě, ale prostě ho rozetnul mečem. Příběh krásně vystihuje jeho povahu: když nešla cesta běžně, vytvořil si vlastní. Ať už je legenda přesná nebo ne, stala se symbolem rozhodnosti a odvahy. Od té doby se říká „rozetnout gordický uzel“, když někdo vyřeší složitý problém rázně a chytře."
+  },
+  issos: {
+    title: "⚔️ Issos – první velký střet s Dareiem",
+    text: "U Issu se Alexandr poprvé ve velkém střetl přímo s perským králem Dareiem III. Perská armáda byla obrovská, ale úzký prostor bojiště zmenšil její výhodu. Alexandr dokázal využít rychlost jízdy a tlak na střed nepřátelské sestavy. Dareios z bojiště uprchl a zanechal za sebou i část královské rodiny. Pro Alexandra to bylo obrovské vítězství nejen vojenské, ale i psychologické. Najednou bylo jasné, že Perská říše není neporazitelná."
+  },
+  tyros: {
+    title: "🏝️ Tyros – město, které nechtělo padnout",
+    text: "Tyros byl bohatý fénický přístav ležící na ostrově, a proto působil téměř nedobytně. Alexandr potřeboval město získat, aby měl pod kontrolou pobřeží a neponechal Peršanům silnou námořní základnu za zády. Nechal proto vybudovat násep z pevniny až k ostrovu, což byl neuvěřitelně tvrdý technický úkol. Obléhání trvalo měsíce a stálo mnoho životů. Nakonec město padlo a Alexandr dal jasně najevo, že odpor proti němu může mít kruté následky. Tyros ukázal, že Alexandr nebyl jen polní vojevůdce, ale i mistr obléhání."
+  },
+  siwa: {
+    title: "☀️ Siwa – věštírna v poušti",
+    text: "V egyptské oáze Siwa navštívil Alexandr slavnou věštírnu boha Amona. Cesta pouští byla náročná a nebezpečná, ale Alexandr tím získal silný náboženský a politický symbol. Podle pozdějších vyprávění tam byl označen za syna boha, což posílilo jeho autoritu v očích Egypťanů i vlastních vojáků. Pro dobyvatele nebyla důležitá jen armáda, ale také obraz, který o sobě vytvořil. Egypt ho přijal spíše jako osvoboditele od perské nadvlády. Siwa tak patří mezi místa, kde se z krále začala stávat legenda."
+  },
+  alexandrie: {
+    title: "⚓ Alexandrie – město se jménem dobyvatele",
+    text: "V Egyptě založil Alexandr město Alexandrii, které se později stalo jedním z nejvýznamnějších center starověkého světa. Leželo na výborném místě u Středozemního moře a mělo spojovat řecký, egyptský i východní svět. Po Alexandrově smrti se stalo hlavním městem ptolemaiovského Egypta. Proslulo knihovnou, majákem na ostrově Faru a obrovským kulturním vlivem. Alexandr město založil strategicky, ale jeho význam daleko přerostl běžnou vojenskou základnu. Byla to stopa, která přežila samotné tažení."
+  },
+  gaugamela: {
+    title: "🐎 Gaugaméla – rozhodující bitva",
+    text: "Bitva u Gaugamély byla nejdůležitějším střetem mezi Alexandrem a Dareiem III. Peršané si vybrali otevřený terén, aby mohli využít početní převahu, jízdu i válečné vozy. Alexandr ale vedl útok velmi přesně a dokázal vytvořit mezeru v perské sestavě. Když zaútočil směrem k Dareovi, perský král znovu uprchl. Tím se zhroutila morálka celé armády a osud Perské říše byl prakticky rozhodnut. Gaugaméla ukázala Alexandrův talent riskovat ve správný okamžik."
+  },
+  babylon: {
+    title: "🦁 Babylon – vstup do srdce říše",
+    text: "Po vítězství u Gaugamély vstoupil Alexandr do Babylonu, jednoho z nejbohatších a nejslavnějších měst starověku. Město se mu vzdalo bez velkého odporu a Alexandr se snažil působit jako legitimní vládce, ne jen jako ničitel. Přijal některé perské zvyky a začal budovat obraz krále, který spojuje různé národy. Babylon byl důležitý politicky, hospodářsky i symbolicky. Později se sem Alexandr vrátil po indickém tažení. Právě v Babylonu roku 323 př. n. l. zemřel, takže město stálo i u konce jeho příběhu."
+  },
+  persepolis: {
+    title: "🔥 Persepolis – pád perské slávy",
+    text: "Persepolis byla slavnostní metropole Perské říše a symbol její moci. Alexandr město dobyl a získal obrovské poklady, které pomohly financovat další tažení. Nejznámější událostí je vypálení paláců, o němž se dodnes diskutuje. Někdo to chápe jako pomstu za perské ničení řeckých chrámů, jiní jako opilecké gesto nebo politický signál. Každopádně šlo o okamžik, kdy stará perská moc dostala těžkou ránu. Persepolis ukazuje temnější stránku Alexandrových vítězství."
+  },
+  sogdiana: {
+    title: "🏔️ Sogdiana – tvrdý odpor na východě",
+    text: "Sogdiana ležela daleko na východě a její dobytí bylo pro Alexandra velmi náročné. Místní bojovníci nevedli jen klasické bitvy, ale využívali hory, pevnosti a partyzánský odpor. Alexandr zde musel bojovat jinak než proti velkým perským armádám. Právě v této oblasti si vzal Roxanu, dceru místního šlechtice, což mělo i politický význam. Sňatek měl pomoci uklidnit oblast a spojit dobyvatele s místní elitou. Sogdiana ukázala, že udržet říši je někdy těžší než ji dobýt."
+  },
+  hydaspes: {
+    title: "🐘 Hydaspes – boj se slony",
+    text: "U řeky Hydaspes se Alexandr střetl s indickým králem Pórem. Byla to jedna z jeho nejtěžších bitev, protože Póros měl silnou armádu a válečné slony. Sloni působili na makedonské vojáky obrovským dojmem a na bojišti dokázali způsobit chaos. Alexandr přesto zvítězil díky manévru, překročení řeky a tvrdému útoku. Póra si po bitvě vážil natolik, že mu ponechal vládu jako spojenci. Tohle vítězství ukazuje, že Alexandr uměl nejen porážet, ale také získávat poražené na svou stranu."
+  },
+  hyphasis: {
+    title: "🌧️ Hyphasis – hranice odvahy i únavy",
+    text: "U řeky Hyphasis se Alexandr chtěl vydat ještě dál na východ, ale jeho vojáci už odmítli pokračovat. Byli vyčerpaní lety bojů, dešti, vzdáleností od domova a představou dalších indických armád. Alexandr se je pokusil přesvědčit, ale tentokrát narazil na hranici lidských sil. Nakonec ustoupil a rozhodl se pro návrat. Nebyla to vojenská porážka od nepřítele, ale velmi důležitý moment celého tažení. I největší dobyvatel musel jednou přijmout, že armáda už dál nepůjde."
+  }
+};
+
+function nastavAlexandra(klic, tlacitko){
+  const data = alexandrBody[klic];
+  const box = document.getElementById("alex-info");
+  if(!data || !box) return;
+  box.innerHTML = `<h3>${data.title}</h3><p>${data.text}</p>`;
+  document.querySelectorAll(".alex-point").forEach(btn => btn.classList.remove("active"));
+  if(tlacitko) tlacitko.classList.add("active");
+}
+
+document.querySelectorAll(".alex-point").forEach(btn => {
+  if(btn.dataset.alex) btn.addEventListener("click", () => nastavAlexandra(btn.dataset.alex, btn));
+});
+
+
+const cingischanBody = {
+  mongolsko:{title:"🐎 Mongolské stepi – zrod síly",text:"Mongolské stepi byly tvrdým prostředím, kde se přežívalo díky koním, disciplíně a soudržnosti rodu. Temüdžin, pozdější Čingischán, zde vyrostl mezi neustálými spory kmenů a naučil se, že bez jednoty nemá nikdo šanci. Dokázal postupně spojit znepřátelené skupiny a proměnit je v jednu válečnou sílu. Jeho armáda nebyla jen banda jezdců, ale velmi organizovaný systém s jasnými pravidly. Rychlost, lukostřelba z koně a schopnost předstírat ústup z ní udělaly postrach celé Eurasie. Právě ze stepí se rozjela expanze, která vytvořila největší souvislou říši dějin."},
+  karakorum:{title:"🏯 Karakorum – srdce říše",text:"Karakorum se stalo jedním ze symbolů mongolské moci. Nebylo to od začátku velkolepé hlavní město jako Řím nebo Babylon, ale pro kočovnou říši mělo obrovský význam. Odtud se spravovala území, která sahala tisíce kilometrů daleko. Město ukazovalo, že Mongolové nebyli jen nájezdníci, ale postupně budovali i správu, obchodní spojení a diplomatické centrum. Scházeli se zde lidé z různých národů, náboženství a řemesel. Karakorum připomíná, že říši nestačí dobýt – musí se také řídit."},
+  kipcak:{title:"🌾 Kipčacká step – cesta na západ",text:"Kipčacká step otevřela Mongolům cestu hluboko do východní Evropy. Šlo o obrovský prostor pastvin, kde se rychlá jízda a pohyblivá armáda cítila jako doma. Místní kmeny a knížectví často nedokázaly rychle spolupracovat, což Mongolové dokázali využít. Útoky na západ nebyly jen divoké nájezdy, ale promyšlené operace s průzkumem, klamáním a přesnou koordinací. Díky stepi mohli postupovat neuvěřitelně rychle. Pro Evropu to byl šok, protože proti takovému stylu války neměla snadnou odpověď."},
+  krym:{title:"🌊 Krym – brána k Černému moři",text:"Krym byl důležitý jako prostor mezi stepí, Černým mořem a obchodními cestami. Mongolský tlak sem zasáhl při taženích na západ a ovlivnil obchod i politiku v celé oblasti. Přes Krym vedly kontakty mezi stepními národy, Rusí, Kavkazem a středomořským světem. Kdo ovládal podobná místa, mohl získávat bohatství z obchodu i výhodu při dalších výpravách. Pro Mongoly nebyla důležitá jen vítězství v bitvách, ale i kontrola uzlů, kudy proudili lidé, zboží a zprávy. Krym tak ukazuje širší dopad mongolské expanze."},
+  kaspik:{title:"🌊 Kaspické jezero – okraj velkých tažení",text:"Oblast kolem Kaspického jezera byla pro Mongoly důležitá jako spojnice mezi Kavkazem, Persií a středoasijskými zeměmi. Terén tu byl pestrý: stepi, hory, města i obchodní trasy. Mongolové dokázali postupovat i přes neznámá území díky výbornému průzkumu a síti poslů. Kaspik nebyl jen zeměpisnou překážkou, ale také orientačním bodem na hraně několika světů. Tažení v této oblasti ukazují, jak daleko dokázala mongolská strategie dosáhnout. Nebyli vázáni na jedno centrum, ale uměli útočit ve více směrech najednou."},
+  chorezm:{title:"🔥 Chórezmská říše – osudová chyba",text:"Chórezmská říše se stala jedním z hlavních cílů Čingischána po diplomatickém konfliktu. Když byli mongolští obchodníci a poslové zabiti, Čingischán to vzal jako urážku, kterou musel tvrdě potrestat. Následné tažení bylo obrovské a ničivé. Mongolové rozdrtili města, která se zdála bohatá a bezpečná. Pád Chórezmu ukázal, že vzdor bez jednoty a dobrého velení proti Mongolům nestačí. Zároveň to byl moment, kdy se mongolská expanze naplno přelila do islámského světa."},
+  urgenc:{title:"🏚️ Urgenč – město tvrdého odporu",text:"Urgenč patřil k významným městům Chórezmu a jeho dobývání bylo mimořádně krvavé. Město mělo silnou polohu a obránci kladli tvrdý odpor. Mongolové se při obléhání museli přizpůsobit, protože boj ve městě byl pro jezdeckou armádu mnohem náročnější než bitva ve stepi. Po dobytí následoval krutý trest, který měl zastrašit další odpůrce. Urgenč je příkladem temné stránky mongolských výbojů. Ukazuje, že Čingischánova říše vznikala nejen schopností organizovat, ale i ochotou použít extrémní násilí."},
+  buchara:{title:"🕌 Buchara – symbol podrobení",text:"Buchara byla bohaté a významné město Střední Asie. Když ji Mongolové dobyli, mělo to silný psychologický dopad na celý region. Čingischán zde údajně vystoupil tak, aby dal najevo, že jeho vítězství je trestem za chyby vládců. Pro místní obyvatele to musel být otřes: město učenosti, obchodu a víry padlo před lidmi ze stepí. Mongolové tím ukázali, že žádné město není samo o sobě v bezpečí. Buchara se stala jedním z nejznámějších symbolů mongolského vpádu do Střední Asie."},
+  samarkand:{title:"💎 Samarkand – bohatá kořist",text:"Samarkand byl jedním z největších a nejbohatších měst Chórezmské říše. Jeho pád byl pro Mongoly obrovským úspěchem, protože město mělo silné hradby, posádku i prestiž. Čingischán využil kombinaci obléhání, strachu a přesného velení. Po dobytí získali Mongolové nejen kořist, ale také řemeslníky, znalosti a lidi, které přesouvali tam, kde je říše potřebovala. Samarkand ukazuje, že Mongolové často neničili všechno bez rozmyslu. Uměli si vybrat, co může jejich říši posílit."},
+  merv:{title:"🏜️ Merv – tragédie velkého města",text:"Merv patřil k největším městům tehdejšího islámského světa a jeho pád se zapsal jako jedna z nejděsivějších událostí mongolských tažení. Město mělo bohatou historii, obchod a kulturu. Když se dostalo do rukou Mongolů, následovala obrovská zkáza. Počet obětí se v pramenech často přehání, ale rozsah katastrofy byl skutečně mimořádný. Pro ostatní města to byl jasný vzkaz, že odpor může skončit úplným zničením. Merv připomíná, že za slávou říší stojí i obrovské lidské utrpení."},
+  risejin:{title:"🏯 Říše Jin – první velký protivník",text:"Říše Jin v severní Číně byla jedním z prvních velkých států, proti kterým Čingischán vedl dlouhé tažení. Mongolové zde museli čelit opevněným městům, velkým armádám a úplně jinému způsobu války než ve stepi. Právě boje s Říší Jin je naučily využívat obléhací techniku a odborníky z dobytých území. Tažení nebylo rychlé a jednoduché, ale postupně oslabovalo čínskou moc na severu. Pro Mongoly to byla škola války proti civilizovaným říším. Bez těchto zkušeností by pozdější expanze nebyla tak úspěšná."},
+  korea:{title:"🌅 Korea – vzdálený okraj vlivu",text:"Korea ležela na východním okraji světa, do kterého mongolská moc postupně pronikala. Přímý tlak na Koreu zesílil hlavně za Čingischánových nástupců, ale kořeny leží v expanzi, kterou rozběhl on. Pro Mongoly měla oblast význam kvůli poloze, moři a kontaktu s dalšími státy východní Asie. Korejci kladli odpor a vztah s Mongoly byl dlouhý a složitý. Tohle místo připomíná, že Čingischánův vliv neskončil jeho smrtí. Jeho říše se dál rozšiřovala a měnila politickou mapu Asie ještě celé generace."}
+};
+
+const tamerlanBody = {
+  kes:{title:"🏰 Keš – místo zrodu Tamerlána",text:"Keš, dnešní Šahrisabz, je místo spojené s Tamerlánovým původem. Narodil se zde roku 1336 do prostředí turko-mongolské aristokracie, kde se stále žilo ve stínu Čingischánovy slávy. Tamerlán nebyl přímým potomkem Čingischána, proto musel svou legitimitu budovat jinak: přes vojenské úspěchy, sňatky a obraz ochránce řádu. Z Keše se postupně dostal k moci v oblasti Transoxanie. Později město podporoval stavbami a chtěl z něj udělat důstojné místo své dynastie. Je to začátek příběhu člověka, který se z regionálního vládce stal postrachem Persie, Indie i Anatolie."},
+  samarkand:{title:"💠 Samarkand – hlavní město slávy",text:"Samarkand byl Tamerlánovým nejdůležitějším městem a výkladní skříní jeho moci. Nechtěl ho mít jen jako správní centrum, ale jako město, které bude oslňovat vyslance, obchodníky i nepřátele. Přiváděl sem řemeslníky, stavitele a učence z dobytých území. Díky tomu město rostlo a získalo pověst jednoho z nejkrásnějších center tehdejšího světa. Samarkand ukazuje Tamerlánův paradox: dokázal ničit cizí města a zároveň budovat velkolepou metropoli. Právě tady je nejlépe vidět, jak chtěl ze své vlády udělat legendu."},
+  balch:{title:"🐪 Balch – brána do Afghánistánu",text:"Balch byl starobylým městem na důležité cestě mezi Střední Asií, Persií a Afghánistánem. Pro Tamerlána měl význam jako opěrný bod při taženích na jih a východ. Kdo držel podobná města, mohl kontrolovat pohyb armád i obchodních karavan. V této oblasti se často rozhodovalo o tom, zda má vládce skutečnou kontrolu nad horami, pouštěmi a přechody. Tamerlán uměl taková místa využívat k dalším výpravám. Balch tak není jen bod na mapě, ale důležitý klíč k jeho pohybu mezi regiony."},
+  herat:{title:"🕌 Herát – klenot Chorásánu",text:"Herát patřil k nejvýznamnějším městům Chorásánu a měl obrovskou kulturní i strategickou hodnotu. Tamerlánova moc se opírala o kontrolu takových bohatých měst, protože z nich získával peníze, řemeslníky a prestiž. Herát ležel na cestách mezi Persií, Střední Asií a Indií, takže byl důležitý pro obchod i tažení. Město později proslulo jako centrum umění a vzdělanosti. U Tamerlána ale vždy platilo, že krása a kultura šly ruku v ruce s tvrdou mocí. Herát ukazuje, jak moc se jeho říše opírala o města, ne jen o jezdce."},
+  isfahan:{title:"🔥 Isfahán – krutý trest",text:"Isfahán je jedním z nejtemnějších míst Tamerlánova tažení v Persii. Město se nejprve podrobilo, ale po vzpouře proti posádce následoval mimořádně tvrdý trest. Tamerlán nechal ukázat, že porušení poslušnosti nebude tolerovat. Podobné masakry měly vojenský účel: zastrašit další města, aby se vzdala bez boje. Isfahán tím získal pověst tragického symbolu jeho krutosti. Zároveň připomíná, že Tamerlánova říše nebyla jen romantická legenda o válečníkovi, ale také systém strachu."},
+  bagdad:{title:"🌙 Bagdád – pád slavného města",text:"Bagdád měl obrovskou historickou váhu jako někdejší centrum chalífátu a islámské vzdělanosti. Tamerlán ho dobyl při svých taženích na západ a jeho zásah město těžce poznamenal. Pro něj bylo dobytí Bagdádu prestižní, protože ovládnutí tak slavného místa posilovalo obraz vládce celého regionu. Město zároveň leželo strategicky mezi Persií, Mezopotámií a cestami do Sýrie a Anatolie. Tamerlán však často dával přednost zastrašení před dlouhodobým klidem. Bagdád tak ukazuje střet mezi starou slávou a novou drsnou mocí."},
+  tabriz:{title:"🏛️ Tabríz – bohaté město Kavkazu a Persie",text:"Tabríz byl významným obchodním a politickým centrem na severozápadě Persie. Ležel na cestách mezi Anatolií, Kavkazem a Íránem, takže měl pro Tamerlána velkou cenu. Ovládnutí Tabrízu znamenalo přístup k bohatství, zásobám i vlivu v oblasti, kde se střetávaly různé říše. Tamerlán často využíval bohatá města jako zdroj pro další tažení. Zároveň z nich odváděl schopné řemeslníky do Samarkandu. Tabríz je dobrý příklad toho, jak Tamerlán měnil vítězství v konkrétní sílu pro svou říši."},
+  toktamis:{title:"⚔️ Toqtamish – boj se Zlatou hordou",text:"Toqtamish byl vládce Zlaté hordy a zpočátku měl s Tamerlánem složitý vztah, který se změnil v otevřené nepřátelství. Jejich střety patřily k největším konfliktům stepního světa své doby. Tamerlán dokázal Toqtamishe porazit a těžce zasáhnout moc Zlaté hordy. Tím oslabil sílu, která dlouho ovlivňovala Rus a východní Evropu. Nešlo jen o osobní spor dvou vládců, ale o boj o dědictví mongolské moci. Tato válka ukázala, že Tamerlán se nechtěl podřídit žádné starší stepní autoritě."},
+  saraj:{title:"🏚️ Saraj – rána Zlaté hordě",text:"Saraj byl významným centrem Zlaté hordy na dolní Volze. Když Tamerlán zaútočil na území Toqtamishe, zásah proti Saraji měl obrovský symbolický význam. Zničení nebo vyplenění takového centra oslabovalo nejen armádu, ale i obchod, správu a prestiž protivníka. Pro Zlatou hordu to byla těžká rána, ze které se dlouhodobě vzpamatovávala obtížně. Tamerlán tím zasáhl politickou rovnováhu daleko za hranicemi své říše. Saraj ukazuje, že jeho tažení měla následky i pro dějiny Ruska a východní Evropy."},
+  dilli:{title:"🐘 Dillí – tažení do Indie",text:"Tažení do Indie patří mezi nejznámější Tamerlánovy výpravy. Dillí bylo bohaté město a jeho dobytí přineslo obrovskou kořist i prestiž. Tamerlán využil slabosti místní vlády a tvrdě postupoval proti odporu. Bitvy v Indii byly náročné i kvůli jinému prostředí, vzdálenosti a válečným slonům. Dobytí Dillí ale zároveň patří k nejničivějším epizodám jeho kariéry. Pro Tamerlána to byl důkaz, že jeho moc sahá i za hranice tradičního persko-středoasijského světa."},
+  ankara:{title:"🛡️ Ankara – porážka Osmanů",text:"Bitva u Ankary roku 1402 byla jedním z Tamerlánových největších vítězství. Střetl se zde s osmanským sultánem Bajezidem I., který do té doby budoval obrovskou moc v Anatolii a na Balkáně. Tamerlán dokázal využít taktiku, pohyb i nespokojenost některých Bajezidových spojenců. Osmané utrpěli drtivou porážku a sultán padl do zajetí. Výsledek na čas zastavil osmanskou expanzi a způsobil v jejich říši krizi. Ankara ukazuje, že Tamerlán dokázal porazit i velmi silného soupeře na vrcholu moci."},
+  otrar:{title:"❄️ Otrar – konec posledního tažení",text:"Otrar je spojený s koncem Tamerlánova života. Když se chystal na obrovské tažení proti Číně, zastavila ho zima, nemoc a vyčerpání. Roku 1405 zde zemřel dřív, než mohl svůj poslední plán uskutečnit. Jeho smrt ukázala, jak silně byla říše závislá na jedné osobnosti. Po něm už nedokázala držet stejnou útočnou energii a jednotu. Otrar je proto symbolický konec muže, který většinu života strávil v pohybu za dalšími vítězstvími."}
+};
+
+function nastavMapInfo(datasetName, body, infoId, klic, tlacitko){
+  const data = body[klic];
+  const box = document.getElementById(infoId);
+  if(!data || !box) return;
+  box.innerHTML = `<h3>${data.title}</h3><p>${data.text}</p>`;
+  document.querySelectorAll(`[data-${datasetName}]`).forEach(btn => btn.classList.remove("active"));
+  if(tlacitko) tlacitko.classList.add("active");
+}
+
+document.querySelectorAll("[data-cing]").forEach(btn => {
+  btn.addEventListener("click", () => nastavMapInfo("cing", cingischanBody, "cing-info", btn.dataset.cing, btn));
+});
+document.querySelectorAll("[data-tamer]").forEach(btn => {
+  btn.addEventListener("click", () => nastavMapInfo("tamer", tamerlanBody, "tamer-info", btn.dataset.tamer, btn));
+});
+
+
+
+/* ŠIPKY 501 DOUBLE OUT */
+const dartsState = {
+  scores:[501,501],
+  active:0,
+  history:[],
+  finished:false
+};
+
+function dartsDoubleTip(score){
+  if(score === 50) return "D25 / bull";
+  if(score > 0 && score <= 40 && score % 2 === 0) return "D" + (score / 2);
+  return "";
+}
+
+function dartsCheckoutTips(score){
+  const box = document.getElementById("darts-checkouts");
+  if(!box) return;
+  const tips = [];
+  if(dartsDoubleTip(score)) tips.push("Zavíráš: " + dartsDoubleTip(score));
+  if(score <= 170 && score > 1){
+    const common = {
+      170:"T20 T20 bull",167:"T20 T19 bull",164:"T20 T18 bull",161:"T20 T17 bull",160:"T20 T20 D20",
+      158:"T20 T20 D19",157:"T20 T19 D20",156:"T20 T20 D18",155:"T20 T19 D19",154:"T20 T18 D20",
+      153:"T20 T19 D18",152:"T20 T20 D16",151:"T20 T17 D20",150:"T20 T18 D18",149:"T20 T19 D16",
+      148:"T20 T20 D14",147:"T20 T17 D18",146:"T20 T18 D16",145:"T20 T15 D20",144:"T20 T20 D12",
+      141:"T20 T19 D12",140:"T20 T20 D10",138:"T20 T18 D12",136:"T20 T20 D8",135:"T20 T17 D12",
+      132:"bull bull D16",130:"T20 T20 D5",129:"T19 T16 D12",128:"T18 T18 D10",126:"T19 T19 D6",
+      125:"T20 T19 D4",124:"T20 T16 D8",123:"T19 T16 D9",122:"T18 T18 D7",121:"T20 T11 D14",
+      120:"T20 20 D20",119:"T19 12 D25",118:"T20 18 D20",117:"T20 17 D20",116:"T20 16 D20",
+      115:"T20 15 D20",114:"T20 14 D20",113:"T20 13 D20",112:"T20 12 D20",111:"T20 11 D20",
+      110:"T20 10 D20",109:"T20 9 D20",108:"T20 16 D16",107:"T19 18 D16",106:"T20 10 D18",
+      105:"T20 13 D16",104:"T18 18 D16",103:"T19 10 D18",102:"T20 10 D16",101:"T17 18 D16",
+      100:"T20 D20",99:"T19 10 D16",98:"T20 D19",97:"T19 D20",96:"T20 D18",95:"T19 D19",
+      94:"T18 D20",93:"T19 D18",92:"T20 D16",91:"T17 D20",90:"T18 D18",89:"T19 D16",
+      88:"T16 D20",87:"T17 D18",86:"T18 D16",85:"T15 D20",84:"T20 D12",83:"T17 D16",
+      82:"T14 D20",81:"T19 D12",80:"T20 D10",79:"T19 D11",78:"T18 D12",77:"T19 D10",
+      76:"T20 D8",75:"T17 D12",74:"T14 D16",73:"T19 D8",72:"T16 D12",71:"T13 D16",
+      70:"T18 D8",69:"T19 D6",68:"T20 D4",67:"T17 D8",66:"T10 D18",65:"T19 D4",
+      64:"T16 D8",63:"T13 D12",62:"T10 D16",61:"T15 D8",60:"20 D20",59:"19 D20",
+      58:"18 D20",57:"17 D20",56:"16 D20",55:"15 D20",54:"14 D20",53:"13 D20",
+      52:"12 D20",51:"11 D20",50:"10 D20 / bull",49:"9 D20",48:"16 D16",47:"15 D16",
+      46:"14 D16",45:"13 D16",44:"12 D16",43:"11 D16",42:"10 D16",41:"9 D16"
+    };
+    if(common[score]) tips.push("Tip: " + common[score]);
+  }
+  box.innerHTML = tips.map(t => `<span>${t}</span>`).join("");
+}
+
+function renderDarts(){
+  for(let i=0;i<2;i++){
+    const score = document.getElementById("darts-score-"+i);
+    const player = document.getElementById("darts-player-"+i);
+    const hint = document.getElementById("darts-hint-"+i);
+    if(score) score.textContent = dartsState.scores[i];
+    if(player) player.classList.toggle("active", i === dartsState.active && !dartsState.finished);
+    if(hint) hint.textContent = i === dartsState.active && !dartsState.finished ? "Na řadě" : dartsDoubleTip(dartsState.scores[i]);
+  }
+  const hist = document.getElementById("darts-history");
+  if(hist){
+    hist.innerHTML = dartsState.history.slice().reverse().map(h => `<div>${h}</div>`).join("");
+  }
+  dartsCheckoutTips(dartsState.scores[dartsState.active]);
+}
+
+function setDartsMessage(text){
+  const msg = document.getElementById("darts-message");
+  if(msg) msg.textContent = text;
+}
+
+function submitDartsThrow(){
+  if(dartsState.finished) return;
+  const input = document.getElementById("darts-throw");
+  const last = document.getElementById("darts-last");
+  const value = Number(input && input.value);
+  if(!Number.isInteger(value) || value < 0 || value > 180){
+    setDartsMessage("Zadej číslo 0 až 180.");
+    return;
+  }
+  const p = dartsState.active;
+  const before = dartsState.scores[p];
+  const after = before - value;
+  const lastType = last ? last.value : "single";
+  const doubleFinish = lastType === "double" || lastType === "doublebull";
+  let note = "";
+
+  dartsState.history.push({scores:[...dartsState.scores],active:dartsState.active,finished:dartsState.finished,msg:document.getElementById("darts-message")?.textContent || ""});
+
+  if(after < 0 || after === 1 || (after === 0 && !doubleFinish)){
+    note = `Hráč ${p+1}: ${value} = BUST. Zůstává ${before}.`;
+    dartsState.active = 1 - p;
+  }else if(after === 0 && doubleFinish){
+    dartsState.scores[p] = 0;
+    dartsState.finished = true;
+    note = `🎉 Hráč ${p+1} vyhrál! Zavřeno doublem.`;
+  }else{
+    dartsState.scores[p] = after;
+    note = `Hráč ${p+1}: ${before} - ${value} = ${after}.`;
+    dartsState.active = 1 - p;
+  }
+
+  const hist = dartsState.history[dartsState.history.length-1];
+  hist.text = note;
+  setDartsMessage(note);
+  if(input) input.value = "";
+  renderDarts();
+}
+
+function undoDarts(){
+  const last = dartsState.history.pop();
+  if(!last){ setDartsMessage("Není co vrátit."); return; }
+  dartsState.scores = [...last.scores];
+  dartsState.active = last.active;
+  dartsState.finished = last.finished;
+  setDartsMessage("Vráceno zpět.");
+  renderDarts();
+}
+
+function resetDarts(){
+  dartsState.scores = [501,501];
+  dartsState.active = 0;
+  dartsState.history = [];
+  dartsState.finished = false;
+  setDartsMessage("Nová hra. Začíná Hráč 1. Zavřít musíš doublem.");
+  renderDarts();
+}
+
+document.getElementById("darts-submit")?.addEventListener("click", submitDartsThrow);
+document.getElementById("darts-undo")?.addEventListener("click", undoDarts);
+document.getElementById("darts-reset")?.addEventListener("click", resetDarts);
+document.getElementById("darts-throw")?.addEventListener("keydown", e => {
+  if(e.key === "Enter") submitDartsThrow();
+});
+renderDarts();
+
+</script>
+<div class="fullscreen" id="photo-lightbox">
+<button class="gallery-arrow left" id="photo-prev" type="button" aria-label="Předchozí fotka">‹</button>
+<img alt="" id="photo-lightbox-img" src=""/>
+<button class="gallery-arrow right" id="photo-next" type="button" aria-label="Další fotka">›</button>
+<div class="gallery-counter" id="photo-counter">1 / 1</div>
+</div>
+</body>
+</html>
