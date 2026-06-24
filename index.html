@@ -2321,6 +2321,241 @@ body.show-back .back-nav{
   line-height:1.35;
 }
 
+
+/* ŠACHY – přehled partií a fotky hráčů */
+#sachy-botvinnik-tal{
+  background:#25221f;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 16px 34px rgba(0,0,0,.42);
+}
+
+.chess-game-list{
+  max-width:720px;
+  margin:14px auto 0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.chess-game-card{
+  display:grid;
+  grid-template-columns:auto auto auto 1fr;
+  align-items:center;
+  gap:10px;
+  padding:14px;
+  border-radius:20px;
+  background:#1b1a18;
+  border:1px solid rgba(255,255,255,.12);
+  color:white;
+  text-decoration:none;
+  box-shadow:0 10px 22px rgba(0,0,0,.25);
+}
+
+.chess-game-card:hover{
+  background:#24221f;
+}
+
+.chess-game-photo,
+.chess-game-fallback{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid;
+  flex:0 0 auto;
+}
+
+.chess-game-fallback{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:18px;
+}
+
+.chess-game-white{
+  border-color:#f3f3f3;
+  background:#f3f3f3;
+  color:#111;
+}
+
+.chess-game-black{
+  border-color:#111;
+  background:#111;
+  color:#f3f3f3;
+}
+
+.chess-game-vs{
+  color:#f0d08a;
+  font-weight:bold;
+  font-size:14px;
+  text-transform:uppercase;
+}
+
+.chess-game-text h3{
+  text-align:left;
+  margin:0 0 5px;
+  color:#f0f0f0;
+  font-size:22px;
+}
+
+.chess-game-text p{
+  margin:0;
+  color:#d8d8d8;
+  line-height:1.35;
+}
+
+.chess-photo-players{
+  align-items:stretch;
+}
+
+.chess-photo-players .chess-player{
+  display:block;
+  padding:0;
+  overflow:hidden;
+}
+
+.chess-photo-players summary{
+  list-style:none;
+  min-height:92px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.chess-photo-players summary::-webkit-details-marker{
+  display:none;
+}
+
+.player-white-card{
+  background:linear-gradient(145deg,#f6f6f0,#d9d9cf);
+  color:#111;
+  border:1px solid rgba(255,255,255,.65);
+}
+
+.player-black-card{
+  background:linear-gradient(145deg,#111,#2b2b2b);
+  color:#f5f5f5;
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.player-photo,
+.player-photo-fallback{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  object-fit:cover;
+  flex:0 0 auto;
+  border:3px solid;
+}
+
+.player-photo-fallback{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:18px;
+}
+
+.player-photo-fallback.white{
+  background:#fff;
+  color:#111;
+  border-color:#fff;
+}
+
+.player-photo-fallback.black{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.player-white-card .player-photo{
+  border-color:#fff;
+}
+
+.player-black-card .player-photo{
+  border-color:#111;
+}
+
+.player-main-name{
+  font-size:19px;
+  font-weight:900;
+  line-height:1.12;
+}
+
+.chess-photo-players details p{
+  margin:0;
+  padding:0 13px 13px;
+  line-height:1.4;
+  font-size:14px;
+}
+
+.player-white-card p{
+  color:#222;
+}
+
+.player-black-card p{
+  color:#ddd;
+}
+
+.chess-extra-info{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.chess-extra-info details{
+  background:#111;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.chess-extra-info summary{
+  cursor:pointer;
+  padding:12px 14px;
+  color:#f0d08a;
+  font-weight:bold;
+}
+
+.chess-extra-info p{
+  margin:0;
+  padding:0 14px 14px;
+  color:#ddd;
+  line-height:1.5;
+}
+
+@media(max-width:700px){
+  .chess-game-card{
+    grid-template-columns:auto auto auto;
+  }
+
+  .chess-game-text{
+    grid-column:1 / -1;
+    padding-top:4px;
+  }
+
+  .chess-game-photo,
+  .chess-game-fallback{
+    width:50px;
+    height:50px;
+  }
+
+  .player-photo,
+  .player-photo-fallback{
+    width:52px;
+    height:52px;
+  }
+
+  .player-main-name{
+    font-size:17px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2936,11 +3171,26 @@ class="timeline-image"
     <h2 class="chess-title">♟️ Botvinnik – Tal</h2>
     <p class="chess-subtitle">Moskva 1960 • 6. partie mistrovství světa</p>
 
-    <div class="chess-players">
-      <div class="chess-player">
-        <div class="player-avatar">MB</div>
-        <div><div class="player-name">Mikhail Botvinnik</div><div class="player-role">bílé figury • mistr světa</div></div>
-      </div>
+    
+<div class="chess-players chess-photo-players">
+  <details class="chess-player player-white-card">
+    <summary>
+      <img class="player-photo" src="botvinnik_portrait.jpg" alt="Michail Botvinnik" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="player-photo-fallback white">MB</span>
+      <span class="player-main-name">Michail Botvinnik</span>
+    </summary>
+    <p>Mistr světa a představitel přesné, poziční šachové školy. V této partii vede bílé figury.</p>
+  </details>
+
+  <details class="chess-player player-black-card">
+    <summary>
+      <img class="player-photo" src="tal_portrait.jpg" alt="Michail Tal" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="player-photo-fallback black">MT</span>
+      <span class="player-main-name">Michail Tal</span>
+    </summary>
+    <p>Kouzelník z Rigy, slavný útočník a mistr komplikací. V této partii vede černé figury.</p>
+  </details>
+</div>
       <div class="chess-player">
         <div class="player-avatar black">MT</div>
         <div><div class="player-name">Mikhail Tal</div><div class="player-role">černé figury • Kouzelník z Rigy</div></div>
