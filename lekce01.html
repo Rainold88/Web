@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lekce 01 – Autobusem do Lloret de Mar</title><style>
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(255,220,120,.16), transparent 35%),
+    linear-gradient(180deg,#5f646b,#313942);
+  color:white;
+}
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:linear-gradient(180deg,rgba(49,57,66,.98),rgba(49,57,66,.78));
+  padding:10px 12px;
+  backdrop-filter:blur(8px);
+}
+
+.header-inner{
+  max-width:960px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.back{
+  color:#f0d08a;
+  text-decoration:none;
+  font-family:Georgia,'Times New Roman',serif;
+  font-weight:bold;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(7,21,37,.62);
+  border:1px solid rgba(143,196,255,.35);
+}
+
+.header-title{
+  text-align:center;
+  font-weight:bold;
+  color:#f4d38a;
+  letter-spacing:.5px;
+}
+
+.wrap{
+  max-width:960px;
+  margin:0 auto;
+  padding:12px;
+}
+
+.hero{
+  border-radius:28px;
+  padding:22px 16px;
+  text-align:center;
+  background:
+    radial-gradient(circle at top, rgba(214,163,74,.18), transparent 38%),
+    linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 14px 30px rgba(0,0,0,.28);
+  margin-bottom:12px;
+}
+
+.hero h1{
+  margin:0 0 10px;
+  font-size:34px;
+}
+
+.hero p{
+  margin:0 auto;
+  max-width:720px;
+  color:#e8edf5;
+  font-size:18px;
+  line-height:1.45;
+}
+
+.lesson-menu{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin:12px 0;
+}
+
+.lesson-link{
+  display:block;
+  color:white;
+  text-decoration:none;
+  border-radius:22px;
+  padding:16px;
+  background:linear-gradient(145deg,#071525,#102744);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 10px 22px rgba(0,0,0,.25);
+}
+
+.lesson-link h2{
+  margin:0 0 7px;
+  color:#8fc4ff;
+  text-align:left;
+  font-size:22px;
+}
+
+.lesson-link p{
+  margin:0;
+  color:#edf3ff;
+  line-height:1.4;
+}
+
+.soon{
+  opacity:.72;
+}
+
+.sheet{
+  margin:14px 0 28px;
+  background:#fff8ea;
+  color:#1e2633;
+  border:3px solid #13294b;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 18px 40px rgba(0,0,0,.42);
+}
+
+.sheet-head{
+  display:grid;
+  grid-template-columns:84px 1fr;
+  background:#fffdf8;
+  border-bottom:3px solid #13294b;
+}
+
+.lesson-number{
+  background:#13294b;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-weight:900;
+  font-size:19px;
+  line-height:1.05;
+  letter-spacing:.6px;
+}
+
+.sheet-title{
+  padding:15px 16px;
+}
+
+.sheet-title h2{
+  margin:0;
+  color:#13294b;
+  font-size:28px;
+  line-height:1.05;
+  text-transform:uppercase;
+  text-align:left;
+}
+
+.sheet-title p{
+  margin:8px 0 0;
+  color:#4b5c73;
+  font-size:16px;
+}
+
+.goal{
+  grid-column:1 / -1;
+  padding:12px 16px;
+  background:#fff1b8;
+  border-top:2px solid #13294b;
+  color:#4c3600;
+  line-height:1.4;
+}
+
+.sheet-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:12px;
+  padding:12px;
+}
+
+.scene{
+  position:relative;
+  min-height:420px;
+  border:2px solid #13294b;
+  border-radius:18px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0) 38%),
+    linear-gradient(180deg,#cdeaff 0 38%,#89949f 38% 43%,#586574 43% 100%);
+}
+
+.scene-label{
+  position:absolute;
+  top:12px;
+  left:12px;
+  z-index:4;
+  background:#13294b;
+  color:white;
+  border-radius:11px;
+  padding:8px 10px;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.board{
+  position:absolute;
+  top:54px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:4;
+  background:#111b25;
+  color:#ffd45a;
+  border:3px solid #495666;
+  border-radius:8px;
+  padding:8px 12px;
+  text-align:center;
+  font-family:monospace;
+  font-weight:900;
+  font-size:18px;
+  box-shadow:0 8px 16px rgba(0,0,0,.25);
+}
+
+.bus{
+  position:absolute;
+  right:20px;
+  bottom:86px;
+  width:245px;
+  height:126px;
+  background:#f8fbff;
+  border:3px solid #1e3048;
+  border-radius:34px 16px 14px 14px;
+  box-shadow:0 12px 24px rgba(0,0,0,.30);
+}
+
+.bus:before{
+  content:"BARCELONA BUS";
+  position:absolute;
+  left:35px;
+  top:62px;
+  color:#2d5c91;
+  font-weight:900;
+  font-size:15px;
+}
+
+.bus:after{
+  content:"";
+  position:absolute;
+  right:18px;
+  top:18px;
+  width:78px;
+  height:40px;
+  border-radius:8px;
+  background:#263449;
+}
+
+.person-a{
+  position:absolute;
+  left:34px;
+  bottom:26px;
+  font-size:108px;
+  filter:drop-shadow(0 8px 7px rgba(0,0,0,.32));
+}
+
+.person-b{
+  position:absolute;
+  right:82px;
+  bottom:23px;
+  font-size:86px;
+  filter:drop-shadow(0 8px 7px rgba(0,0,0,.30));
+}
+
+.speech{
+  position:absolute;
+  z-index:5;
+  background:white;
+  color:#111827;
+  border:2px solid #d9e2ef;
+  border-radius:18px;
+  padding:9px 11px;
+  box-shadow:0 8px 16px rgba(0,0,0,.18);
+  font-weight:bold;
+  line-height:1.22;
+  max-width:235px;
+  font-size:14px;
+}
+
+.speech small{
+  display:block;
+  margin-top:5px;
+  color:#4a596b;
+  font-weight:normal;
+}
+
+.s1{left:102px;bottom:250px}
+.s2{right:38px;bottom:190px}
+.s3{left:130px;bottom:130px}
+.s4{left:82px;bottom:58px}
+.s5{right:44px;bottom:32px}
+
+.panel{
+  background:white;
+  border:2px solid #d9e2ef;
+  border-radius:18px;
+  padding:12px;
+}
+
+.panel h3{
+  margin:0 0 10px;
+  text-align:left;
+  color:#13294b;
+  font-size:20px;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.vocab{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:47px;
+  padding:7px;
+  border-radius:11px;
+  background:#eef4fb;
+}
+
+.vocab:nth-child(4n+2){background:#fff1e4}
+.vocab:nth-child(4n+3){background:#eef8ec}
+.vocab:nth-child(4n+4){background:#f4eefb}
+
+.vocab-ico{
+  width:27px;
+  text-align:center;
+  font-size:23px;
+}
+
+.vocab b{
+  display:block;
+  color:#13294b;
+  font-size:13px;
+}
+
+.vocab span{
+  display:block;
+  color:#526174;
+  font-size:12px;
+}
+
+.section{
+  padding:0 12px 12px;
+}
+
+.gold-lines p{
+  margin:9px 0;
+  padding:9px 10px;
+  border-radius:12px;
+  background:#fffdf7;
+  border:1px solid #eadfca;
+  line-height:1.35;
+}
+
+.gold-lines b{
+  color:#13294b;
+}
+
+.sound{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:50%;
+  background:#f2c45b;
+  color:#1b1006;
+  cursor:pointer;
+  margin-left:5px;
+  box-shadow:0 3px 7px rgba(0,0,0,.18);
+}
+
+.explain-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.explain{
+  background:#fffdf7;
+  border:2px solid #ead9b7;
+  border-radius:14px;
+  padding:10px;
+  line-height:1.35;
+}
+
+.explain b{
+  color:#0b7b45;
+}
+
+.remember{
+  margin-top:9px;
+  background:#fff1b8;
+  color:#835400;
+  border-radius:999px;
+  padding:8px 10px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.phrase-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.phrase{
+  background:#fffdf7;
+  border:2px solid #eadfca;
+  border-radius:14px;
+  padding:8px 7px;
+  min-height:112px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  text-align:center;
+}
+
+.phrase .emoji{
+  font-size:27px;
+}
+
+.phrase b{
+  color:#13294b;
+  font-size:13px;
+  line-height:1.18;
+}
+
+.phrase span{
+  color:#526174;
+  font-size:12px;
+  line-height:1.2;
+}
+
+.practice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:9px;
+}
+
+.practice{
+  background:white;
+  border:2px solid #d9e2ef;
+  border-radius:18px;
+  padding:12px;
+  line-height:1.38;
+}
+
+.practice h3{
+  margin:0 0 8px;
+  color:#13294b;
+  text-align:left;
+  font-size:18px;
+}
+
+.practice p{
+  margin:7px 0;
+}
+
+.bad{color:#cf2e2e;font-weight:bold}
+.ok{color:#0b7b45;font-weight:bold}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:9px;
+  padding:0 12px 12px;
+}
+
+.foot{
+  background:#fffdf7;
+  border:2px solid #ead9b7;
+  border-radius:15px;
+  padding:11px;
+  line-height:1.35;
+}
+
+.foot b{
+  color:#13294b;
+}
+
+.nav-bottom{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  padding:0 12px 14px;
+}
+
+.nav-bottom a{
+  color:#1b1006;
+  text-decoration:none;
+  font-weight:bold;
+  padding:10px 14px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);
+}
+
+@media(max-width:760px){
+  .hero h1{font-size:28px}
+  .hero p{font-size:16px}
+  .sheet-title h2{font-size:23px}
+  .sheet-grid{grid-template-columns:1fr;padding:9px}
+  .scene{min-height:455px}
+  .bus{right:12px;width:215px;height:116px}
+  .person-a{left:18px;font-size:96px}
+  .person-b{right:70px;font-size:78px}
+  .speech{font-size:13px;max-width:220px}
+  .s1{left:66px;bottom:262px}
+  .s2{right:18px;bottom:202px}
+  .s3{left:68px;bottom:142px}
+  .s4{left:34px;bottom:70px}
+  .s5{right:18px;bottom:20px}
+  .explain-grid,.practice-grid,.footer-grid{grid-template-columns:1fr}
+  .phrase-grid{grid-template-columns:repeat(2,1fr)}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+}
+
+
+
+/* RACEK MENU – stejné jako hlavní web */
+.menu-toggle{display:none}
+.site-header{position:sticky;top:0;z-index:3200;max-width:920px;margin:0 auto;padding:6px 12px 2px;background:linear-gradient(180deg,rgba(49,57,66,.98),rgba(49,57,66,.72),transparent)}
+.logo-line{display:flex;align-items:center;justify-content:center;gap:15px;position:relative}
+.logo-line::before,.logo-line::after{content:"";height:2px;flex:1;max-width:220px;background:linear-gradient(90deg,transparent,#8fc4ff,transparent)}
+.logo-button{width:58px;height:58px;border-radius:50%;display:block;cursor:pointer;position:relative;z-index:3100;box-shadow:0 0 28px rgba(255,255,255,.36)}
+.logo-button img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:4px solid white;background:#0b1c31;animation:racekMava 4s ease-in-out infinite;transform-origin:center center}
+.logo-button:hover{transform:scale(1.04)}
+.back-nav{display:inline-flex!important;align-items:center;position:absolute;left:0;top:50%;transform:translateY(-50%);color:#f0d08a;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;cursor:pointer;text-decoration:none;padding:7px 14px;border-radius:999px;background:rgba(7,21,37,.62);border:1px solid rgba(143,196,255,.35);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.back-nav.hidden{display:none}
+.menu-panel{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.66);padding:72px 12px 18px;overflow:auto}
+.menu-toggle:checked ~ .menu-panel{display:block}
+.menu-box{max-width:360px;margin:0 auto;padding:14px;border-radius:22px;background:radial-gradient(circle at top, rgba(214,163,74,.16), transparent 36%),linear-gradient(180deg,#071525,#02070c);border:1px solid rgba(214,154,62,.62);box-shadow:0 20px 50px rgba(0,0,0,.70);text-align:center;position:relative}
+.menu-box::before{content:"";position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(45deg);width:26px;height:26px;background:#071525;border-left:1px solid rgba(214,154,62,.62);border-top:1px solid rgba(214,154,62,.62)}
+.menu-close{position:absolute;top:7px;right:14px;color:#f0d08a;font-size:30px;line-height:1;cursor:pointer;z-index:2}
+.menu-title{font-family:Georgia,'Times New Roman',serif;color:#d6a34a;font-size:26px;letter-spacing:2px;margin:10px 0 12px;text-shadow:0 3px 12px rgba(0,0,0,.9)}
+.menu-link,.menu-summary{display:flex;align-items:center;gap:11px;min-height:50px;margin:7px 0;padding:9px 13px;border-radius:15px;color:#f4d38a;text-decoration:none;font-family:Georgia,'Times New Roman',serif;font-size:19px;font-weight:bold;letter-spacing:1px;background:linear-gradient(145deg,#071525,#102744);border:1px solid rgba(214,154,62,.48);box-shadow:0 8px 18px rgba(0,0,0,.35)}
+.menu-link.home-link{color:#1b1006;background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);border:1px solid rgba(255,230,160,.75)}
+.menu-icon{font-size:25px;width:34px;text-align:center}.menu-group{margin:7px 0}.menu-summary{list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent}.menu-summary::-webkit-details-marker{display:none}.menu-summary::after{content:"⌄";margin-left:auto;color:#f0d08a;font-size:23px;transition:transform .2s ease}.menu-group[open] .menu-summary::after{transform:rotate(180deg)}
+.submenu{display:flex;flex-direction:column;align-items:center;gap:7px;width:90%;margin:8px auto 2px;padding:0}.submenu a,.submenu-group summary{display:block;width:100%;padding:8px 10px;border-radius:12px;color:#e9c77c;text-decoration:none;font-family:Georgia,'Times New Roman',serif;font-size:16px;text-align:center;background:rgba(255,255,255,.055);border:1px solid rgba(214,154,62,.24);-webkit-tap-highlight-color:transparent}.submenu-group{width:100%;margin:0}.submenu-group summary{list-style:none;cursor:pointer;font-weight:bold}.submenu-group summary::-webkit-details-marker{display:none}.submenu-group summary::after{content:"  ▼";color:#f0d08a;font-size:15px}.submenu-group[open] summary::after{content:"  ▲"}.submenu-inner{display:flex;flex-direction:column;gap:5px;width:88%;margin:6px auto 1px}.submenu-inner a{font-size:15px;padding:7px 9px;background:rgba(0,0,0,.16)}
+@keyframes racekMava{0%,72%,100%{transform:scale(1) rotate(0deg)}80%{transform:scale(1.03,.98) rotate(-1deg)}88%{transform:scale(.99,1.02) rotate(1deg)}94%{transform:scale(1.01,.99) rotate(-.5deg)}}
+@media(max-width:700px){.site-header{padding:8px 12px 2px}.logo-button{width:54px;height:54px}.logo-line{gap:12px}.menu-panel{padding-top:66px}.menu-box{max-width:330px;padding:12px;border-radius:20px}.menu-title{font-size:24px;margin:8px 0 10px}.menu-link,.menu-summary{min-height:46px;font-size:18px;padding:8px 12px;margin:6px 0}.menu-icon{font-size:23px;width:31px}.submenu a,.submenu-group summary{font-size:15px;padding:7px 9px}.back-nav{left:0;font-size:18px;padding:6px 12px}}
+.header{display:none!important}.lesson-menu{margin-top:14px}.page-title-card{margin-top:8px}.lesson-link h2{text-align:left}.sheet{margin-top:12px}
+
+
+/* oprava: hlavní menu řeší racek, vlevo je jen Zpět */
+.back-nav{display:inline-flex!important;align-items:center;z-index:3300!important}
+.nav-bottom a[href="index.html"]{display:none!important}
+</style></head><body><input class="menu-toggle" id="menu-toggle" type="checkbox"/>
+<header class="site-header">
+<div class="logo-line">
+<a class="back-nav" href="spanelstina.html">← Zpět</a>
+<label class="logo-button" for="menu-toggle" title="Menu">
+<img alt="Menu" src="rybak.jpg"/>
+</label>
+</div>
+</header>
+<nav class="menu-panel">
+<div class="menu-box">
+<label class="menu-close" for="menu-toggle">×</label>
+<h2 class="menu-title">MENU</h2>
+<a class="menu-link home-link" href="index.html">
+<span class="menu-icon">🏠</span>
+<span>DOMŮ</span>
+</a><a class="menu-link" href="spanelstina.html"><span class="menu-icon">🇪🇸</span><span>ŠPANĚLŠTINA</span></a>
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🏛️</span>
+<span>HISTORIE</span>
+</summary>
+<div class="submenu">
+<a href="index.html#historie">Úvod</a>
+<details class="submenu-group">
+<summary>⚔️ Dobyvatelé</summary>
+<div class="submenu-inner">
+<a href="index.html#dobyvatele">Přehled dobyvatelů</a>
+<a href="index.html#alexandr-mapa">Alexandr</a>
+<a href="index.html#cingischan-mapa">Čingischán</a>
+<a href="index.html#tamerlan-mapa">Tamerlán</a>
+</div>
+</details>
+<details class="submenu-group">
+<summary>🏛️ Filozofové</summary>
+<div class="submenu-inner">
+<a href="index.html#filozofove">Sokrates</a>
+<a href="index.html#filozofove">Platón</a>
+<a href="index.html#filozofove">Aristoteles</a>
+</div>
+</details>
+<details class="submenu-group">
+<summary>🛡️ Hrdinové a rebelové</summary>
+<div class="submenu-inner">
+<a href="index.html#rebelove">Úvod rebelů</a>
+<a href="index.html#rebelove">Spartakus</a>
+<a href="index.html#rebelove">Boudica</a>
+</div>
+</details>
+</div>
+</details>
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🌍</span>
+<span>CESTOVÁNÍ</span>
+</summary>
+<div class="submenu">
+<a href="index.html#cestovani">Úvod</a>
+</div>
+</details>
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🎯</span>
+<span>ŠIPKY</span>
+</summary>
+<div class="submenu">
+<a href="index.html#sipky">Počítadlo 501</a>
+</div>
+</details>
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">♟️</span>
+<span>ŠACHY</span>
+</summary>
+<div class="submenu">
+<a href="index.html#sachy">Přehled partií</a>
+<a href="index.html#sachy-operni-partie">Operní partie</a>
+<a href="index.html#sachy-nesmrtelna-partie">Nesmrtelná partie</a>
+<a href="index.html#sachy-capablanca-marshall">Capablanca – Marshall</a>
+<a href="index.html#sachy-byrne-fischer">Partie století</a>
+<a href="index.html#sachy-botvinnik-tal">Botvinnik – Tal</a>
+<a href="index.html#sachy-tal-nezhmetdinov">Tal – Nežmetdinov</a>
+<a href="index.html#sachy-kasparov-topalov">Kasparov – Topalov</a>
+<a href="index.html#sachy-carlsen-karjakin">Carlsen – Karjakin</a>
+</div>
+</details>
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">🎫</span>
+<span>AKCE</span>
+</summary>
+<div class="submenu">
+<a href="index.html#akce">Úvod</a>
+<a href="index.html#akce-boruvky">🫐 Borůvková procházka</a>
+<a href="index.html#akce-hrad">🏰 Hrad nebo zřícenina</a>
+<a href="index.html#akce-vlak">🚂 Výlet vlakem</a>
+</div>
+</details>
+<details class="menu-group">
+<summary class="menu-summary">
+<span class="menu-icon">📷</span>
+<span>GALERIE</span>
+</summary>
+<div class="submenu">
+<a href="index.html#galerie">Úvod galerie</a>
+<a href="index.html#galerie-cestovani">🌍 Cestování</a>
+<a href="index.html#galerie-vylety">🧭 Výlety</a>
+</div>
+</details>
+<a class="menu-link" href="index.html#mapa">
+<span class="menu-icon">🗺️</span>
+<span>MAPA</span>
+</a>
+</div>
+</nav><main class="wrap"><section class="sheet" id="lekce01">
+    <div class="sheet-head">
+      <div class="lesson-number">LEKCE<br>01</div>
+      <div class="sheet-title">
+        <h2>Autobusem do Lloret de Mar</h2>
+        <p>První krok na tvé cestě za španělštinou 🇪🇸</p>
+      </div>
+      <div class="goal">💡 <b>Cíl lekce:</b> Po této lekci si koupíš jízdenku na autobus bez pomoci.</div>
+    </div>
+
+    <div class="sheet-grid">
+      <div class="scene">
+        <div class="scene-label">📍 Barcelona Nord<br><small>autobusové nádraží</small></div>
+        <div class="board">LLORET DE MAR<br><small>10:30 · andana 7</small></div>
+        <div class="bus"></div>
+        <div class="person-a">🧍‍♂️</div>
+        <div class="person-b">👩‍💼</div>
+        <div class="speech s1">Buenos días.<br>Necesito dos billetes para Lloret de Mar, por favor.<small>Dobrý den. Potřebuji dva lístky.</small></div>
+        <div class="speech s2">Treinta euros.<small>Třicet eur.</small></div>
+        <div class="speech s3">Aquí tiene.<small>Tady máte.</small></div>
+        <div class="speech s4">Gracias.<small>Děkuji.</small></div>
+        <div class="speech s5">De nada.<br>Buen viaje.<small>Příjemnou cestu.</small></div>
+      </div>
+
+      <div class="panel">
+        <h3>📖 Slovíčka k tématu</h3>
+        <div class="vocab-grid">
+          <div class="vocab"><div class="vocab-ico">🚌</div><div><b>el autobús</b><span>autobus</span></div></div>
+          <div class="vocab"><div class="vocab-ico">🎫</div><div><b>el billete</b><span>lístek, jízdenka</span></div></div>
+          <div class="vocab"><div class="vocab-ico">🏢</div><div><b>la estación</b><span>nádraží</span></div></div>
+          <div class="vocab"><div class="vocab-ico">🕘</div><div><b>el horario</b><span>jízdní řád</span></div></div>
+          <div class="vocab"><div class="vocab-ico">➡️</div><div><b>la salida</b><span>odjezd</span></div></div>
+          <div class="vocab"><div class="vocab-ico">📍</div><div><b>la llegada</b><span>příjezd</span></div></div>
+          <div class="vocab"><div class="vocab-ico">👨‍💼</div><div><b>la taquilla</b><span>pokladna</span></div></div>
+          <div class="vocab"><div class="vocab-ico">🧳</div><div><b>el equipaje</b><span>zavazadlo</span></div></div>
+          <div class="vocab"><div class="vocab-ico">💶</div><div><b>el precio</b><span>cena</span></div></div>
+          <div class="vocab"><div class="vocab-ico">✅</div><div><b>hay</b><span>je, jsou</span></div></div>
+          <div class="vocab"><div class="vocab-ico">📌</div><div><b>aquí</b><span>tady</span></div></div>
+          <div class="vocab"><div class="vocab-ico">📍</div><div><b>allí</b><span>tam</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="panel gold-lines">
+        <h3>🎧 Zlaté věty</h3>
+        <p><b>Buenos días.</b><button class="sound" data-say="Buenos días.">🔊</button><br>Dobrý den.</p>
+        <p><b>Necesito dos billetes para Lloret de Mar, por favor.</b><button class="sound" data-say="Necesito dos billetes para Lloret de Mar, por favor.">🔊</button><br>Potřebuji dva lístky do Lloret de Mar, prosím.</p>
+        <p><b>¿Cuánto cuesta?</b><button class="sound" data-say="¿Cuánto cuesta?">🔊</button><br>Kolik to stojí?</p>
+        <p><b>¿Puede repetir, por favor?</b><button class="sound" data-say="¿Puede repetir, por favor?">🔊</button><br>Můžete to prosím zopakovat?</p>
+        <p><b>No entiendo.</b><button class="sound" data-say="No entiendo.">🔊</button><br>Nerozumím.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="panel">
+        <h3>🧠 Vysvětlíme si to jednoduše</h3>
+        <div class="explain-grid">
+          <div class="explain"><b>para</b> = do / pro / cíl<br><small>Dos billetes para Lloret de Mar.</small></div>
+          <div class="explain"><b>con</b> = s někým / s něčím<br><small>Café con leche.</small></div>
+          <div class="explain"><b>de</b> = z / od / něčeho<br><small>Billete de autobús.</small></div>
+          <div class="explain"><b>a</b> = k / do<br><small>Voy a Barcelona.</small></div>
+        </div>
+        <div class="remember">💡 Zapamatuj si: para = cíl / con = s / de = z, od / a = k, do</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="panel">
+        <h3>⭐ Věty, které opravdu použiješ</h3>
+        <div class="phrase-grid">
+          <div class="phrase"><div class="emoji">👋</div><b>Buenos días.</b><span>Dobrý den.</span><button class="sound" data-say="Buenos días.">🔊</button></div>
+          <div class="phrase"><div class="emoji">🎫</div><b>Necesito un billete.</b><span>Potřebuji lístek.</span><button class="sound" data-say="Necesito un billete.">🔊</button></div>
+          <div class="phrase"><div class="emoji">🎟️</div><b>Necesito dos billetes.</b><span>Potřebuji dva lístky.</span><button class="sound" data-say="Necesito dos billetes.">🔊</button></div>
+          <div class="phrase"><div class="emoji">💶</div><b>¿Cuánto cuesta?</b><span>Kolik to stojí?</span><button class="sound" data-say="¿Cuánto cuesta?">🔊</button></div>
+          <div class="phrase"><div class="emoji">💵</div><b>Aquí tiene.</b><span>Tady máte.</span><button class="sound" data-say="Aquí tiene.">🔊</button></div>
+          <div class="phrase"><div class="emoji">🙂</div><b>Gracias.</b><span>Děkuji.</span><button class="sound" data-say="Gracias.">🔊</button></div>
+          <div class="phrase"><div class="emoji">👍</div><b>De nada.</b><span>Není zač.</span><button class="sound" data-say="De nada.">🔊</button></div>
+          <div class="phrase"><div class="emoji">🕘</div><b>¿A qué hora sale?</b><span>V kolik odjíždí?</span><button class="sound" data-say="¿A qué hora sale?">🔊</button></div>
+          <div class="phrase"><div class="emoji">⌛</div><b>¿Cuánto tiempo tarda?</b><span>Jak dlouho to trvá?</span><button class="sound" data-say="¿Cuánto tiempo tarda?">🔊</button></div>
+          <div class="phrase"><div class="emoji">🔁</div><b>¿Puede repetir?</b><span>Můžete zopakovat?</span><button class="sound" data-say="¿Puede repetir?">🔊</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="practice-grid">
+        <div class="practice">
+          <h3>💬 Krátký dialog</h3>
+          <p><b>Ty:</b> Buenos días. Necesito dos billetes para Lloret de Mar, por favor. <button class="sound" data-say="Buenos días. Necesito dos billetes para Lloret de Mar, por favor.">🔊</button></p>
+          <p><b>Řidič:</b> Treinta euros. <button class="sound" data-say="Treinta euros.">🔊</button></p>
+          <p><b>Ty:</b> Aquí tiene. Gracias. <button class="sound" data-say="Aquí tiene. Gracias.">🔊</button></p>
+          <p><b>Řidič:</b> De nada. Buen viaje. <button class="sound" data-say="De nada. Buen viaje.">🔊</button></p>
+        </div>
+
+        <div class="practice">
+          <h3>⚠️ Nejčastější chyby</h3>
+          <p><span class="bad">✕</span> Para Barcelona.</p>
+          <p><span class="ok">✓</span> A Barcelona.</p>
+          <p><span class="bad">✕</span> Dos café, por favor.</p>
+          <p><span class="ok">✓</span> Dos cafés, por favor.</p>
+        </div>
+
+        <div class="practice">
+          <h3>🎯 Tvůj úkol</h3>
+          <p>✅ Přečti věty nahlas.</p>
+          <p>✅ Klikni na zvuk a opakuj.</p>
+          <p>✅ Zkus dialog bez koukání.</p>
+          <p>✅ Dnes použij aspoň 3 věty.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-grid">
+      <div class="foot"><b>Rainold tip:</b><br>Neboj se mluvit. Úsměv a „por favor“ otevřou skoro všechny dveře.</div>
+      <div class="foot"><b>Další lekce:</b><br>V další lekci půjdeme do kavárny a restaurace.</div>
+      <div class="foot"><b>Malé kroky:</b><br>Každý den jedna krátká lekce.</div>
+    </div>
+  </section></main>
+<script>
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('[data-say]');
+  if(!btn) return;
+
+  const text = btn.getAttribute('data-say');
+
+  if(!('speechSynthesis' in window)){
+    alert('Tento prohlížeč neumí hlasové čtení.');
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'es-ES';
+  utterance.rate = 0.82;
+  utterance.pitch = 1;
+
+  const voices = window.speechSynthesis.getVoices();
+  const voice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('es'));
+  if(voice){
+    utterance.voice = voice;
+  }
+
+  window.speechSynthesis.speak(utterance);
+});
+</script>
+</body>
+</html>
