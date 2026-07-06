@@ -2656,7 +2656,7 @@ body.show-back .back-nav{
 }
 
 
-/* ŠPANĚLŠTINA – lekce přímo v index.html */
+/* ŠPANĚLŠTINA – pracovní list jako PDF */
 #spanelstina,
 #spanelstina-lekce-01{
   background:linear-gradient(145deg,#071525,#102744);
@@ -2700,69 +2700,374 @@ body.show-back .back-nav{
   line-height:1.4;
 }
 
-.spanish-phrase{
+.lesson-sheet{
+  background:#fff7e8;
+  color:#1d2430;
+  border-radius:24px;
+  overflow:hidden;
+  border:3px solid #13294b;
+  box-shadow:0 16px 34px rgba(0,0,0,.38);
+  font-family:Arial,sans-serif;
+}
+
+.lesson-head{
   display:grid;
-  grid-template-columns:1fr auto;
-  gap:10px;
-  align-items:center;
-  margin:10px 0;
-  padding:13px;
-  border-radius:18px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.13);
+  grid-template-columns:92px 1fr 170px;
+  gap:0;
+  align-items:stretch;
+  background:#fffaf1;
+  border-bottom:3px solid #13294b;
 }
 
-.spanish-es{
-  font-size:20px;
-  font-weight:bold;
+.lesson-no{
+  background:#13294b;
   color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:20px;
+  line-height:1.15;
+  letter-spacing:.5px;
 }
 
-.spanish-cz{
-  margin-top:4px;
-  color:#dcecff;
+.lesson-title{
+  padding:16px 18px;
+}
+
+.lesson-title h2{
+  margin:0;
+  color:#13294b;
+  text-align:left;
+  font-size:30px;
+  line-height:1.05;
+  text-transform:uppercase;
+}
+
+.lesson-title p{
+  margin:8px 0 0;
+  color:#41516a;
+  font-size:17px;
+}
+
+.lesson-goal{
+  background:#fff1b8;
+  border-left:2px solid #13294b;
+  padding:12px;
+  font-size:15px;
   line-height:1.35;
 }
 
-.sound-btn{
+.lesson-goal b{
+  color:#13294b;
+}
+
+.lesson-grid{
+  display:grid;
+  grid-template-columns:1.25fr .9fr;
+  gap:14px;
+  padding:14px;
+}
+
+.lesson-scene{
+  min-height:360px;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,0)),
+    radial-gradient(circle at 22% 30%, #ffd79a 0 7%, transparent 8%),
+    linear-gradient(135deg,#9fd2ff 0 34%,#d7ecff 34% 36%,#7b8794 36% 42%,#4f5c6b 42% 100%);
+  border:2px solid #13294b;
+}
+
+.lesson-station{
+  position:absolute;
+  left:12px;
+  top:12px;
+  background:#13294b;
+  color:white;
+  border-radius:12px;
+  padding:8px 10px;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.bus-board{
+  position:absolute;
+  top:48px;
+  left:48%;
+  transform:translateX(-50%);
+  background:#101923;
+  color:#ffd45a;
+  border:3px solid #394657;
+  border-radius:8px;
+  padding:8px 14px;
+  font-family:monospace;
+  font-weight:bold;
+  font-size:19px;
+  box-shadow:0 8px 18px rgba(0,0,0,.28);
+}
+
+.bus-shape{
+  position:absolute;
+  right:25px;
+  bottom:72px;
+  width:230px;
+  height:120px;
+  background:#f4f7fb;
+  border:3px solid #1f2d40;
+  border-radius:28px 16px 12px 12px;
+  box-shadow:0 12px 22px rgba(0,0,0,.28);
+}
+
+.bus-shape::before{
+  content:"SARFA";
+  position:absolute;
+  left:40px;
+  top:56px;
+  color:#2d5c91;
+  font-weight:900;
+  font-size:20px;
+}
+
+.bus-shape::after{
+  content:"";
+  position:absolute;
+  right:15px;
+  top:18px;
+  width:68px;
+  height:36px;
+  border-radius:7px;
+  background:#223044;
+}
+
+.person-left{
+  position:absolute;
+  left:42px;
+  bottom:28px;
+  font-size:108px;
+  filter:drop-shadow(0 8px 6px rgba(0,0,0,.25));
+}
+
+.person-right{
+  position:absolute;
+  right:90px;
+  bottom:22px;
+  font-size:86px;
+  filter:drop-shadow(0 8px 6px rgba(0,0,0,.25));
+}
+
+.bubble{
+  position:absolute;
+  background:white;
+  border:2px solid #d7e2ef;
+  border-radius:18px;
+  color:#101923;
+  padding:10px 12px;
+  box-shadow:0 8px 16px rgba(0,0,0,.18);
+  font-weight:bold;
+  line-height:1.25;
+  max-width:230px;
+}
+
+.bubble small{
+  display:block;
+  margin-top:5px;
+  font-weight:normal;
+  color:#38465a;
+}
+
+.bubble.one{left:118px;bottom:170px}
+.bubble.two{right:42px;bottom:142px}
+.bubble.three{left:150px;bottom:92px}
+.bubble.four{left:100px;bottom:30px}
+.bubble.five{right:50px;bottom:25px}
+
+.lesson-box{
+  background:white;
+  border-radius:18px;
+  border:2px solid #d7e2ef;
+  padding:13px;
+}
+
+.lesson-box h3{
+  margin:0 0 10px;
+  color:#13294b;
+  text-align:left;
+  font-size:21px;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.vocab{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:48px;
+  padding:7px 8px;
+  border-radius:11px;
+  background:#eef4fb;
+  color:#1d2430;
+}
+
+.vocab:nth-child(4n+2){background:#fff1e4}
+.vocab:nth-child(4n+3){background:#eef8ec}
+.vocab:nth-child(4n+4){background:#f4eefb}
+
+.vocab-ico{
+  font-size:24px;
+  width:28px;
+  text-align:center;
+}
+
+.vocab b{
+  display:block;
+  color:#13294b;
+  font-size:14px;
+}
+
+.vocab span{
+  display:block;
+  color:#4d5b6d;
+  font-size:13px;
+}
+
+.explain-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.explain{
+  background:#fffaf1;
+  border:2px solid #e9d5a5;
+  border-radius:14px;
+  padding:10px;
+  line-height:1.35;
+}
+
+.explain b{
+  color:#0b7b45;
+}
+
+.memory-line{
+  margin-top:10px;
+  padding:8px 10px;
+  border-radius:999px;
+  background:#fff1b8;
+  color:#835400;
+  font-weight:bold;
+  text-align:center;
+}
+
+.phrase-strip{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.mini-phrase{
+  background:#fffdf5;
+  border:2px solid #eadfca;
+  border-radius:14px;
+  padding:9px 7px;
+  text-align:center;
+  min-height:105px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.mini-phrase .emoji{
+  font-size:27px;
+}
+
+.mini-phrase b{
+  color:#13294b;
+  font-size:13px;
+  line-height:1.18;
+}
+
+.mini-phrase span{
+  color:#4d5b6d;
+  font-size:12px;
+  line-height:1.2;
+}
+
+.sheet-section{
+  padding:0 14px 14px;
+}
+
+.practice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+}
+
+.dialog-card,
+.mistake-card,
+.task-card{
+  background:white;
+  border:2px solid #d7e2ef;
+  border-radius:18px;
+  padding:13px;
+  line-height:1.4;
+}
+
+.dialog-card h3,
+.mistake-card h3,
+.task-card h3{
+  margin:0 0 9px;
+  color:#13294b;
+  text-align:left;
+  font-size:19px;
+}
+
+.dialog-card p,
+.mistake-card p,
+.task-card p{
+  margin:7px 0;
+}
+
+.ok{color:#0b7b45;font-weight:bold}
+.bad{color:#cf2e2e;font-weight:bold}
+
+.sound-mini{
   border:0;
   border-radius:999px;
-  min-width:48px;
-  min-height:48px;
+  width:34px;
+  height:34px;
   cursor:pointer;
-  font-size:22px;
+  font-size:17px;
+  background:#f2c45b;
   color:#1b1006;
-  background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);
-  box-shadow:0 6px 14px rgba(0,0,0,.30);
+  margin-left:5px;
+  vertical-align:middle;
 }
 
-.sound-btn:active{
-  transform:scale(.96);
+.lesson-footer{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  padding:0 14px 14px;
 }
 
-.spanish-note{
-  margin:14px auto;
-  padding:13px 15px;
-  border-radius:18px;
-  background:rgba(143,196,255,.10);
-  border:1px solid rgba(143,196,255,.24);
-  color:#edf3ff;
-  line-height:1.45;
-  max-width:760px;
+.footer-box{
+  background:#fffaf1;
+  border:2px solid #e9d5a5;
+  border-radius:16px;
+  padding:12px;
+  line-height:1.35;
 }
 
-.spanish-dialog{
-  max-width:760px;
-  margin:14px auto;
-  padding:15px;
-  border-radius:20px;
-  background:rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.12);
-}
-
-.spanish-dialog p{
-  margin:9px 0;
-  line-height:1.45;
+.footer-box b{
+  color:#13294b;
 }
 
 .spanish-mini-nav{
@@ -2770,7 +3075,7 @@ body.show-back .back-nav{
   flex-wrap:wrap;
   gap:10px;
   justify-content:center;
-  margin-top:14px;
+  padding:0 14px 16px;
 }
 
 .spanish-mini-nav a{
@@ -2782,17 +3087,62 @@ body.show-back .back-nav{
   background:linear-gradient(180deg,#f0d08a,#c69034 48%,#805012);
 }
 
-@media(max-width:700px){
-  .spanish-phrase{
+@media(max-width:760px){
+  .lesson-head{
+    grid-template-columns:74px 1fr;
+  }
+
+  .lesson-goal{
+    grid-column:1 / -1;
+    border-left:0;
+    border-top:2px solid #13294b;
+  }
+
+  .lesson-title h2{
+    font-size:24px;
+  }
+
+  .lesson-grid{
     grid-template-columns:1fr;
   }
 
-  .sound-btn{
-    width:100%;
+  .lesson-scene{
+    min-height:430px;
   }
 
-  .spanish-es{
-    font-size:18px;
+  .bus-shape{
+    width:210px;
+    right:12px;
+  }
+
+  .person-left{
+    left:20px;
+    font-size:96px;
+  }
+
+  .person-right{
+    right:72px;
+    font-size:78px;
+  }
+
+  .bubble.one{left:74px;bottom:238px}
+  .bubble.two{right:18px;bottom:178px}
+  .bubble.three{left:70px;bottom:126px}
+  .bubble.four{left:36px;bottom:56px}
+  .bubble.five{right:20px;bottom:18px}
+
+  .vocab-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .explain-grid,
+  .practice-grid,
+  .lesson-footer{
+    grid-template-columns:1fr;
+  }
+
+  .phrase-strip{
+    grid-template-columns:repeat(2,1fr);
   }
 }
 
@@ -2985,126 +3335,147 @@ body.show-back .back-nav{
 <div class="spanish-list">
 <a class="spanish-card" href="#spanelstina-lekce-01">
 <h3>01. lekce – Cestování autobusem</h3>
-<p>Jízdenka do Lloret de Mar, cena, poděkování, zopakování a základní výslovnost.</p>
+<p>První pracovní list: jízdenka, cena, směr, poděkování a výslovnost.</p>
 </a>
 </div>
 </section>
 
 <section class="card page" id="spanelstina-lekce-01">
 <a class="back" href="#spanelstina">← Zpět na španělštinu</a>
-<h2>🚌 01. lekce – Cestování autobusem</h2>
-<p class="lead">Cíl: koupíš si jízdenku na autobus do Lloret de Mar bez pomoci.</p>
-<div class="spanish-note">Klikni na 🔊 a prohlížeč přečte větu španělsky. Nejlépe to funguje v Chromu nebo v mobilu se španělským hlasem.</div>
 
-<h3>Zlaté věty</h3>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Buenos días.</div>
-<div class="spanish-cz">Dobrý den.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Buenos días.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Necesito un billete.</div>
-<div class="spanish-cz">Potřebuji jeden lístek.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Necesito un billete.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Necesito dos billetes para Lloret de Mar, por favor.</div>
-<div class="spanish-cz">Potřebuji dva lístky do Lloret de Mar, prosím.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Necesito dos billetes para Lloret de Mar, por favor.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">¿Cuánto cuesta?</div>
-<div class="spanish-cz">Kolik to stojí?</div>
-</div>
-<button class="sound-btn" type="button" data-say="¿Cuánto cuesta?">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Treinta euros.</div>
-<div class="spanish-cz">Třicet eur.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Treinta euros.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Aquí tiene.</div>
-<div class="spanish-cz">Tady máte.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Aquí tiene.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Gracias.</div>
-<div class="spanish-cz">Děkuji.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Gracias.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">De nada.</div>
-<div class="spanish-cz">Není zač.</div>
-</div>
-<button class="sound-btn" type="button" data-say="De nada.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">Buen viaje.</div>
-<div class="spanish-cz">Příjemnou cestu.</div>
-</div>
-<button class="sound-btn" type="button" data-say="Buen viaje.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">¿Puede repetir, por favor?</div>
-<div class="spanish-cz">Můžete to prosím zopakovat?</div>
-</div>
-<button class="sound-btn" type="button" data-say="¿Puede repetir, por favor?">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">No entiendo.</div>
-<div class="spanish-cz">Nerozumím.</div>
-</div>
-<button class="sound-btn" type="button" data-say="No entiendo.">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">¿Dónde está la taquilla?</div>
-<div class="spanish-cz">Kde je pokladna?</div>
-</div>
-<button class="sound-btn" type="button" data-say="¿Dónde está la taquilla?">🔊</button>
-</div>
-<div class="spanish-phrase">
-<div>
-<div class="spanish-es">¿A qué hora sale el autobús?</div>
-<div class="spanish-cz">V kolik hodin odjíždí autobus?</div>
-</div>
-<button class="sound-btn" type="button" data-say="¿A qué hora sale el autobús?">🔊</button>
-</div>
+<div class="lesson-sheet">
 
-<h3>Mini dialog</h3>
-<div class="spanish-dialog">
-<p><b>Ty:</b> Buenos días. Necesito dos billetes para Lloret de Mar, por favor. <button class="sound-btn" type="button" data-say="Buenos días. Necesito dos billetes para Lloret de Mar, por favor." style="min-width:40px;min-height:40px;font-size:18px;margin-left:6px;">🔊</button></p>
-<p><b>Řidič:</b> Treinta euros. <button class="sound-btn" type="button" data-say="Treinta euros." style="min-width:40px;min-height:40px;font-size:18px;margin-left:6px;">🔊</button></p>
-<p><b>Ty:</b> Aquí tiene. Gracias. <button class="sound-btn" type="button" data-say="Aquí tiene. Gracias." style="min-width:40px;min-height:40px;font-size:18px;margin-left:6px;">🔊</button></p>
-<p><b>Řidič:</b> De nada. Buen viaje. <button class="sound-btn" type="button" data-say="De nada. Buen viaje." style="min-width:40px;min-height:40px;font-size:18px;margin-left:6px;">🔊</button></p>
-</div>
+  <div class="lesson-head">
+    <div class="lesson-no">LEKCE<br>01</div>
+    <div class="lesson-title">
+      <h2>Autobusem do Lloret de Mar</h2>
+      <p>První krok na tvé cestě za španělštinou 🇪🇸</p>
+    </div>
+    <div class="lesson-goal">
+      💡 <b>Cíl lekce</b><br>
+      Po této lekci si koupíš jízdenku na autobus bez pomoci.
+    </div>
+  </div>
 
-<h3>Vysvětlení jednoduše</h3>
-<div class="spanish-note"><b>para</b> = do / pro / za účelem<br>Například: <i>dos billetes para Lloret de Mar</i></div>
-<div class="spanish-note"><b>con</b> = s někým / s něčím<br>Například: <i>café con leche</i></div>
-<div class="spanish-note"><b>de</b> = z / od / něčeho<br>Například: <i>billete de autobús</i></div>
+  <div class="lesson-grid">
+    <div class="lesson-scene">
+      <div class="lesson-station">📍 Barcelona Nord<br><small>autobusové nádraží</small></div>
+      <div class="bus-board">LLORET DE MAR<br><small>10:30 · andana 7</small></div>
+      <div class="bus-shape"></div>
+      <div class="person-left">🧍‍♂️</div>
+      <div class="person-right">👩‍💼</div>
+      <div class="bubble one">Buenos días.<br>Necesito dos billetes para Lloret de Mar, por favor.<small>Dobrý den. Potřebuji dva lístky.</small></div>
+      <div class="bubble two">Treinta euros.<small>Třicet eur.</small></div>
+      <div class="bubble three">Aquí tiene.<small>Tady máte.</small></div>
+      <div class="bubble four">Gracias.<small>Děkuji.</small></div>
+      <div class="bubble five">De nada.<br>Buen viaje.<small>Příjemnou cestu.</small></div>
+    </div>
 
-<div class="spanish-mini-nav">
-<a href="#spanelstina">← Zpět na lekce</a>
-<a href="#">Domů</a>
+    <div class="lesson-box">
+      <h3>📖 Slovíčka k tématu</h3>
+      <div class="vocab-grid">
+        <div class="vocab"><div class="vocab-ico">🚌</div><div><b>el autobús</b><span>autobus</span></div></div>
+<div class="vocab"><div class="vocab-ico">🎫</div><div><b>el billete</b><span>lístek, jízdenka</span></div></div>
+<div class="vocab"><div class="vocab-ico">🏢</div><div><b>la estación</b><span>nádraží</span></div></div>
+<div class="vocab"><div class="vocab-ico">🕘</div><div><b>el horario</b><span>jízdní řád</span></div></div>
+<div class="vocab"><div class="vocab-ico">➡️</div><div><b>la salida</b><span>odjezd</span></div></div>
+<div class="vocab"><div class="vocab-ico">📍</div><div><b>la llegada</b><span>příjezd</span></div></div>
+<div class="vocab"><div class="vocab-ico">👨‍💼</div><div><b>la taquilla</b><span>pokladna</span></div></div>
+<div class="vocab"><div class="vocab-ico">🧳</div><div><b>el equipaje</b><span>zavazadlo</span></div></div>
+<div class="vocab"><div class="vocab-ico">💶</div><div><b>el precio</b><span>cena</span></div></div>
+<div class="vocab"><div class="vocab-ico">✅</div><div><b>hay</b><span>je, jsou</span></div></div>
+<div class="vocab"><div class="vocab-ico">❌</div><div><b>no hay</b><span>není</span></div></div>
+<div class="vocab"><div class="vocab-ico">📌</div><div><b>aquí</b><span>tady</span></div></div>
+<div class="vocab"><div class="vocab-ico">📍</div><div><b>allí</b><span>tam</span></div></div>
+<div class="vocab"><div class="vocab-ico">↩️</div><div><b>izquierda</b><span>vlevo</span></div></div>
+<div class="vocab"><div class="vocab-ico">↪️</div><div><b>derecha</b><span>vpravo</span></div></div>
+<div class="vocab"><div class="vocab-ico">⬆️</div><div><b>derecho</b><span>rovně</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <div class="lesson-box">
+      <h3>🎧 Zlaté věty</h3>
+      <p><b>Buenos días.</b><button class="sound-mini" type="button" data-say="Buenos días.">🔊</button><br><span>Dobrý den.</span></p>
+<p><b>Necesito dos billetes para Lloret de Mar, por favor.</b><button class="sound-mini" type="button" data-say="Necesito dos billetes para Lloret de Mar, por favor.">🔊</button><br><span>Potřebuji dva lístky do Lloret de Mar, prosím.</span></p>
+<p><b>¿Cuánto cuesta?</b><button class="sound-mini" type="button" data-say="¿Cuánto cuesta?">🔊</button><br><span>Kolik to stojí?</span></p>
+<p><b>¿Puede repetir, por favor?</b><button class="sound-mini" type="button" data-say="¿Puede repetir, por favor?">🔊</button><br><span>Můžete to zopakovat?</span></p>
+<p><b>No entiendo.</b><button class="sound-mini" type="button" data-say="No entiendo.">🔊</button><br><span>Nerozumím.</span></p>
+<p><b>Gracias. / De nada.</b><button class="sound-mini" type="button" data-say="Gracias.">🔊</button><br><span>Děkuji. / Není zač.</span></p>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <div class="lesson-box">
+      <h3>🧠 Vysvětlíme si to jednoduše</h3>
+      <div class="explain-grid">
+        <div class="explain"><b>para</b> = do, pro, za účelem<br><small>Dos billetes para Lloret de Mar.</small></div>
+        <div class="explain"><b>con</b> = s někým / s něčím<br><small>Café con leche.</small></div>
+        <div class="explain"><b>de</b> = z, ze, od / něčeho<br><small>Billete de autobús.</small></div>
+        <div class="explain"><b>a</b> = k, do<br><small>Voy a Barcelona.</small></div>
+      </div>
+      <div class="memory-line">💡 Zapamatuj si: para = cíl / con = s / de = z, od / a = k, do</div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <div class="lesson-box">
+      <h3>⭐ Věty, které opravdu použiješ</h3>
+      <div class="phrase-strip">
+        <div class="mini-phrase"><div class="emoji">👋</div><b>Buenos días.</b><span>Dobrý den.</span><button class="sound-mini" type="button" data-say="Buenos días.">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">🎫</div><b>Necesito un billete.</b><span>Potřebuji lístek.</span><button class="sound-mini" type="button" data-say="Necesito un billete.">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">🎟️</div><b>Necesito dos billetes para Lloret de Mar.</b><span>Potřebuji dva lístky do Lloret de Mar.</span><button class="sound-mini" type="button" data-say="Necesito dos billetes para Lloret de Mar.">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">💶</div><b>¿Cuánto cuesta?</b><span>Kolik to stojí?</span><button class="sound-mini" type="button" data-say="¿Cuánto cuesta?">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">💵</div><b>Aquí tiene.</b><span>Tady máte.</span><button class="sound-mini" type="button" data-say="Aquí tiene.">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">🙂</div><b>Gracias.</b><span>Děkuji.</span><button class="sound-mini" type="button" data-say="Gracias.">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">👍</div><b>De nada.</b><span>Není zač.</span><button class="sound-mini" type="button" data-say="De nada.">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">🕘</div><b>¿A qué hora sale el autobús?</b><span>V kolik odjíždí autobus?</span><button class="sound-mini" type="button" data-say="¿A qué hora sale el autobús?">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">⌛</div><b>¿Cuánto tiempo tarda?</b><span>Jak dlouho trvá cesta?</span><button class="sound-mini" type="button" data-say="¿Cuánto tiempo tarda?">🔊</button></div>
+<div class="mini-phrase"><div class="emoji">🔁</div><b>¿Puede repetir, por favor?</b><span>Můžete zopakovat?</span><button class="sound-mini" type="button" data-say="¿Puede repetir, por favor?">🔊</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <div class="practice-grid">
+      <div class="dialog-card">
+        <h3>💬 Krátký dialog</h3>
+        <p><b>Ty:</b> Buenos días. Necesito dos billetes para Lloret de Mar, por favor. <button class="sound-mini" type="button" data-say="Buenos días. Necesito dos billetes para Lloret de Mar, por favor.">🔊</button></p>
+        <p><b>Řidič:</b> Treinta euros. <button class="sound-mini" type="button" data-say="Treinta euros.">🔊</button></p>
+        <p><b>Ty:</b> Aquí tiene. Gracias. <button class="sound-mini" type="button" data-say="Aquí tiene. Gracias.">🔊</button></p>
+        <p><b>Řidič:</b> De nada. Buen viaje. <button class="sound-mini" type="button" data-say="De nada. Buen viaje.">🔊</button></p>
+      </div>
+
+      <div class="mistake-card">
+        <h3>⚠️ Nejčastější chyby</h3>
+        <p><span class="bad">✕</span> Para Barcelona.</p>
+        <p><span class="ok">✓</span> A Barcelona.</p>
+        <p><span class="bad">✕</span> Dos café, por favor.</p>
+        <p><span class="ok">✓</span> Dos cafés, por favor.</p>
+      </div>
+
+      <div class="task-card">
+        <h3>🎯 Tvůj úkol</h3>
+        <p>✅ Přečti věty nahlas.</p>
+        <p>✅ Klikni na zvuk a opakuj.</p>
+        <p>✅ Zkus dialog bez koukání.</p>
+        <p>✅ Dnes použij aspoň 3 věty.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson-footer">
+    <div class="footer-box"><b>Rainold tip:</b><br>Neboj se mluvit. Úsměv a „por favor“ otevřou skoro všechny dveře.</div>
+    <div class="footer-box"><b>Další lekce:</b><br>V další lekci půjdeme do kavárny a restaurace.</div>
+    <div class="footer-box"><b>Malé kroky:</b><br>Každý den jedna krátká lekce.</div>
+  </div>
+
+  <div class="spanish-mini-nav">
+    <a href="#spanelstina">← Zpět na lekce</a>
+    <a href="#">Domů</a>
+  </div>
+
 </div>
 </section>
 
